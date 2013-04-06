@@ -38,7 +38,14 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "main";
+
+$route['login'] = "/users/login";
+$route['logout'] = "/users/logout";
+$route['signup'] = "/users/signup";
+$route['validatelogin'] = "/users/validateLogin";
+$route['registeruser'] = "/users/registerUser";
+
 $route['404_override'] = '';
 
 
