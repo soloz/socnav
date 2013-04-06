@@ -10,7 +10,7 @@ class User extends CI_Model {
         $this->db->where('email', $this->input->post('email'));
         $this->db->where('password', md5($this->input->post('passwd')));
 //	$this->db->where('password', $this->input->post('passwd'));   
-      $query = $this->db->get('users');
+      $query = $this->db->get('user');
 
         if ($query->num_rows == 1) {
             return $query->row_array();
@@ -22,17 +22,18 @@ class User extends CI_Model {
     public function createUser($userdetails = array()) {
 
         $new_user = array(
-            'user_id' => $this->generateUserID(),
+            'userid' => $this->generateUserID(),
+            'locationid' => 1,
             'firstname' => $userdetails['firstname'],
             'lastname' => $userdetails['lastname'],
-	    'username' => $userdetails['username'],
+	    	'username' => $userdetails['username'],
             'email' => $userdetails['email'],
             'password' => md5($userdetails['passwd']),
 //            'password' => $userdetails['passwd'],
-	    'status' => 'ACTIVE',
-            'user_type' => 'USER'
+	  //  'status' => 'ACTIVE',
+        //    'user_type' => 'USER'
         );
-        if ($this->db->insert('users', $new_user)) {
+        if ($this->db->insert('user', $new_user)) {
             return true;
         }
     }
@@ -89,6 +90,10 @@ class User extends CI_Model {
         return rand(99999, 1000000);
     }
 
+ private function generateLocationID() {
+        return rand(99999, 1000000);
+    }
+    
 }
 
 ?>
