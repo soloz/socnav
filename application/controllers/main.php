@@ -10,7 +10,7 @@ class Main extends CI_Controller {
 
     public function index() {
         
-      $this->home();     
+     $this->home();    
     
     }
 
@@ -20,11 +20,15 @@ class Main extends CI_Controller {
         $data['history'] = $this->history->getHistory();
         $data['locations'] = $this->location->getLocations();
         $data['cityName'] = $this->location->getCurrentLocation();
-        $this->load->view('includes/templates.php', $data); //header, footer, data
+        $this->load->view('includes/homepage_templates.php', $data); //header, footer, data
         
     }
-
+    
+    public function testmap() {
+        $this->load->view('maps');
+    }
 
 }
+
 ?>
 

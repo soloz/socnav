@@ -101,7 +101,7 @@
 		 </div>
                  <div class="row">
 		           <div class="twelve columns">
-                                <p><b><h5>MEMBERSHIP IS FREE</h5></b>Discounts available on bulk purchase....<br /><a href="#">Read More &rarr;</a></p>
+                                <p><b><h5>REGISTRATION IS FREE</h5></b>Explore your vicinity and Socialize....<br /><a href="#">Read More &rarr;</a></p>
                         </div>
 		     </div>
                 
@@ -109,7 +109,7 @@
 			<div class="twelve columns">
 				<p>Stay in touch by following us on Twitter</p>
 				<p class="left follow" style="width: 125px; overflow: hidden;">
-<a href="http://twitter.com/ticke" class="twitter-follow-button" data-show-count="false">Share on twitter</a>
+<a href="http://twitter.com/socnav" class="twitter-follow-button" data-show-count="false">Share on twitter</a>
 <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script></p>
 			</div>
 		

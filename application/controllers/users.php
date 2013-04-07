@@ -23,7 +23,12 @@ class Users extends CI_Controller {
                         'email' => $user['email'],
                         'username' => $user['username'],
                         'userid' => $user['userid'],
-                       // 'user_type' => $user['USER_TYPE'],
+                        'lastname' => $user['lastname'],
+                        'firstname' => $user['firstname'],
+                        'phonenumber' => $user['phonenumber'],
+                        'gender' => $user['gender'],
+                        'password' => $user['password'],
+                        'explorationrange' => $user['setrangeofexploration'],
                         'is_logged_in' => TRUE
                     );
 
@@ -92,6 +97,55 @@ class Users extends CI_Controller {
         }
     }
 
+	public function displayProfile() {
+
+        $data['locations'] = $this->location->getLocations(); //for links
+        $is_logged_in = $this->session->userdata('is_logged_in');
+
+        if ($is_logged_in == true) {
+            //load the profile edit page
+            $data['main_content'] = "profile_display"; //body of home page
+            $data['user_details'] = $this->user->getUser($this->session->userdata('userid'));
+            $this->load->view('includes/templates.php', $data);
+        } else {
+            redirect('/login');
+        }
+    }
+
+    public function updateProfile() {
+
+        if (isset($_POST)) {
+            $is_logged_in = $this->session->userdata('is_logged_in');
+
+            if ($is_logged_in == true) {
+                //get the userid in the session
+                $userid = $this->session->userdata('userid');
+                $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
+                $this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
+                $this->form_validation->set_rules('phonenumber', 'Phone', 'trim|required');
+                //$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+                
+                if ($this->form_validation->run() == FALSE) {
+                    $this->session->set_flashdata('updateFailure', 'Failure');
+                    redirect('/profile');
+                    return false;
+                }
+
+                $status = $this->user->updateUser($userid, $this->input->post());
+                if ($status == TRUE) {
+                    $this->session->set_flashdata('updateSuccess', 'Profile Sucessfully Updated');
+                    redirect('/profile', 'refresh');
+                } else {
+                     
+                    $this->session->set_flashdata('updateFailure', 'Failure');
+                    redirect('/profile', 'refresh');
+                }
+            }else{
+                redirect('/login');
+            }
+        }
+    }
+    
 	//Function for Logging into the system
     public function login() {
 

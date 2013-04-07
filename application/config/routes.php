@@ -41,10 +41,23 @@
 $route['default_controller'] = "main";
 
 $route['login'] = "/users/login";
+$route['testmap'] = "/main/testmap";
 $route['logout'] = "/users/logout";
 $route['signup'] = "/users/signup";
 $route['validatelogin'] = "/users/validateLogin";
 $route['registeruser'] = "/users/registerUser";
+
+//Todo: April 06, 2013
+$route['profile'] = "/users/displayProfile";
+$route['updateprofile'] = "/users/updateProfile";
+
+//Todo: April 07, 2013
+$route['search'] = "/socnav/search";
+$route['searchresults'] = "/socnav/searchresults";
+$route['maps'] = "/socnav/maps";
+
+$route['locationprofile'] = "/socnav/locationprofile";
+
 
 $route['404_override'] = '';
 

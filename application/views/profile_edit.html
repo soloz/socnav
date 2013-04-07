@@ -1,0 +1,139 @@
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Welcome to Foundation</title>
+  
+  <!-- Included CSS Files (Uncompressed) -->
+  <!--
+  <link rel="stylesheet" href="stylesheets/foundation.css">
+  -->
+  
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="stylesheets/foundation.css">
+  <!--link rel="stylesheet" href="stylesheets/foundation.min2.css"-->
+  <link rel="stylesheet" href="stylesheets/app.css">
+
+  <script src="javascripts/modernizr.foundation.js"></script>
+</head>
+<body>
+
+
+
+<form>
+  <fieldset>
+    <legend>Large Form Example</legend>
+
+    <div class="row">
+      <div class="five columns">
+
+        <label>Name</label>
+        <input type="text">
+
+        <label>Occupation</label>
+        <input type="text">
+
+        <label>Twitter</label>
+        <div class="row collapse">
+          <div class="two mobile-one columns">
+            <span class="prefix">@</span>
+          </div>
+          <div class="ten mobile-three columns">
+            <input type="text" placeholder="foundationzurb">
+          </div>
+        </div>
+
+        <label>URL</label>
+        <div class="row collapse">
+          <div class="nine mobile-three columns">
+            <input type="text" placeholder="foundation.zurb">
+          </div>
+          <div class="three mobile-one columns">
+            <span class="postfix">.com</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="five columns">
+
+        <label class="error">Field with Error</label>
+        <input type="text" class="error">
+        <small class="error">Invalid entry</small>
+
+        <div class="error">
+          <label>Another Error</label>
+          <input type="text">
+          <small>Invalid entry</small>
+        </div>
+
+      </div>
+    </div>
+
+    <label>Address</label>
+    <input type="text" placeholder="Street (e.g. 123 Awesome St.)">
+
+    <div class="row">
+      <div class="six columns">
+        <input type="text" placeholder="City">
+      </div>
+      <div class="two columns">
+        <select>
+          <option>CA</option>
+        </select>
+      </div>
+      <div class="four columns">
+        <input type="text" placeholder="ZIP">
+      </div>
+    </div>
+
+  </fieldset>
+</form>
+
+
+
+
+  <!-- Included JS Files (Uncompressed) -->
+  <!--
+  <script src="javascripts/jquery.js"></script>
+  <script src="javascripts/jquery.foundation.mediaQueryToggle.js"></script>
+  <script src="javascripts/jquery.foundation.forms.js"></script>
+  <script src="javascripts/jquery.event.move.js"></script>
+  <script src="javascripts/jquery.event.swipe.js"></script>
+  <script src="javascripts/jquery.foundation.reveal.js"></script>
+  <script src="javascripts/jquery.foundation.orbit.js"></script>
+  <script src="javascripts/jquery.foundation.navigation.js"></script>
+  <script src="javascripts/jquery.foundation.buttons.js"></script>
+  <script src="javascripts/jquery.foundation.tabs.js"></script>
+  <script src="javascripts/jquery.foundation.tooltips.js"></script>
+  <script src="javascripts/jquery.foundation.accordion.js"></script>
+  <script src="javascripts/jquery.placeholder.js"></script>
+  <script src="javascripts/jquery.foundation.alerts.js"></script>
+  <script src="javascripts/jquery.foundation.topbar.js"></script>
+  <script src="javascripts/jquery.foundation.joyride.js"></script>
+  <script src="javascripts/jquery.foundation.clearing.js"></script>
+  <script src="javascripts/jquery.foundation.magellan.js"></script>
+  
+  -->
+  
+  <!-- Included JS Files (Compressed) -->
+  <script src="javascripts/foundation.min.js"></script>
+  
+  <!-- Initialize JS Plugins -->
+  <script src="javascripts/app.js"></script>
+
+  
+    <script>
+    $(window).load(function(){
+      $("#featured").orbit();
+    });
+    </script> 
+  
+</body>
+</html>

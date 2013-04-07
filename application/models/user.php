@@ -8,8 +8,7 @@ class User extends CI_Model {
 
     public function validateUser() {
         $this->db->where('email', $this->input->post('email'));
-        $this->db->where('password', md5($this->input->post('passwd')));
-//	$this->db->where('password', $this->input->post('passwd'));   
+        $this->db->where('password', md5($this->input->post('passwd'))); 
       $query = $this->db->get('user');
 
         if ($query->num_rows == 1) {
@@ -29,9 +28,7 @@ class User extends CI_Model {
 	    	'username' => $userdetails['username'],
             'email' => $userdetails['email'],
             'password' => md5($userdetails['passwd']),
-//            'password' => $userdetails['passwd'],
-	  //  'status' => 'ACTIVE',
-        //    'user_type' => 'USER'
+
         );
         if ($this->db->insert('user', $new_user)) {
             return true;
@@ -39,7 +36,7 @@ class User extends CI_Model {
     }
 
     public function updateUser($userid, $edit_data = array()) {
-        if ($this->input->post('pref') != false) {
+       /* if ($this->input->post('pref') != false) {
 
             if (is_array($edit_data['pref'])) {
                 $pref = implode(',', $edit_data['pref']);
@@ -49,17 +46,16 @@ class User extends CI_Model {
         } else {
             $pref = "NULL";
         }
+        */
         $data = array(
             'firstname' => $edit_data['firstname'],
             'lastname' => $edit_data['lastname'],
             'username' => $edit_data['username'],
-            'gender' => $edit_data['gender'],
-            'city' => $edit_data['city'],
-            'phone' => $edit_data['phone'],
-            'preference' => $pref
+            //'gender' => $edit_data['gender'],
+            'phonenumber' => $edit_data['phonenumber']
         );
-        $this->db->where('USER_ID', $userid);
-        $status = $this->db->update('USERS', $data);
+        $this->db->where('userid', $userid);
+        $status = $this->db->update('user', $data);
 
         //var_dump($data);
         if ($status) {
@@ -69,15 +65,15 @@ class User extends CI_Model {
 
     public function getUser($userID) {
 
-        $this->db->where('user_id', $userID);
-        $query = $this->db->get('USERS');
+        $this->db->where('userid', $userID);
+        $query = $this->db->get('user');
         return $query->row_array();
     }
 
     public function emailExist($email) {
 
         $this->db->where('email', $email);
-        $query = $this->db->get('USERS');
+        $query = $this->db->get('user');
 
         if ($query->num_rows > 0) {
             return true;
