@@ -68,10 +68,10 @@
 
                 <ul class="right">  
                         <li>
-                          <a href="">People</a>
+                          <a href="search">People</a>
                         </li> 
                         <li>
-                          <a href="">Places</a>
+                          <a href="search">Places</a>
                         </li>
                         <li>
                           <a href="">Reviews</a>
@@ -120,36 +120,25 @@
 <div class="container">
 	 <header class="row">
                 
-                <div class="nine columns">
+                <div class="eight columns">
                         <h1 class="centered">Social Navigator</h1>
                         <p><i>...your preferred choice for socializing, exploring and navigating your vicinity...</i></p>
                 </div>
-                <div class="three columns">
+                <div class="four columns">
 
-		<?php
-                	echo anchor('main/', 'Home', array('class' => 'decorate'));
-                	echo "  ";
-                	echo "  ";
+				<?php
+                	
                 	$is_logged_in = $this->session->userdata('is_logged_in');
 
                 	if ($is_logged_in == true) {
-                	        echo anchor('/logout', 'Logout', array('class' => 'decorate'));
-                    		echo "  ";
-                    		echo "<br>";
-                    		echo "You are logged in as: ";
-                    		echo $this->session->userdata('email');
-                    		echo "<br><b>";
-                    		echo anchor('/profile', 'My Profile', array('class' => 'decorate'));
-                    		echo "</b> ";
-
+                	    	echo "<b> Welcome </b><b> ".$this->session->userdata('firstname')."</b>" ;
                		 } else {
                    		 echo anchor('/login', 'Member Login', array('class' => 'decorate'));
                     		echo "  ";
                     		echo "  ";
                     		echo anchor('/signup', 'Sign Up', array('class' => 'decorate'));
                 	}
-                		echo "  ";
-                		echo anchor('/cart', 'Cart', array('class' => 'decorate'));
+                		
                 ?>
 
 
