@@ -36,11 +36,8 @@
 
                 <ul class="right">  
                         <li>
-                          <a href="">People</a>
+                          <a href="search">Search</a>
                         </li> 
-                        <li>
-                          <a href="">Places</a>
-                        </li>
                         <li>
                           <a href="">Reviews</a>
                         </li>
@@ -74,7 +71,20 @@
         	</div>
      </div>
 	<div class="row hide-on-phones">
-            <a href="main" class="back two columns hide-on-phones">&larr; Home</a>
+              <dl class="sub-nav">
+          	  	<dd><a href="main">Home</a></dd>
+		 		 <dd class="active"><a href="#people">People</a></dd>
+				 <dd><a href="#places">Places</a></dd>
+			 </dl>
+		
+			 <ul class="tabs-content">
+			 	 <li class="active" id="peopleTab"></li>
+				  <li id="placesTab">
+    
+  		  		</li>
+			 </ul>  
+			</dl>
+
 
 </div>
 
@@ -99,7 +109,7 @@
                 	$is_logged_in = $this->session->userdata('is_logged_in');
 
                 	if ($is_logged_in == true) {
-                	       	echo "<b>Welcome ". $this->session->userdata('username')."</b>";
+                	       	echo "<b>Welcome ". $this->session->userdata('firstname')."</b>";
 
                		 } else {
                    		 echo anchor('/login', 'Member Login', array('class' => 'decorate'));
