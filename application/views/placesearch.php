@@ -6,7 +6,7 @@
     <title>Soc Nav - Place Search</title>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&key=AIzaSyCcFgjjow3Zqtk4j38D900zae0WnlvGu24"></script>
-<script src="zurbs3/javascripts/jquery.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<style type="text/css">
 		
       html { height: 100% }
@@ -47,14 +47,12 @@
 			</select></td>
 		</tr>
 		<tr>
-			<td><input type="submit" onclick="getjson();" value="get json"></td>
+			<td><input id="get_json" type="submit" onclick="getjson()" value="get json"></td>
 		<tr>
 			<td><input type="submit" onclick="findPlaces(); return false;" value="Search"></td>
 		<!--	<td><input type="button" id="btn" onclick="showAddresses()" name="show_address_list" value="show address list" /></td> -->
 		<tr>
 	</table>
-	<section id="sidebar">
-	
         <div id="directions_panel"></div>
     </section>
 		<!--	<textarea id="mytextarea"rows="15" cols="100">   -->
@@ -83,21 +81,22 @@
 
 		var placeAddressList = Array();
 
-		function getjson() {
-//alert('kwgjw');
-			$.getJSON('/testjson', function(data) {
+		// Performs a JSON request when the "get_json" button is clicked,
+		// the 2nd parameter is the user's location (lat and long) and the 
+		// callback function handles the results, displaying them in a list.
+		$("#get_json").click(function() {
+			$.getJSON("/socnav/index.php/testjson", { latitude:latit, longitude:longit }, function(data) {
 			  var items = [];
-			 alert('kwgjw');
 			  $.each(data, function(key, val) {
 			    items.push('<li id="' + key + '">' + val + '</li>');
 			  });
-			 
+
 			  $('<ul/>', {
 			    'class': 'my-new-list',
 			    html: items.join('')
 			  }).appendTo('body');
 			});
-		}
+		});
 
 		function getLocation_and_showMap() {
 			// Check if geolocation is supported on the browser and get the location

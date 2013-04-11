@@ -47,8 +47,7 @@ $route['signup'] = "/users/signup";
 $route['validatelogin'] = "/users/validateLogin";
 $route['registeruser'] = "/users/registerUser";
 
-$route['placesearch'] = "/main/placesearch"; //<-- added by Nick
-$route['testjson'] = "/main/testjson"; //<-- added by Nick
+
 
 //Todo: April 06, 2013
 $route['profile'] = "/users/displayProfile";
@@ -56,6 +55,8 @@ $route['updateprofile'] = "/users/updateProfile";
 
 //Todo: April 07, 2013
 $route['search'] = "/socnav/search";
+$route['placesearch'] = "/socnav/placesearch"; //<-- added by Nick
+$route['testjson'] = "/socnav/testjson"; //<-- added by Nick
 $route['searchresults'] = "/socnav/searchresults";
 $route['maps'] = "/maps";
 
