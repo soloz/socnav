@@ -24,7 +24,7 @@
   
 </script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLVh2FHZtdIw6NTqYJIndO3xiqwH67eJ0&sensor=false">
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&key=AIzaSyCcFgjjow3Zqtk4j38D900zae0WnlvGu24"></script>
     </script>
     
     

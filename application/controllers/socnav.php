@@ -21,6 +21,18 @@ class Socnav extends CI_Controller {
         $this->load->view('maps');
     }
 
+	// Added by Nick
+	public function placesearch()
+	{
+		$this->load->view('placesearch');
+	}
+
+	// Added by Nick
+	public function testjson()
+	{
+		$arr = array('a' => 33, 'b' => 22, 'c' => 55, 'd' => 44, 'e' => 66);
+		return json_encode($arr);
+	}
 }
 
 ?>
