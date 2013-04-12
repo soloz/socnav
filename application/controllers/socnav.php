@@ -27,16 +27,36 @@ class Socnav extends CI_Controller {
 		$this->load->view('placesearch');
 	}
 
-	public $userLongList;
-	public $userLatList;
+	private $userIdList;
+	private $userLongList;
+	private $userLatList;
+
+	// comments here
+	public function updateuserlocation() {
+		$latit = $_GET['latitude'];
+		$longit = $_GET['longitude'];
+			
+		$is_logged_in = $this->session->userdata('is_logged_in');
+		if($is_logged_in) 
+		{
+			$currentuserid = $this->session->userdata('userid');
+			
+			// TODO: UPDATE USERSTATE TABLE (LONGITUDE,LATITUDE,ONLINE:TRUE)
+			echo 0; // everything ok.
+		}
+		else 
+		{
+			echo -1; // error: the user shouldn't be here...
+		}
+	}
 
 	// Added by Nick
-	public function testjson()
+	public function nearbyusers()
 	{
 		$latit = $_GET['latitude'];
 		$longit = $_GET['longitude'];
 		$radius = $_GET['radius'];
-		
+
 		// ============= TEST DATA ================
 		// Test locations around st andrews
 
@@ -73,7 +93,7 @@ class Socnav extends CI_Controller {
 		foreach($userLongList as $keyid => $longValue) {
 			// Calculate the distance between the client that did the request and each of them.
 			$distance = $this->haversineGreatCircleDistance($latit, $longit, $userLatList[$keyid], $longValue);
-			
+
 			// If the particular user is within the radius of our client, add his coords in the temp arrays.
 			if($distance <= $radius) 
 			{
@@ -97,16 +117,8 @@ class Socnav extends CI_Controller {
 
 		}
 
-		// TODO: Add the user's coords to the lists (if he has just logged in).
-		// Must integrate with the session data in order for the placesearch page to be only accessible
-		// if the user is logged in.
-
-		// Get the user's userid from the session data.
-		// $currentuserid = $this->session->userdata('userid');
-
 		echo json_encode($coordsOfNearbyUsers);
 	}
-
 
 	/**
 	 * Calculates the great-circle distance between two points, with

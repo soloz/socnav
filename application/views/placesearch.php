@@ -78,7 +78,7 @@
 		</tr>
 		<tr>
 			<td>
-			<input id="get_json" type="submit" onclick="getjson()" value="Search">
+			<input id="get_json" type="submit" value="Search">
 			</td>		
 		</tr>
 	</table>
@@ -95,11 +95,11 @@
 		var longit;
 
 		var watchProcess;
-		
+
 		var geocoder = new google.maps.Geocoder();
 		var directionsService = new google.maps.DirectionsService();
 		var directionsDisplay = new google.maps.DirectionsRenderer();
-		
+
 		var markers = Array();
 		var infos = Array();
 
@@ -118,7 +118,7 @@
 			if (navigator.geolocation) {
 				//Start monitoring user's position
 				if (watchProcess == null) {  
-					watchProcess = navigator.geolocation.watchPosition(createMap, handle_errors);  
+					watchProcess = navigator.geolocation.watchPosition(createMap, handle_errors,{enableHighAccuracy:true});  
 				}  
 			} else {
 				error('Geo Location is not supported');
@@ -130,7 +130,7 @@
 				longit = position.coords.longitude;
 
 				userLocation = new google.maps.LatLng(latit, longit);
-				
+
 				// Create an object with map options (includes the latitude and longitude 
 				// taken from the geolocation request).
 				var mapOptions = {
@@ -154,7 +154,9 @@
 
 				  directionsDisplay.setMap(map);
 				  directionsDisplay.setPanel(document.getElementById('directions_panel'));
-
+				
+				updateUserLocation();				
+				
 				// Getting the user's address with geocoding and passing the location to userGeocode().
 				geocoder.geocode({ 'latLng': userLocation }, userGeocode);
 			}
@@ -190,6 +192,17 @@
 			}
 		}
 
+		// This function gets called every time geolocation.watchPosition() gets called
+		// 
+		function updateUserLocation() {
+			$.get("/socnav/index.php/updateuserlocation", { latitude:latit, longitude:longit }, function(response)
+			{
+				if(response == -1) {
+					alert('ERROR: USER NOT LOGGED IN');
+				}
+			});
+		}
+
 		// Performs a JSON request when the "Search" button for searching nearby people is clicked,
 		// the 2nd parameter is the user's location (lat, long and radius) and the 
 		// callback function handles the results, displaying them in a list.
@@ -197,7 +210,7 @@
 
 			// Get the radius for searching nearby users from the UI.
 			var people_radius = document.getElementById("gmap_radius_people").value;
-			$.getJSON("/socnav/index.php/testjson", { latitude:latit, longitude:longit, radius: people_radius }, function(data) 
+			$.getJSON("/socnav/index.php/nearbyusers", { latitude:latit, longitude:longit, radius: people_radius }, function(data) 
 			{
 				var lats = data.latitudes;
 				var longs = data.longitudes;
@@ -209,18 +222,17 @@
 				$.each(lats, function(key, val) {
 				    		createPersonMarker(key, lats[key], longs[key]);
 				  });
-				} 
-				else 
+				}
+				else
 				{
 					alert('Sorry, nothing is found');
 				}
-			}); 
+			});
 		});
 
-
 		// Create a single marker for a person that was found nearby.
-		function createPersonMarker(key, lat, long) {
-			newuserlocation = new google.maps.LatLng(lat, long);
+		function createPersonMarker(key, latit, longit) {
+			newuserlocation = new google.maps.LatLng(latit, longit);
 			// prepare new Marker object
 			var mark = new google.maps.Marker({
 				position: newuserlocation,
@@ -235,7 +247,7 @@
 
 			// prepare info window
 			var infowindow = new google.maps.InfoWindow({
-				content: '<p style="font-weight:bold" >userid: '+key+', long: '+ long +', lat: '+lat
+				content: '<p style="font-weight:bold" >userid: '+key+', long: '+ longit +', lat: '+latit
 				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
 			});
 

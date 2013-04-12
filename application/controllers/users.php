@@ -157,6 +157,9 @@ class Users extends CI_Controller {
 
 	//Function for logging out
     public function logout() {
+	// TODO: Before destroying session, set the the attribute 'online' 
+	// to false in the table USERSTATE.
+	
         $this->session->sess_destroy();
         redirect('/login');
     }
