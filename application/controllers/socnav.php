@@ -27,34 +27,79 @@ class Socnav extends CI_Controller {
 		$this->load->view('placesearch');
 	}
 
-
-	public $userLongList = array("empty");
-	public $userLatList = array("empty");
+	public $userLongList;
+	public $userLatList;
 
 	// Added by Nick
 	public function testjson()
 	{
 		$latit = $_GET['latitude'];
 		$longit = $_GET['longitude'];
+		$radius = $_GET['radius'];
+		
+		// ============= TEST DATA ================
+		// user at the center of st andrews
+		$userLongList['userid60'] = -2.7965;
+		$userLatList['userid60'] = 56.339316;
 
-		$currentuserid = $this->session->userdata('userid');
+		// User a bit further (still within 500m radius)
+		$userLongList['userid70'] = -2.808166;
+		$userLatList['userid70'] = 56.338242;
 
-		array_push($userLongList, $currentuserid => $longit);
-		array_push($userLatList, $currentuserid => $latit);
+		// User a bit further (not within 500m radius)
+		$userLongList['userid80'] = -2.816319;
+		$userLatList['userid80'] = 56.336672;
 
-/*		if($latit=="30") {
-			$arr = array('a' => 33, 'b' => 22, 'c' => 55, 'd' => 44, 'e' => 66);
+		// User a bit further (not within 500m radius)
+		$userLongList['userid90'] = -2.825332;
+		$userLatList['userid90'] = 56.337528;
+
+		// User a bit further (not within 500m radius)
+		$userLongList['userid10'] = -2.875457;
+		$userLatList['userid10'] = 56.341857;
+		//============================================
+
+		$latOfNearbyUsers; // temp associative array used to store of the lat of nearby users in the form of 'userid':'lat'
+		$longOfNearbyUsers; // temp associative array used to store of the long of nearby users in the form of 'userid':'long'
+		$coordsOfNearbyUsers; // master-array that includes the 2 arrays listed above ^ .
+	
+		// Parse through all the locations of logged users
+		foreach($userLongList as $keyid => $longValue) {
+			// Calculate the distance between the client that did the request and each of them.
+			$distance = $this->haversineGreatCircleDistance($latit, $longit, $userLatList[$keyid], $longValue);
+			
+			// If the particular user is within the radius of our client, add his coords in the temp arrays.
+			if($distance <= $radius) 
+			{
+				$latOfNearbyUsers[$keyid] = $userLatList[$keyid];
+				$longOfNearbyUsers[$keyid] = $longValue;
+			}
 		}
-		else {
-			$arr = array('a' => 11, 'b' => 00, 'c' => 99, 'd' => 88, 'e' => 77);
+
+		// If we do have some users nearby
+		if(!empty($latOfNearbyUsers) && !empty($longOfNearbyUsers))
+		{	
+			// Add the lists to the master-array to be parsed at the client-side.
+			$coordsOfNearbyUsers['longitudes'] = $longOfNearbyUsers;
+			$coordsOfNearbyUsers['latitudes'] = $latOfNearbyUsers;
+		}
+		else
+		{	
+			// Put the string 'empty' in them for it to be checked at the client-side.
+			$coordsOfNearbyUsers['longitudes'] = 'empty';
+			$coordsOfNearbyUsers['latitudes'] = 'empty';
+
 		}
 
-		$arr = array('lon' => $longit, 'lat' => $latit);
-*/		
-		echo json_encode($userLongList);
-		echo json_encode($userLatList);
+		// TODO: Add the user's coords to the lists (if he has just logged in).
+		// Must integrate with the session data in order for the placesearch page to be only accessible
+		// if the user is logged in.
+
+		// Get the user's userid from the session data.
+		// $currentuserid = $this->session->userdata('userid');
+
+		echo json_encode($coordsOfNearbyUsers);
 	}
-
 
 
 	/**
@@ -67,7 +112,7 @@ class Socnav extends CI_Controller {
 	 * @param float $earthRadius Mean earth radius in [m]
 	 * @return float Distance between points in [m] (same as earthRadius)
 	 */
-	function haversineGreatCircleDistance(
+	private function haversineGreatCircleDistance(
 	  $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
 	{
 		$earthRadius = 6371000;

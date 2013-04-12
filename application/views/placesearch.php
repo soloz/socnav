@@ -71,7 +71,7 @@
 		
 		var markers = Array();
 		var infos = Array();
-		
+
 		var clickedMarkerPosition; // Stores the LatLng object of the last-clicked marker by the user
 		var placeResults; // Array that stores the results of the latest place search
 		var userAddress; // The user's address based on geocoding
@@ -82,16 +82,20 @@
 		var placeAddressList = Array();
 
 		// Performs a JSON request when the "get_json" button is clicked,
-		// the 2nd parameter is the user's location (lat and long) and the 
+		// the 2nd parameter is the user's location (lat, long and radius) and the 
 		// callback function handles the results, displaying them in a list.
 		$("#get_json").click(function() {
-			$.getJSON("/socnav/index.php/testjson", { latitude:latit, longitude:longit }, function(data) {
+		//	 alert('lat: '+latit+', longit: '+longit);
+			$.getJSON("/socnav/index.php/testjson", { latitude:latit, longitude:longit, radius: 5000 }, function(data) {
+		//	alert('lat: '+latit+', longit: '+longit);
+				var lats = data.latitudes;
+				var longs = data.longitudes;
 			  var items = [];
-			  $.each(data, function(key, val) {
-			    items.push('<li id="' + key + '">' + val + '</li>');
+			  $.each(lats, function(key, val) {
+			    items.push('<li id="' + key + '"> key: ' + key + ', value: ' + val + '</li>');
 			  });
 
-			  $('<ul/>', {
+			  $('<ol/>', {
 			    'class': 'my-new-list',
 			    html: items.join('')
 			  }).appendTo('body');
