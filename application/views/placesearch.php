@@ -4,19 +4,18 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <title>Soc Nav - Place Search</title>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&key=AIzaSyCcFgjjow3Zqtk4j38D900zae0WnlvGu24"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<style type="text/css">
-		
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      	#gmap_canvas { height: 65% }
-	#wrapper { height: 20%; clear: both;}
-	#placesUI { width: 49%; float: left; border-style:solid; border-width:1px }
-	#peopleUI { width: 49%; float: right; border-style:solid; border-width:1px }
-	#places_label { font-size: 24pt }
-	#people_label { font-size: 24pt }
+	      html { height: 100% }
+	      body { height: 100%; margin: 0; padding: 0 }
+	      	#gmap_canvas { height: 65% }
+		#wrapper { height: 20%; clear: both;}
+		#placesUI { width: 49%; float: left; border-style:solid; border-width:1px }
+		#peopleUI { width: 49%; float: right; border-style:solid; border-width:1px }
+		#places_label { font-size: 24pt }
+		#people_label { font-size: 24pt }
 	</style>
   </head>
 
@@ -66,7 +65,7 @@
 	<div id="peopleUI">
 	<table>
 		<tr>
-			<td><label id="people_label">Search for People</label></td>
+			<td><label id="people_label">Show People Nearby</label></td>
 		<tr>
 		<tr>
 			<td><label for="gmap_radius_people">Radius:</label></td>
@@ -106,71 +105,14 @@
 
 		var clickedMarkerPosition; // Stores the LatLng object of the last-clicked marker by the user
 		var placeResults; // Array that stores the results of the latest place search
-		var userAddress; // The user's address based on geocoding
-		var userLocation;
+		var userAddress; // The user's address based on geocoding.
+		var userLocation; // LatLng object that stores the user's location.
 		var userInfowindow;
 		var userMarker;
 
 		var placeAddressList = Array();
 
-		// Performs a JSON request when the "get_json" button is clicked,
-		// the 2nd parameter is the user's location (lat, long and radius) and the 
-		// callback function handles the results, displaying them in a list.
-		$("#get_json").click(function() {
-
-		// Get the radius for searching nearby users from the UI
-		var people_radius = document.getElementById("gmap_radius_people").value;
-			$.getJSON("/socnav/index.php/testjson", { latitude:latit, longitude:longit, radius: people_radius }, function(data) {
-				var lats = data.latitudes;
-				var longs = data.longitudes;
-			if (data.latitudes != 'empty' || data.longitudes != 'empty') {
-				// if we have found something - clear map (overlays)
-				clearOverlays();
-
-				// populate arrays from json data
-				$.each(lats, function(key, val) {
-				    		createPersonMarker(key, lats[key], longs[key]);
-				  });
-				} 
-				else 
-				{
-					alert('Sorry, nothing is found');
-				}
-			}); 
-		});
-
-
-		// creare single marker function
-		function createPersonMarker(key, lat, long) {
-//alert('alert no5');
-			newuserlocation = new google.maps.LatLng(lat, long);
-			// prepare new Marker object
-			var mark = new google.maps.Marker({
-				position: newuserlocation,
-				map: map,
-				title: key
-			});
-
-			  // Use a green colored marker for nearby people
-			  mark.setIcon('http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png');
-
-			markers.push(mark);
-
-			// prepare info window
-			var infowindow = new google.maps.InfoWindow({
-				content: '<p style="font-weight:bold" >userid: '+key+', long: '+long+', lat: '+lat
-				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
-			});
-
-			// add event handler to current marker
-			google.maps.event.addListener(mark, 'click', function() {
-				clearInfos();
-				clickedMarkerPosition = mark.getPosition();
-				infowindow.open(map,mark);
-			});
-			infos.push(infowindow);
-		}
-
+		// This is the initialization function that is called when the window loads.
 		function getLocation_and_showMap() {
 			// Check if geolocation is supported on the browser and get the location
 			if (navigator.geolocation) {
@@ -182,7 +124,7 @@
 				error('Geo Location is not supported');
 			}
 
-			// Create the map based on location
+			// Create the map based on the user's location.
 			function createMap(position) {
 				latit = position.coords.latitude;
 				longit = position.coords.longitude;
@@ -200,27 +142,28 @@
 				// Create and show the map on a certain div using the above options
 				map = new google.maps.Map(document.getElementById("gmap_canvas"), mapOptions);
 
-				// Add market to the center of map.
+				// Add the user's market to the center of map.
 				userMarker = new google.maps.Marker({
 					position: map.getCenter(),
 					map: map,
 					title: 'You are here!'
 				}); 
 
-				  // Use a blue colored marker.
+				  // Use a blue colored marker for the user.
 				  userMarker.setIcon('http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png');
 
 				  directionsDisplay.setMap(map);
 				  directionsDisplay.setPanel(document.getElementById('directions_panel'));
 
-				// Getting the user's address with geocoding
+				// Getting the user's address with geocoding and passing the location to userGeocode().
 				geocoder.geocode({ 'latLng': userLocation }, userGeocode);
 			}
 		}
 
-		
+		// Geocodes the user's location
 		function userGeocode(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
+				// Check if the geocoding result is a valid address.
 				for (var i = 0; i < results.length; i++) {
 					if(isValidPostcode(results[i].formatted_address))
 					{
@@ -232,16 +175,80 @@
 						userAddress = results[0].formatted_address;
 					}
 				}
-				// Create info window
+
+				// Create info window for the user that shows his address.
 				infowindow = new google.maps.InfoWindow({
 					content: '<p style="font-weight:bold" >You are at: '+ userAddress+'</p>',
 					size: new google.maps.Size(10,30)
 				});
 				infowindow.open(map, userMarker);
+			
+				// add event handler for opening the infowindow when clicking on the user's marker
+				google.maps.event.addListener(userMarker, 'click', function() {
+					infowindow.open(map,userMarker);
+				});
 			}
 		}
 
-		// find custom places function
+		// Performs a JSON request when the "Search" button for searching nearby people is clicked,
+		// the 2nd parameter is the user's location (lat, long and radius) and the 
+		// callback function handles the results, displaying them in a list.
+		$("#get_json").click(function() {
+
+			// Get the radius for searching nearby users from the UI.
+			var people_radius = document.getElementById("gmap_radius_people").value;
+			$.getJSON("/socnav/index.php/testjson", { latitude:latit, longitude:longit, radius: people_radius }, function(data) 
+			{
+				var lats = data.latitudes;
+				var longs = data.longitudes;
+				if (lats != 'empty' || longs != 'empty') {
+				// if we have found something - clear map (overlays)
+				clearOverlays();
+
+				// populate arrays from json data
+				$.each(lats, function(key, val) {
+				    		createPersonMarker(key, lats[key], longs[key]);
+				  });
+				} 
+				else 
+				{
+					alert('Sorry, nothing is found');
+				}
+			}); 
+		});
+
+
+		// Create a single marker for a person that was found nearby.
+		function createPersonMarker(key, lat, long) {
+			newuserlocation = new google.maps.LatLng(lat, long);
+			// prepare new Marker object
+			var mark = new google.maps.Marker({
+				position: newuserlocation,
+				map: map,
+				title: key
+			});
+
+			// Use a green colored marker for nearby people
+			mark.setIcon('http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png');
+
+			markers.push(mark);
+
+			// prepare info window
+			var infowindow = new google.maps.InfoWindow({
+				content: '<p style="font-weight:bold" >userid: '+key+', long: '+ long +', lat: '+lat
+				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
+			});
+
+			// add event handler to current marker
+			google.maps.event.addListener(mark, 'click', function() {
+				clearInfos();
+				clickedMarkerPosition = mark.getPosition();
+				infowindow.open(map,mark);
+			});
+			infos.push(infowindow);
+		}
+
+		// find custom places function. NOTE: Although radius is used, it is not used since textSearch() is used.
 		function findPlaces() {
 
 			// prepare variables (filter)
@@ -261,8 +268,119 @@
 
 			// send request
 			service = new google.maps.places.PlacesService(map);
-			service.textSearch(request, createMarkers);
+			service.textSearch(request, createMarkersForPlaces);
 		}
+
+		// Checks the results from the PlaceService and passes the data for each place to createPlaceMarker().
+		function createMarkersForPlaces(results, status) {
+			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				placeResults = results;
+				// if we have found something - clear map (overlays)
+				clearOverlays();
+				
+				// and create new markers by search result
+				for (var i = 0; i < placeResults.length; i++) {
+					createPlaceMarker(placeResults[i]);
+				}
+			} else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+				alert('Sorry, nothing is found');
+			}
+		}
+
+		// Creates a marker for a place.
+		function createPlaceMarker(obj) {
+
+			// prepare new Marker object
+			var mark = new google.maps.Marker({
+				position: obj.geometry.location,
+				map: map,
+				title: obj.name
+			});
+			markers.push(mark);
+
+			// prepare info window
+			var infowindow = new google.maps.InfoWindow({
+				content: '<img src="' + obj.icon + '" /><font style="color:#000;">' + obj.name +
+				'<br />Rating: ' + obj.rating + '<br />Vicinity: ' + obj.vicinity + '</font>'
+				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To">'
+			});
+
+			// add event handler to current marker
+			google.maps.event.addListener(mark, 'click', function() {
+				clearInfos();
+				clickedMarkerPosition = mark.getPosition();
+				infowindow.open(map,mark);
+			});
+			infos.push(infowindow);
+		}
+
+		function isValidPostcode(p) { 
+			var postcodeRegEx = /([a-zA-Z^([a-zA-Z]){1}([0-9][0-9]|[0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][0-9][0-9]|[a-zA-Z][0-9]){1}([ ])([0-9][a-zA-z][a-zA-z]){1}/; 
+			return postcodeRegEx.test(p);
+		}
+
+		// Clears markers from the map.
+		function clearOverlays() {
+			if (markers) {
+				for (i in markers) {
+					markers[i].setMap(null);
+				}
+				markers = [];
+				infos = [];
+			}
+		}
+
+		// Clears info windows
+		function clearInfos() {
+			if (infos) {
+				for (i in infos) {
+					if (infos[i].getMap()) {
+						infos[i].close();
+					}
+				}
+			}
+		}
+		
+		// Calculates and displays the route between the user and the clicked marker (place or person).
+		function calculateRoute() {
+			var start = userAddress;
+			var destination = clickedMarkerPosition;
+
+			if (start == '') {
+				start = center;
+			}
+
+			var request = {
+				origin: start,
+				destination: destination,
+				travelMode: google.maps.DirectionsTravelMode.DRIVING
+			};
+
+			directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				}
+			});
+		}
+
+		// Handles user geolocation errors.
+		function handle_errors(error)  
+		{  
+		    switch(error.code)  
+		    {  
+		        case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
+		        break;  
+		        case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
+		        break;  
+		        case error.TIMEOUT: alert("retrieving position timedout");  
+		        break;  
+		        default: alert("unknown error");  
+		        break;  
+		    }  
+		}
+
+		// The function is automatically run after loading the window.
+		google.maps.event.addDomListener(window, 'load', getLocation_and_showMap);
 /*
 ----------------------------------------------------------------------------------------------
 //This commented code is an attempt to use geocode for finding the place's addresses and showing them,
@@ -315,114 +433,5 @@ in order for later to store them once in the db for access.
 			}
 		}
 */
-
-		// create markers (from 'findPlaces' function)
-		function createMarkers(results, status) {
-			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				placeResults = results;
-				// if we have found something - clear map (overlays)
-				clearOverlays();
-				
-				// and create new markers by search result
-				for (var i = 0; i < placeResults.length; i++) {
-					createMarker(placeResults[i]);
-				}
-			} else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-				alert('Sorry, nothing is found');
-			}
-		}
-
-		// creare single marker function
-		function createMarker(obj) {
-
-			// prepare new Marker object
-			var mark = new google.maps.Marker({
-				position: obj.geometry.location,
-				map: map,
-				title: obj.name
-			});
-			markers.push(mark);
-
-			// prepare info window
-			var infowindow = new google.maps.InfoWindow({
-				content: '<img src="' + obj.icon + '" /><font style="color:#000;">' + obj.name +
-				'<br />Rating: ' + obj.rating + '<br />Vicinity: ' + obj.vicinity + '</font>'
-				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To">'
-			});
-
-			// add event handler to current marker
-			google.maps.event.addListener(mark, 'click', function() {
-				clearInfos();
-				clickedMarkerPosition = mark.getPosition();
-				infowindow.open(map,mark);
-			});
-			infos.push(infowindow);
-		}
-
-		function isValidPostcode(p) { 
-			var postcodeRegEx = /([a-zA-Z^([a-zA-Z]){1}([0-9][0-9]|[0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][0-9][0-9]|[a-zA-Z][0-9]){1}([ ])([0-9][a-zA-z][a-zA-z]){1}/; 
-			return postcodeRegEx.test(p);
-		}
-
-		// clear overlays function
-		function clearOverlays() {
-			if (markers) {
-				for (i in markers) {
-					markers[i].setMap(null);
-				}
-				markers = [];
-				infos = [];
-			}
-		}
-
-		// clear infos function
-		function clearInfos() {
-			if (infos) {
-				for (i in infos) {
-					if (infos[i].getMap()) {
-						infos[i].close();
-					}
-				}
-			}
-		}
-
-		function calculateRoute() {
-			var start = userAddress;
-			var destination = clickedMarkerPosition;
-
-			if (start == '') {
-				start = center;
-			}
-
-			var request = {
-				origin: start,
-				destination: destination,
-				travelMode: google.maps.DirectionsTravelMode.DRIVING
-			};
-			directionsService.route(request, function(response, status) {
-				if (status == google.maps.DirectionsStatus.OK) {
-					directionsDisplay.setDirections(response);
-				}
-			});
-		}
-
-		function handle_errors(error)  
-		{  
-		    switch(error.code)  
-		    {  
-		        case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
-		        break;  
-		        case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
-		        break;  
-		        case error.TIMEOUT: alert("retrieving position timedout");  
-		        break;  
-		        default: alert("unknown error");  
-		        break;  
-		    }  
-		}
-
-		// The function is automatically run after loading the window.
-		google.maps.event.addDomListener(window, 'load', getLocation_and_showMap);
-
 </script>
 </html>

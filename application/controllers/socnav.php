@@ -38,9 +38,7 @@ class Socnav extends CI_Controller {
 		$radius = $_GET['radius'];
 		
 		// ============= TEST DATA ================
-		// user at the center of st andrews
-	//	$userLongList['userid60'] = -2.7965;
-	//	$userLatList['userid60'] = 56.339316;
+		// Test locations around st andrews
 
 		// User a bit further (still within 500m radius)
 		$userLongList['userid70'] = -2.808166;
