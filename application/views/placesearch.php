@@ -11,17 +11,26 @@
 		
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
-      	#gmap_canvas { height: 70% }
+      	#gmap_canvas { height: 65% }
+	#wrapper { height: 20%; clear: both;}
+	#placesUI { width: 49%; float: left; border-style:solid; border-width:1px }
+	#peopleUI { width: 49%; float: right; border-style:solid; border-width:1px }
+	#places_label { font-size: 24pt }
+	#people_label { font-size: 24pt }
 	</style>
   </head>
 
   <body>
     <div id="gmap_canvas"></div>
-	
+	<div id="wrapper">
+	<div id="placesUI"> 
 	<table>
 		<tr>
+			<td><label id="places_label">Search for Places</label></td>
+		<tr>
+		<tr>
 			<td><label for="gmap_keyword">Keyword (optional):</label></td>
-			<td><input id="gmap_keyword" type="text" name="gmap_keyword" /></div></td>
+			<td><input id="gmap_keyword" type="text" name="gmap_keyword" /></td>
 		<tr>
 		<tr>
 			<td><label for="gmap_type">Type:</label></td>
@@ -38,8 +47,8 @@
 			</select></td>
 		</tr>
 		<tr>
-			<td><label for="gmap_radius">Radius:</label></td>
-			<td><select id="gmap_radius">
+			<td><label for="gmap_radius_places">Radius:</label></td>
+			<td><select id="gmap_radius_places">
 				<option value="500">500</option>
 				<option value="1000">1000</option>
 				<option value="1500">1500</option>
@@ -47,14 +56,37 @@
 			</select></td>
 		</tr>
 		<tr>
-			<td><input id="get_json" type="submit" onclick="getjson()" value="get json"></td>
+			<td></td>
 		<tr>
 			<td><input type="submit" onclick="findPlaces(); return false;" value="Search"></td>
 		<!--	<td><input type="button" id="btn" onclick="showAddresses()" name="show_address_list" value="show address list" /></td> -->
 		<tr>
 	</table>
+	</div>
+	<div id="peopleUI">
+	<table>
+		<tr>
+			<td><label id="people_label">Search for People</label></td>
+		<tr>
+		<tr>
+			<td><label for="gmap_radius_people">Radius:</label></td>
+			<td><select id="gmap_radius_people">
+				<option value="500">500</option>
+				<option value="1000">1000</option>
+				<option value="1500">1500</option>
+				<option value="5000">5000</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>
+			<input id="get_json" type="submit" onclick="getjson()" value="Search">
+			</td>		
+		</tr>
+	</table>
+	</div>
+	</div>
+
         <div id="directions_panel"></div>
-    </section>
 		<!--	<textarea id="mytextarea"rows="15" cols="100">   -->
 			</textarea>
   </body>
@@ -85,22 +117,59 @@
 		// the 2nd parameter is the user's location (lat, long and radius) and the 
 		// callback function handles the results, displaying them in a list.
 		$("#get_json").click(function() {
-		//	 alert('lat: '+latit+', longit: '+longit);
-			$.getJSON("/socnav/index.php/testjson", { latitude:latit, longitude:longit, radius: 5000 }, function(data) {
-		//	alert('lat: '+latit+', longit: '+longit);
+
+		// Get the radius for searching nearby users from the UI
+		var people_radius = document.getElementById("gmap_radius_people").value;
+			$.getJSON("/socnav/index.php/testjson", { latitude:latit, longitude:longit, radius: people_radius }, function(data) {
 				var lats = data.latitudes;
 				var longs = data.longitudes;
-			  var items = [];
-			  $.each(lats, function(key, val) {
-			    items.push('<li id="' + key + '"> key: ' + key + ', value: ' + val + '</li>');
-			  });
+			if (data.latitudes != 'empty' || data.longitudes != 'empty') {
+				// if we have found something - clear map (overlays)
+				clearOverlays();
 
-			  $('<ol/>', {
-			    'class': 'my-new-list',
-			    html: items.join('')
-			  }).appendTo('body');
-			});
+				// populate arrays from json data
+				$.each(lats, function(key, val) {
+				    		createPersonMarker(key, lats[key], longs[key]);
+				  });
+				} 
+				else 
+				{
+					alert('Sorry, nothing is found');
+				}
+			}); 
 		});
+
+
+		// creare single marker function
+		function createPersonMarker(key, lat, long) {
+//alert('alert no5');
+			newuserlocation = new google.maps.LatLng(lat, long);
+			// prepare new Marker object
+			var mark = new google.maps.Marker({
+				position: newuserlocation,
+				map: map,
+				title: key
+			});
+
+			  // Use a green colored marker for nearby people
+			  mark.setIcon('http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png');
+
+			markers.push(mark);
+
+			// prepare info window
+			var infowindow = new google.maps.InfoWindow({
+				content: '<p style="font-weight:bold" >userid: '+key+', long: '+long+', lat: '+lat
+				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
+			});
+
+			// add event handler to current marker
+			google.maps.event.addListener(mark, 'click', function() {
+				clearInfos();
+				clickedMarkerPosition = mark.getPosition();
+				infowindow.open(map,mark);
+			});
+			infos.push(infowindow);
+		}
 
 		function getLocation_and_showMap() {
 			// Check if geolocation is supported on the browser and get the location
@@ -165,7 +234,7 @@
 				}
 				// Create info window
 				infowindow = new google.maps.InfoWindow({
-					content: 'You are at: '+ userAddress,
+					content: '<p style="font-weight:bold" >You are at: '+ userAddress+'</p>',
 					size: new google.maps.Size(10,30)
 				});
 				infowindow.open(map, userMarker);
@@ -177,7 +246,7 @@
 
 			// prepare variables (filter)
 			var type = document.getElementById('gmap_type').value;
-			var radius = document.getElementById('gmap_radius').value;
+			var radius = document.getElementById('gmap_radius_places').value;
 			var keyword = document.getElementById('gmap_keyword').value;
 
 			// prepare request to Places
@@ -336,7 +405,7 @@ in order for later to store them once in the db for access.
 				}
 			});
 		}
-		
+
 		function handle_errors(error)  
 		{  
 		    switch(error.code)  

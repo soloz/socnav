@@ -39,8 +39,8 @@ class Socnav extends CI_Controller {
 		
 		// ============= TEST DATA ================
 		// user at the center of st andrews
-		$userLongList['userid60'] = -2.7965;
-		$userLatList['userid60'] = 56.339316;
+	//	$userLongList['userid60'] = -2.7965;
+	//	$userLatList['userid60'] = 56.339316;
 
 		// User a bit further (still within 500m radius)
 		$userLongList['userid70'] = -2.808166;
@@ -51,12 +51,20 @@ class Socnav extends CI_Controller {
 		$userLatList['userid80'] = 56.336672;
 
 		// User a bit further (not within 500m radius)
-		$userLongList['userid90'] = -2.825332;
-		$userLatList['userid90'] = 56.337528;
+		$userLongList['userid90'] = -2.779799;
+		$userLatList['userid90'] = 56.335953;
 
 		// User a bit further (not within 500m radius)
-		$userLongList['userid10'] = -2.875457;
-		$userLatList['userid10'] = 56.341857;
+		$userLongList['userid100'] = -2.844086;
+		$userLatList['userid100'] = 56.360686;
+
+		// User a bit further (not within 500m radius)
+		$userLongList['userid220'] = -2.825332;
+		$userLatList['userid220'] = 56.337528;
+
+		// User a bit further (not within 500m radius)
+		$userLongList['userid330'] = -2.875457;
+		$userLatList['userid330'] = 56.341857;
 		//============================================
 
 		$latOfNearbyUsers; // temp associative array used to store of the lat of nearby users in the form of 'userid':'lat'
