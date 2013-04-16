@@ -33,6 +33,11 @@ class Users extends CI_Controller {
                     );
 
                     $this->session->set_userdata($extraSessionData);
+
+		// Update the user's state to online in the db.
+		$userID = $this->session->userdata('userid');
+		$this->user->setUserOnline($userID);
+
                     redirect('main/');
                 } else {
                     $this->session->set_flashdata('loginError', 'Username or Password 
@@ -148,7 +153,6 @@ class Users extends CI_Controller {
     
 	//Function for Logging into the system
     public function login() {
-
         $data['locations'] = $this->location->getLocations(); //for links
         $this->load->library('form_validation');
         $data['main_content'] = "login_form"; //body of home page
@@ -157,9 +161,10 @@ class Users extends CI_Controller {
 
 	//Function for logging out
     public function logout() {
-	// TODO: Before destroying session, set the the attribute 'online' 
-	// to false in the table USERSTATE.
-	
+	// Update the user's state to offline in the db.
+	$userID = $this->session->userdata('userid');
+	$this->user->setUserOffline($userID);
+
         $this->session->sess_destroy();
         redirect('/login');
     }

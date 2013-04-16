@@ -20,9 +20,14 @@ class User extends CI_Model {
 
     public function createUser($userdetails = array()) {
 
+	// First create an entry in the location table.
+	$userLocationID = $this->generateLocationID();
+	$this->db->set('locationid', $userLocationID);
+	$this->db->insert('location');
+
         $new_user = array(
             'userid' => $this->generateUserID(),
-            'locationid' => 1,
+            'locationid' => $userLocationID, // Add foreign key to that location table entry for the user.
             'firstname' => $userdetails['firstname'],
             'lastname' => $userdetails['lastname'],
 	    	'username' => $userdetails['username'],
@@ -81,6 +86,24 @@ class User extends CI_Model {
             return false;
         }
     }
+	
+	public function updateUserLocation($userID, $lat, $long) {
+		$this->db->set('online', FALSE);
+		$this->db->where('userid', $userID);
+		$status = $this->db->update('user');
+	}
+
+	public function setUserOffline($userID) {
+		$this->db->set('online', FALSE);
+		$this->db->where('userid', $userID);
+		$status = $this->db->update('user');
+	}
+
+	public function setUserOnline($userID) {
+		$this->db->set('online', TRUE);
+		$this->db->where('userid', $userID);
+		$status = $this->db->update('user');
+	}
 
     private function generateUserID() {
         return rand(99999, 1000000);

@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'ossa.host.cs.st-andrews.ac.uk';
-$db['default']['username'] = 'ossa';
-$db['default']['password'] = '6Xy.Q78w';
-$db['default']['database'] = 'ossa_db';
+$db['default']['hostname'] = 'nm67.host.cs.st-andrews.ac.uk';
+$db['default']['username'] = 'nm67';
+$db['default']['password'] = 'h1gU5!UF';
+$db['default']['database'] = 'nm67_db';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

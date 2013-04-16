@@ -193,7 +193,6 @@
 		}
 
 		// This function gets called every time geolocation.watchPosition() gets called
-		// 
 		function updateUserLocation() {
 			$.get("/socnav/index.php/updateuserlocation", { latitude:latit, longitude:longit }, function(response)
 			{
