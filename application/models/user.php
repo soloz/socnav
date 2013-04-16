@@ -88,9 +88,12 @@ class User extends CI_Model {
     }
 	
 	public function updateUserLocation($userID, $lat, $long) {
-		$this->db->set('online', FALSE);
-		$this->db->where('userid', $userID);
-		$status = $this->db->update('user');
+		$data = array(
+		       'location.latitude' => $lat,
+		       'location.longitude' => $long
+		);
+		$this->db->where('user.userid', $userID);
+		return $this->db->update('location join user on location.locationid = user.locationid',$data);
 	}
 
 	public function setUserOffline($userID) {

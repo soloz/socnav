@@ -31,7 +31,7 @@ class Socnav extends CI_Controller {
 	private $userLongList;
 	private $userLatList;
 
-	// comments here
+	// THe user sent his location, so we update it on the db.
 	public function updateuserlocation() {
 		$latit = $_GET['latitude'];
 		$longit = $_GET['longitude'];
@@ -40,8 +40,8 @@ class Socnav extends CI_Controller {
 		if($is_logged_in) 
 		{
 			$userID = $this->session->userdata('userid');
-	//		$this->db->user->updateUserLocation($userID, $latit, $longit);
-
+			$status = $this->user->updateUserLocation($userID, $latit, $longit);
+			
 			echo 0; // everything ok.
 		}
 		else 
