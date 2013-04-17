@@ -90,13 +90,9 @@ class Users extends CI_Controller {
                  */
                 $user_id = $this->user->createUser($this->input->post());
                 if ($user_id) {
-                    echo "Registration Successful";
                     
                     //We want to create a socnav user's directory to store files since they've successfully registered
-                    
                     $path = "uploads/users/".$this->input->post('username');
-                    
-                    echo "<br/> Successfully created directory ".$path;
                      
                      if(!is_dir($path)) //create the folder if it's not already exists
 					   {
@@ -106,6 +102,9 @@ class Users extends CI_Controller {
                     
                     //load success view page
                     //tell them to follow the link or check their email to activate their account
+                    $this->validateLogin();
+                    redirect('main/');
+                    
                 } else {
                     $this->session->set_flashdata('RegError', 'There was a problem 
                         creating your account, please try again later');
