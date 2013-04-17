@@ -260,7 +260,7 @@
 			var type = document.getElementById('gmap_type').value;
 			var radius = document.getElementById('gmap_radius_places').value;
 			var keyword = document.getElementById('gmap_keyword').value;
-
+		
 			// prepare request to Places
 			var request = {
 				location: map.getCenter(),

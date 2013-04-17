@@ -7,7 +7,9 @@
   <meta charset="utf-8" />
 
   <!-- Set the viewport width to device width for mobile -->
-  <meta name="viewport" content="width=device-width" />
+  <!--<meta name="viewport" content="width=device-width" />-->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
   <title>Welcome to Socnav Search</title>
   
@@ -29,11 +31,13 @@
 	      html { height: 100% }
 	      body { height: 100%; margin: 0; padding: 0 }
 	      	#gmap_canvas { height: 100% }
+	      	#gmap_canvas img{max-width:none}
 		#wrapper { height: 20%; clear: both;}
 		#placesUI { width: 49%; float: left; border-style:solid; border-width:1px }
 		#peopleUI { width: 49%; float: right; border-style:solid; border-width:1px }
 		#places_label { font-size: 24pt }
 		#people_label { font-size: 24pt }
+		
 </style>
 	
 	
@@ -42,7 +46,7 @@
 <body>
 <div class="container">	
 	<ul class="breadcrumbs">
-	  <li><a href="#">Home</a></li>
+	  <li><a href="main">Home</a></li>
 	  <li class="current"><a href="#">Search</a></li>
 	</ul>
 </div>
@@ -96,7 +100,7 @@
 		var map;
 		var latit;
 		var longit;
-		var baseUrl = "http://138.251.249.115:8080/";
+		var baseUrl = "http://138.251.250.251:8080/";
 		var watchProcess;
 
 		var geocoder = new google.maps.Geocoder();
@@ -207,14 +211,17 @@
 		// Performs a JSON request when the "Search" button for searching nearby people is clicked,
 		// the 2nd parameter is the user's location (lat, long and radius) and the 
 		// callback function handles the results, displaying them in a list.
-		$("#get_json").click(function() {
-			
+	
+		function findPeople() {
 			// clear the field from old markers and direction routes.	
 			clearOverlays();
 			directionsDisplay.setMap(null);
 
 			// Get the radius for searching nearby users from the UI.
 			var people_radius = document.getElementById("gmap_radius_people").value;
+			
+			alert(people_radius);
+			
 			$.getJSON("/socnav/index.php/nearbyusers", { latitude:latit, longitude:longit, radius: people_radius }, function(userlist) 
 			{
 				// pass data to create each user marker
@@ -222,7 +229,7 @@
 				    	createPersonMarker(userlist[i]);
 				}
 			});
-		});
+		}
 
 		// Create a single marker for a person that was found nearby.
 		function createPersonMarker(user) {
@@ -257,8 +264,6 @@
 		// find custom places function. NOTE: Although radius is used, it is not used since textSearch() is used.
 		function findPlaces() {
 			
-			alert(document.getElementById('gmap_radius_places').value);
-
 			// prepare variables (filter)
 			var type = document.getElementById('gmap_type').value;
 			var radius = document.getElementById('gmap_radius_places').value;
@@ -277,6 +282,7 @@
 			// send request
 			service = new google.maps.places.PlacesService(map);
 			service.textSearch(request, createMarkersForPlaces);
+			
 		}
 
 
@@ -284,6 +290,7 @@
 		function createMarkersForPlaces(results, status) {
 
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				
 				placeResults = results;
 				// if we have found something - clear map (overlays)
 				// clear the field from old markers and direction routes.

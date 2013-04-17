@@ -112,21 +112,16 @@
 			 		 <fieldset>
 			 		 	<legend>Search for People</legend>
 						<div class="two columns">
-					 		 <label for="customDropdown">Within ?</label>
- 								  <div class="custom dropdown">
-								    <a href="#" class="current">
-								      Range
-								    </a>
-								    <a href="#" class="selector"></a>
-								    <ul>
-								      <li>500</li>
-								      <li>1000</li>
-								      <li>1500</li>
-								      <li>5000</li>
-								    </ul>
-								  </div>
-								  
-							 <a class="radius button" href="#">Search</a>
+					 		 <label for="gmap_radius_people">Within ?</label>
+ 								 <select class="support attribute" style="display:none;" id="gmap_radius_people">
+   								 <option SELECTED>Range</option>
+								    <option class="support tag" value="500">500</option>
+								    <option value="1000">1000</option>
+								    <option value="1500">1500</option>
+								    <option value="5000">5000</option>
+								 </select>
+							 <!--a class="radius button" onclick="findPlaces(); return false;" href="#">Search</a>-->
+							 <input type="submit" class="radius button" onclick="findPeople(); return false;" value="Search">
 					      
 					  	</div>
 					  	
@@ -142,49 +137,38 @@
     				 <legend>Search for Places</legend>
 						<div class="two columns">
 					 		 <label for="gmap_radius_places">Within ?</label>
- 								 
- 								 
- 								  <!--<div class="custom dropdown" id="gmap_radius_places">
-								    <a href="#" class="current" >
-								      Range
-								    </a>
-								    <a href="#" class="selector"></a>
-								    <ul>
-								      <li>500</li>
-								      <li>1000</li>
-								      <li>1500</li>
-								      <li>5000</li>
-								    </ul>
-								  </div>-->
-								  
+ 								 <select class="support attribute" style="display:none;" id="gmap_radius_places">
+   								 <option SELECTED>Range</option>
+								    <option class="support tag" value="500">500</option>
+								    <option value="1000">1000</option>
+								    <option value="1500">1500</option>
+								    <option value="5000">5000</option>
+								 </select>
 							 <!--a class="radius button" onclick="findPlaces(); return false;" href="#">Search</a>-->
+							 
 							 <input type="submit" class="radius button" onclick="findPlaces(); return false;" value="Search">
 					      
 					  	</div>
 					  	<div class="two columns">
 					  		 <label for="gmap_type">Category</label>
- 								  <div class="custom dropdown">
-								    <a href="#" class="current">
-								      Category
-								    </a>
-								    <a href="#" class="selector" id="gmap_type"></a>
-								    <ul>
-								      <li>ATM</li>
-								      <li>Bank</li>
-								      <li>Bar</li>
-								      <li>Restarant</li>
-								      <li>Bus Station</li>
-								      <li>Cafe</li>
-								      <li>Hospital</li>
-								      <li>Police</li>
-								      <li>Store</li>
-								    </ul>
-								  </div>
+ 								<select class="support attribute" style="display:none;" id="gmap_type">
+   								 <option SELECTED>Category</option>
+								    <option class="support tag">Bank</option>
+								    <option value="bar">Bar</option>
+								    <option value="food">Food</option>
+								    <option value="hospital">Hospital</option>
+								    <option value="police">Police</option>
+								    <option value="cafe">Cafe</option>
+								    <option value="store">Store</option>
+								    <option value="atm">ATM</option>
+								    <option value="art_gallery">Art Gallery</option>
+								    <option>Club</option>
+								 </select>
 					  	</div>
 					  	
 					  	<div class="two columns">
-					 	 	 <label for="customDropdown">Keyword</label>
- 								<input type="text" placeholder="Where is on your mind ?" />
+					 	 	 <label for="gmap_keyword">Keyword</label>
+ 								<input id="gmap_keyword" type="text" placeholder="Where is on your mind ?" />
 					  	</div>
 					  	
 					  	<div class="six columns">
