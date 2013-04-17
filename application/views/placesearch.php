@@ -110,7 +110,7 @@
 		var userInfowindow;
 		var userMarker;
 
-		var placeAddressList = Array();
+	//	var placeAddressList = Array();
 
 		// This is the initialization function that is called when the window loads.
 		function getLocation_and_showMap() {
@@ -206,37 +206,30 @@
 		// the 2nd parameter is the user's location (lat, long and radius) and the 
 		// callback function handles the results, displaying them in a list.
 		$("#get_json").click(function() {
+			
+			// clear the field from old markers and direction routes.	
+			clearOverlays();
+			directionsDisplay.setMap(null);
 
 			// Get the radius for searching nearby users from the UI.
 			var people_radius = document.getElementById("gmap_radius_people").value;
-			$.getJSON("/socnav/index.php/nearbyusers", { latitude:latit, longitude:longit, radius: people_radius }, function(data) 
+			$.getJSON("/socnav/index.php/nearbyusers", { latitude:latit, longitude:longit, radius: people_radius }, function(userlist) 
 			{
-				var lats = data.latitudes;
-				var longs = data.longitudes;
-				if (lats != 'empty' || longs != 'empty') {
-				// if we have found something - clear map (overlays)
-				clearOverlays();
-
-				// populate arrays from json data
-				$.each(lats, function(key, val) {
-				    		createPersonMarker(key, lats[key], longs[key]);
-				  });
-				}
-				else
-				{
-					alert('Sorry, nothing is found');
+				// pass data to create each user marker
+				for(var i=0; i < userlist.length; i++) {
+				    	createPersonMarker(userlist[i]);
 				}
 			});
 		});
 
 		// Create a single marker for a person that was found nearby.
-		function createPersonMarker(key, latit, longit) {
-			newuserlocation = new google.maps.LatLng(latit, longit);
+		function createPersonMarker(user) {
+			newuserlocation = new google.maps.LatLng(user.latitude, user.longitude);
 			// prepare new Marker object
 			var mark = new google.maps.Marker({
 				position: newuserlocation,
 				map: map,
-				title: key
+				title: user.firstname
 			});
 
 			// Use a green colored marker for nearby people
@@ -246,8 +239,8 @@
 
 			// prepare info window
 			var infowindow = new google.maps.InfoWindow({
-				content: '<p style="font-weight:bold" >userid: '+key+', long: '+ longit +', lat: '+latit
-				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
+				content: '<p style="font-weight:bold" >first name: '+user.firstname+'<br/> last name: '+user.lastname+'<br/> email: '+user.email+'<br/> longit: '+ user.longitude +'<br/> latit: '+user.latitude
+				+ '<br/><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
 			});
 
 			// add event handler to current marker
@@ -287,7 +280,9 @@
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				placeResults = results;
 				// if we have found something - clear map (overlays)
+				// clear the field from old markers and direction routes.
 				clearOverlays();
+				directionsDisplay.setMap(null);
 				
 				// and create new markers by search result
 				for (var i = 0; i < placeResults.length; i++) {
@@ -369,6 +364,7 @@
 
 			directionsService.route(request, function(response, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setMap(map);
 					directionsDisplay.setDirections(response);
 				}
 			});

@@ -27,10 +27,6 @@ class Socnav extends CI_Controller {
 		$this->load->view('placesearch');
 	}
 
-	private $userIdList;
-	private $userLongList;
-	private $userLatList;
-
 	// THe user sent his location, so we update it on the db.
 	public function updateuserlocation() {
 		$latit = $_GET['latitude'];
@@ -40,7 +36,7 @@ class Socnav extends CI_Controller {
 		if($is_logged_in) 
 		{
 			$userID = $this->session->userdata('userid');
-			$status = $this->user->updateUserLocation($userID, $latit, $longit);
+			$this->user->updateUserLocation($userID, $latit, $longit);
 			
 			echo 0; // everything ok.
 		}
@@ -50,74 +46,71 @@ class Socnav extends CI_Controller {
 		}
 	}
 
-	// Added by Nick
+	private $userIdList;
+	private $userLongList;
+	private $userLatList;
+
+
+	// Gets logged in users from the DB, calculates distances from the current user
+	// and sends back the data of nearby users in a json object to the client
 	public function nearbyusers()
 	{
 		$latit = $_GET['latitude'];
 		$longit = $_GET['longitude'];
 		$radius = $_GET['radius'];
 
-		// ============= TEST DATA ================
-		// Test locations around st andrews
+		$is_logged_in = $this->session->userdata('is_logged_in');
+		if($is_logged_in) 
+		{
+			$currentUserID = $this->session->userdata('userid');
+			$results = $this->user->getOnlineUsersAndLocations();
+			
+			// populate the array of arrays of user details.
+			$allUsersData = array();
+			foreach($results->result() as $row) {
+				// We don't want to add ourselves (the current user) to the list of nearby people
+				if($row->userid != $currentUserID) {
+					$allUsersData[] = array(
+						'userid' => $row->userid,
+						'email' => $row->email,
+						'lastname' => $row->lastname,
+						'firstname' => $row->firstname,
+						'longitude' => $row->longitude,
+						'latitude' => $row->latitude
+					);
+				}
+			}
+			
+			// find those who are nearby and populate the array of arrays to send to the user
+			$nearbyUsersData = array();
+			foreach($allUsersData as $userRow) {
+				// Calculate the distance between the client that did the request and each of them.
+				$distance = $this->haversineGreatCircleDistance($latit, $longit, $userRow['latitude'], $userRow['longitude']);
 
-		// User a bit further (still within 500m radius)
-		$userLongList['userid70'] = -2.808166;
-		$userLatList['userid70'] = 56.338242;
+				// If the particular user is within the radius of our client, add his coords in the temp arrays.
+				if($distance <= $radius) 
+				{
+					    $nearbyUsersData[] = array(
+						'userid' => $userRow['userid'],
+						'email' => $userRow['email'],
+						'lastname' => $userRow['lastname'],
+						'firstname' => $userRow['firstname'],
+						'longitude' => $userRow['longitude'],
+						'latitude' => $userRow['latitude']
+					    );
+				}
+			}
 
-		// User a bit further (not within 500m radius)
-		$userLongList['userid80'] = -2.816319;
-		$userLatList['userid80'] = 56.336672;
-
-		// User a bit further (not within 500m radius)
-		$userLongList['userid90'] = -2.779799;
-		$userLatList['userid90'] = 56.335953;
-
-		// User a bit further (not within 500m radius)
-		$userLongList['userid100'] = -2.844086;
-		$userLatList['userid100'] = 56.360686;
-
-		// User a bit further (not within 500m radius)
-		$userLongList['userid220'] = -2.825332;
-		$userLatList['userid220'] = 56.337528;
-
-		// User a bit further (not within 500m radius)
-		$userLongList['userid330'] = -2.875457;
-		$userLatList['userid330'] = 56.341857;
-		//============================================
-
-		$latOfNearbyUsers; // temp associative array used to store of the lat of nearby users in the form of 'userid':'lat'
-		$longOfNearbyUsers; // temp associative array used to store of the long of nearby users in the form of 'userid':'long'
-		$coordsOfNearbyUsers; // master-array that includes the 2 arrays listed above ^ .
-	
-		// Parse through all the locations of logged users
-		foreach($userLongList as $keyid => $longValue) {
-			// Calculate the distance between the client that did the request and each of them.
-			$distance = $this->haversineGreatCircleDistance($latit, $longit, $userLatList[$keyid], $longValue);
-
-			// If the particular user is within the radius of our client, add his coords in the temp arrays.
-			if($distance <= $radius) 
-			{
-				$latOfNearbyUsers[$keyid] = $userLatList[$keyid];
-				$longOfNearbyUsers[$keyid] = $longValue;
+			// Send the data of all nearby users to the client...
+			if(!empty($nearbyUsersData)) {
+				echo json_encode($nearbyUsersData);
 			}
 		}
-
-		// If we do have some users nearby
-		if(!empty($latOfNearbyUsers) && !empty($longOfNearbyUsers))
-		{	
-			// Add the lists to the master-array to be parsed at the client-side.
-			$coordsOfNearbyUsers['longitudes'] = $longOfNearbyUsers;
-			$coordsOfNearbyUsers['latitudes'] = $latOfNearbyUsers;
-		}
-		else
-		{	
-			// Put the string 'empty' in them for it to be checked at the client-side.
-			$coordsOfNearbyUsers['longitudes'] = 'empty';
-			$coordsOfNearbyUsers['latitudes'] = 'empty';
-
+		else 
+		{
+			echo -1; // error: the user shouldn't be here...
 		}
 
-		echo json_encode($coordsOfNearbyUsers);
 	}
 
 	/**

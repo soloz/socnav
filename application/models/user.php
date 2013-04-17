@@ -87,25 +87,30 @@ class User extends CI_Model {
         }
     }
 	
+	public function getOnlineUsersAndLocations() {
+		$this->db->where('user.online', TRUE);
+		return $this->db->get('location join user on location.locationid = user.locationid');
+	}
+
 	public function updateUserLocation($userID, $lat, $long) {
 		$data = array(
 		       'location.latitude' => $lat,
 		       'location.longitude' => $long
 		);
 		$this->db->where('user.userid', $userID);
-		return $this->db->update('location join user on location.locationid = user.locationid',$data);
+		$this->db->update('location join user on location.locationid = user.locationid',$data);
 	}
 
 	public function setUserOffline($userID) {
 		$this->db->set('online', FALSE);
 		$this->db->where('userid', $userID);
-		$status = $this->db->update('user');
+		$this->db->update('user');
 	}
 
 	public function setUserOnline($userID) {
 		$this->db->set('online', TRUE);
 		$this->db->where('userid', $userID);
-		$status = $this->db->update('user');
+		$this->db->update('user');
 	}
 
     private function generateUserID() {
