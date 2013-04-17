@@ -141,9 +141,11 @@
     				 <fieldset>
     				 <legend>Search for Places</legend>
 						<div class="two columns">
-					 		 <label for="customDropdown">Within ?</label>
- 								  <div class="custom dropdown">
-								    <a href="#" class="current">
+					 		 <label for="gmap_radius_places">Within ?</label>
+ 								 
+ 								 
+ 								  <!--<div class="custom dropdown" id="gmap_radius_places">
+								    <a href="#" class="current" >
 								      Range
 								    </a>
 								    <a href="#" class="selector"></a>
@@ -153,18 +155,19 @@
 								      <li>1500</li>
 								      <li>5000</li>
 								    </ul>
-								  </div>
+								  </div>-->
 								  
-							 <a class="radius button" href="#">Search</a>
+							 <!--a class="radius button" onclick="findPlaces(); return false;" href="#">Search</a>-->
+							 <input type="submit" class="radius button" onclick="findPlaces(); return false;" value="Search">
 					      
 					  	</div>
 					  	<div class="two columns">
-					  		 <label for="customDropdown">Category</label>
+					  		 <label for="gmap_type">Category</label>
  								  <div class="custom dropdown">
 								    <a href="#" class="current">
 								      Category
 								    </a>
-								    <a href="#" class="selector"></a>
+								    <a href="#" class="selector" id="gmap_type"></a>
 								    <ul>
 								      <li>ATM</li>
 								      <li>Bank</li>

@@ -180,9 +180,9 @@ class Users extends CI_Controller {
 
        $config['upload_path'] = './uploads/users/'.$this->session->userdata('username');
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
+		$config['max_size']	= '1000';
 		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
+		$config['max_height']  = '1024';
 
 		$this->load->library('upload', $config);
 		$this->upload->initialize($config);

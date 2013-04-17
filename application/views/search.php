@@ -38,6 +38,8 @@
 	
 	
 </head>
+
+<body>
 <div class="container">	
 	<ul class="breadcrumbs">
 	  <li><a href="#">Home</a></li>
@@ -254,6 +256,8 @@
 
 		// find custom places function. NOTE: Although radius is used, it is not used since textSearch() is used.
 		function findPlaces() {
+			
+			alert(document.getElementById('gmap_radius_places').value);
 
 			// prepare variables (filter)
 			var type = document.getElementById('gmap_type').value;
