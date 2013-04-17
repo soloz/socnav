@@ -107,21 +107,27 @@
 		
 			 <ul class="tabs-content">
 			 	 <li class="active" id="peopleTab">
+			 	 
 			 	 <form class="custom">
 			 		 <fieldset>
+			 		 	<legend>Search for People</legend>
 						<div class="two columns">
-					      <label for="checkbox1"><input type="checkbox" id="checkbox1" style="display: none;"><span class="custom checkbox"></span> Label for Checkbox</label>
-					      <label for="checkbox2"><input type="checkbox" id="checkbox2" checked style="display: none;"><span class="custom checkbox checked"></span> Label for Checkbox</label>
-					      <label for="checkbox3"><input type="checkbox" CHECKED id="checkbox3"> Label for Checkbox</label>
-					  	</div>
-					  	<div class="two columns">
-					      <label for="checkbox1"><input type="checkbox" id="checkbox1" style="display: none;"><span class="custom checkbox"></span> Male</label>
-					      <label for="checkbox2"><input type="checkbox" id="checkbox2" checked style="display: none;"><span class="custom checkbox checked"></span> Female</label>
-					      <label for="checkbox3"><input type="checkbox" CHECKED id="checkbox3"> Student</label>
+					 		 <label for="customDropdown">Within ?</label>
+ 								  <div class="custom dropdown">
+								    <a href="#" class="current">
+								      Range
+								    </a>
+								    <a href="#" class="selector"></a>
+								    <ul>
+								      <li>500</li>
+								      <li>1000</li>
+								      <li>1500</li>
+								      <li>5000</li>
+								    </ul>
+								  </div>
+								  
+							 <a class="radius button" href="#">Search</a>
 					      
-					  	</div>
-					  	<div class="two columns">
-					  		<a class="radius button" href="#">Search</a>
 					  	</div>
 					  	
 					  	<div class="six columns">
@@ -133,13 +139,49 @@
 				  <li id="placesTab">
 				  	 <form class="custom">
     				 <fieldset>
-						<div class="four columns">
-					      <label for="checkbox1"><input type="checkbox" id="checkbox1" style="display: none;"><span class="custom checkbox"></span> Label for Checkbox</label>
-					      <label for="checkbox2"><input type="checkbox" id="checkbox2" checked style="display: none;"><span class="custom checkbox checked"></span> Label for Checkbox</label>
-					      <label for="checkbox3"><input type="checkbox" CHECKED id="checkbox3"> Label for Checkbox</label>
+    				 <legend>Search for Places</legend>
+						<div class="two columns">
+					 		 <label for="customDropdown">Within ?</label>
+ 								  <div class="custom dropdown">
+								    <a href="#" class="current">
+								      Range
+								    </a>
+								    <a href="#" class="selector"></a>
+								    <ul>
+								      <li>500</li>
+								      <li>1000</li>
+								      <li>1500</li>
+								      <li>5000</li>
+								    </ul>
+								  </div>
+								  
+							 <a class="radius button" href="#">Search</a>
+					      
 					  	</div>
 					  	<div class="two columns">
-					  		<a class="radius button" href="#">Search</a>
+					  		 <label for="customDropdown">Category</label>
+ 								  <div class="custom dropdown">
+								    <a href="#" class="current">
+								      Category
+								    </a>
+								    <a href="#" class="selector"></a>
+								    <ul>
+								      <li>ATM</li>
+								      <li>Bank</li>
+								      <li>Bar</li>
+								      <li>Restarant</li>
+								      <li>Bus Station</li>
+								      <li>Cafe</li>
+								      <li>Hospital</li>
+								      <li>Police</li>
+								      <li>Store</li>
+								    </ul>
+								  </div>
+					  	</div>
+					  	
+					  	<div class="two columns">
+					 	 	 <label for="customDropdown">Keyword</label>
+ 								<input type="text" placeholder="Where is on your mind ?" />
 					  	</div>
 					  	
 					  	<div class="six columns">

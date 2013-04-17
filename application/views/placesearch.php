@@ -7,6 +7,7 @@
     	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&key=AIzaSyCcFgjjow3Zqtk4j38D900zae0WnlvGu24"></script>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
 	<style type="text/css">
 	      html { height: 100% }
 	      body { height: 100%; margin: 0; padding: 0 }
