@@ -49,7 +49,8 @@ $route['registeruser'] = "/users/registerUser";
 $route['pictureupload'] = "/users/pictureupload";
 
 $route['placesearch'] = "/socnav/placesearch"; //<-- added by Nick
-$route['testjson'] = "/socnav/testjson"; //<-- added by Nick
+$route['nearbyusers'] = "/socnav/nearbyusers"; //<-- added by Nick
+$route['updateuserlocation'] = "/socnav/updateuserlocation"; //<-- added by Nick
 
 //Todo: April 06, 2013
 $route['profile'] = "/users/displayProfile";

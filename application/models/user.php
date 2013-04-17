@@ -21,9 +21,14 @@ class User extends CI_Model {
 
     public function createUser($userdetails = array()) {
 
+	// First create an entry in the location table.
+	$userLocationID = $this->generateLocationID();
+	$this->db->set('locationid', $userLocationID);
+	$this->db->insert('location');
+
         $new_user = array(
             'userid' => $this->generateUserID(),
-            'locationid' => 1,
+            'locationid' => $userLocationID, // Add foreign key to that location table entry for the user.
             'firstname' => $userdetails['firstname'],
             'lastname' => $userdetails['lastname'],
 	    	'username' => $userdetails['username'],
@@ -82,6 +87,32 @@ class User extends CI_Model {
             return false;
         }
     }
+	
+	public function getOnlineUsersAndLocations() {
+		$this->db->where('user.online', TRUE);
+		return $this->db->get('location join user on location.locationid = user.locationid');
+	}
+
+	public function updateUserLocation($userID, $lat, $long) {
+		$data = array(
+		       'location.latitude' => $lat,
+		       'location.longitude' => $long
+		);
+		$this->db->where('user.userid', $userID);
+		$this->db->update('location join user on location.locationid = user.locationid',$data);
+	}
+
+	public function setUserOffline($userID) {
+		$this->db->set('online', FALSE);
+		$this->db->where('userid', $userID);
+		$this->db->update('user');
+	}
+
+	public function setUserOnline($userID) {
+		$this->db->set('online', TRUE);
+		$this->db->where('userid', $userID);
+		$this->db->update('user');
+	}
 
 public function getPhotoUrl($userid){
 	 $this->db->where('userid', $userid);
