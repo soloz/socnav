@@ -25,22 +25,19 @@
   
 </head>
 
-
 <body>
 
   <div class="container top-bar home-border">
     <div class="attached">
       <div class="name" onclick="void(0);">
-        <span><a href="#">Soc Nav </a> <a href="#" class="toggle-nav"></a></span>
-             </div>
+        <span><a href="main">Home </a> <a href="#" class="toggle-nav"></a></span>
+      </div>
 
                 <ul class="right">  
-                        <li>
+                       <li>
                           <a href="search">Search</a>
-                        </li> 
-                        <li>
-                          <a href="">Reviews</a>
                         </li>
+                        
                         <li>
                           <a href="">Latest</a>
                         </li>
@@ -50,7 +47,7 @@
                        		 $is_logged_in = $this->session->userdata('is_logged_in');
 		                        if ($is_logged_in == true) {
 		                	        	echo	"My Profile</a></li>";
-		                   					
+		                   			
 		       					} else {
 		       					    	echo "Sign Up</a></li>";
 		       					}
@@ -68,36 +65,14 @@
        					}
        					?>
                 </ul>
+                
         	</div>
      </div>
-	<div class="row hide-on-phones">
-              <dl class="sub-nav">
-          	  	<dd><a href="main">Home</a></dd>
-		 		 <dd class="active"><a href="#people">People</a></dd>
-				 <dd><a href="#places">Places</a></dd>
-			 </dl>
-		
-			 <ul class="tabs-content">
-			 	 <li class="active" id="peopleTab"></li>
-				  <li id="placesTab">
-    
-  		  		</li>
-			 </ul>  
-			</dl>
+     
 
-
-</div>
-
- <?php
-  $megadropfile = 'navigation_bar.html';
-
-  if (file_exists($megadropfile)) {
-      include $megadropfile;
-  }
-  ?>
-
+ <header>
 <div class="container">
-	 <header class="row">
+	
                 <div class="nine columns">
 
                 </div>
@@ -122,6 +97,59 @@
 
 
                 </div>
-
+	</div>
+	
+		<div class="container hide-on-phones">
+              <dl class="tabs">
+		 		 <dd class="active"><a href="#people">People</a></dd>
+				 <dd><a href="#places">Places</a></dd>
+			 </dl>
+		
+			 <ul class="tabs-content">
+			 	 <li class="active" id="peopleTab">
+			 	 <form class="custom">
+			 		 <fieldset>
+						<div class="two columns">
+					      <label for="checkbox1"><input type="checkbox" id="checkbox1" style="display: none;"><span class="custom checkbox"></span> Label for Checkbox</label>
+					      <label for="checkbox2"><input type="checkbox" id="checkbox2" checked style="display: none;"><span class="custom checkbox checked"></span> Label for Checkbox</label>
+					      <label for="checkbox3"><input type="checkbox" CHECKED id="checkbox3"> Label for Checkbox</label>
+					  	</div>
+					  	<div class="two columns">
+					      <label for="checkbox1"><input type="checkbox" id="checkbox1" style="display: none;"><span class="custom checkbox"></span> Male</label>
+					      <label for="checkbox2"><input type="checkbox" id="checkbox2" checked style="display: none;"><span class="custom checkbox checked"></span> Female</label>
+					      <label for="checkbox3"><input type="checkbox" CHECKED id="checkbox3"> Student</label>
+					      
+					  	</div>
+					  	<div class="two columns">
+					  		<a class="radius button" href="#">Search</a>
+					  	</div>
+					  	
+					  	<div class="six columns">
+					     
+					  	</div>
+					</fieldset>
+				</form>
+			</li>
+				  <li id="placesTab">
+				  	 <form class="custom">
+    				 <fieldset>
+						<div class="four columns">
+					      <label for="checkbox1"><input type="checkbox" id="checkbox1" style="display: none;"><span class="custom checkbox"></span> Label for Checkbox</label>
+					      <label for="checkbox2"><input type="checkbox" id="checkbox2" checked style="display: none;"><span class="custom checkbox checked"></span> Label for Checkbox</label>
+					      <label for="checkbox3"><input type="checkbox" CHECKED id="checkbox3"> Label for Checkbox</label>
+					  	</div>
+					  	<div class="two columns">
+					  		<a class="radius button" href="#">Search</a>
+					  	</div>
+					  	
+					  	<div class="six columns">
+					     
+					  	</div>
+					</fieldset>
+				</form>
+  		  	</li>
+			 </ul>  
+	</div>
+	
 
         </header>

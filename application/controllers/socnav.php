@@ -24,14 +24,22 @@ class Socnav extends CI_Controller {
 	// Added by Nick
 	public function placesearch()
 	{
-		$this->load->view('placesearch');
+		
+		$arr = array('a' => 33, 'b' => 22, 'c' => 55, 'd' => 44, 'e' => 66);
+		$data['ajax_request'] = TRUE;
+		$data['json'] = $arr;
+		$this->load->view('placesearch', $data);
+		
 	}
 
 	// Added by Nick
 	public function testjson()
 	{
-		$arr = array('a' => 33, 'b' => 22, 'c' => 55, 'd' => 44, 'e' => 66);
-		return json_encode($arr);
+		$arr = array('a' => 3, 'b' => 2, 'c' => 5, 'd' => 4, 'e' => 66);
+		$data['ajax_request'] = TRUE;
+		$data['json'] = $arr;
+		$this->load->view('placesearch', $data);
+		//print json_encode($arr);
 	}
 }
 

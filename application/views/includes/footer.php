@@ -6,15 +6,15 @@
 
 
 <div class="container">
-		<div class="row">
+		
 			<div class="twelve columns">
 				<hr />
-			</div>
-		</div
+		
+		</div>
 </div>
 
 <div class="container hide-on-phones">
-		<div class="row">
+		<div class="container">
 		<div class="four columns">
 		
 		</div>

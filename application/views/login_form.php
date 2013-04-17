@@ -60,12 +60,12 @@
 
 			<?php echo form_close(); ?>
 
-<input type="checkbox" style="float:left; clear:both;" id="reg_checkbox" checked><label id="label" style="float:left" for="reg_checkbox">I agree to receive email newsletters from Ticke</label>
+<input type="checkbox" style="float:left; clear:both;" id="reg_checkbox" checked><label id="label" style="float:left" for="reg_checkbox">I agree to receive email newsletters from Socnav</label>
 
    <div style="float:left; border-radius: 6px; width: 376px; min-height:154px; background-color: #EEEEEE; margin-top: 15px; padding:10px;clear:both;">
 	By creating an account, you agree to the privacy policy below:
 					<div style="overflow:scroll; height:80px;margin-top:5px;margin-bottom:14px;" id="terms_agreements">
-						<p class="c3 c2"><span></span></p><h6 class="c2"><span>Maintaining your privacy</span></b><p class="c2"><span class="c1">Tickets Pty Ltd owns and operates this website &lsquo;</span><span class="c1 c11">Lasttix.com.au</span><span class="c1">&rsquo;. We have created this Privacy Policy to demonstrate our commitment to maintaining the privacy and accuracy of your personal information. We take all reasonable precautions to ensure the personal information we collect, use and disclose is accurate and current. However, the accuracy of that information depends largely on the information you provide.<br></span></p>
+						<p class="c3 c2"><span></span></p><h6 class="c2"><span>Maintaining your privacy</span></b><p class="c2"><span class="c1">Socnav owns and operates this website &lsquo;</span><span class="c1 c11">socnav.cs.st-andrews.ac.uk</span><span class="c1">&rsquo;. We have created this Privacy Policy to demonstrate our commitment to maintaining the privacy and accuracy of your personal information. We take all reasonable precautions to ensure the personal information we collect, use and disclose is accurate and current. However, the accuracy of that information depends largely on the information you provide.<br></span></p>
 					</div>
 	</div>
 	

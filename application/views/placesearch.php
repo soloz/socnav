@@ -6,7 +6,8 @@
     <title>Soc Nav - Place Search</title>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&key=AIzaSyCcFgjjow3Zqtk4j38D900zae0WnlvGu24"></script>
-<script src="zurbs3/javascripts/jquery.js"></script>
+
+<script src="javascripts/jquery.min.js"></script>
 	<style type="text/css">
 		
       html { height: 100% }
@@ -47,7 +48,7 @@
 			</select></td>
 		</tr>
 		<tr>
-			<td><input type="submit" onclick="getjson();" value="get json"></td>
+			<td><input type="submit" onclick="getjson(); return false;" value="get json"></td>
 		<tr>
 			<td><input type="submit" onclick="findPlaces(); return false;" value="Search"></td>
 		<!--	<td><input type="button" id="btn" onclick="showAddresses()" name="show_address_list" value="show address list" /></td> -->
@@ -59,12 +60,14 @@
     </section>
 		<!--	<textarea id="mytextarea"rows="15" cols="100">   -->
 			</textarea>
+		
   </body>
+  
 <script>
 		var map;
 		var latit;
 		var longit;
-
+		var baseUrl = "http://138.251.249.115:8080/";
 		var watchProcess;
 		
 		var geocoder = new google.maps.Geocoder();
@@ -82,22 +85,6 @@
 		var userMarker;
 
 		var placeAddressList = Array();
-
-		function getjson() {
-//alert('kwgjw');
-			$.getJSON('/testjson', function(data) {
-			  var items = [];
-			 alert('kwgjw');
-			  $.each(data, function(key, val) {
-			    items.push('<li id="' + key + '">' + val + '</li>');
-			  });
-			 
-			  $('<ul/>', {
-			    'class': 'my-new-list',
-			    html: items.join('')
-			  }).appendTo('body');
-			});
-		}
 
 		function getLocation_and_showMap() {
 			// Check if geolocation is supported on the browser and get the location
@@ -191,58 +178,7 @@
 			service = new google.maps.places.PlacesService(map);
 			service.textSearch(request, createMarkers);
 		}
-/*
-----------------------------------------------------------------------------------------------
-//This commented code is an attempt to use geocode for finding the place's addresses and showing them,
-in order for later to store them once in the db for access.
-----------------------------------------------------------------------------------------------
 
-		// find nearby places function
-		function findNearbyPlaces() {
-			// prepare request to Places
-			var request = {
-				location: map.getCenter(),
-				radius: 500
-			};
-
-			// send request
-			service = new google.maps.places.PlacesService(map);
-			service.nearbySearch(request, doPlacesGeocoding);
-		}
-
-		function placeGeocode(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				for (var i = 0; i < results.length; i++) {
-					if(isValidPostcode(results[i].formatted_address))
-					{
-						placeAddressList.push(results[i].formatted_address);
-						break;
-					}
-					else
-					{
-						placeAddressList.push(results[0].formatted_address);
-					}
-				}
-			}
-		}
-
-		function doPlacesGeocoding(results, status) {
-			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				// and create new markers by search result
-				for (var i = 0; i < results.length; i++) {
-					geocoder.geocode({ 'latLng': results[i].geometry.location }, placeGeocode);
-				}
-			} else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-				alert('Sorry, nothing is found');
-			}
-		}
-
-		function showAddresses() {
-			for (i in placeAddressList) {
-				document.getElementById('mytextarea').innerHTML += placeAddressList[i];
-			}
-		}
-*/
 
 		// create markers (from 'findPlaces' function)
 		function createMarkers(results, status) {
@@ -351,6 +287,6 @@ in order for later to store them once in the db for access.
 
 		// The function is automatically run after loading the window.
 		google.maps.event.addDomListener(window, 'load', getLocation_and_showMap);
-
+ 
 </script>
 </html>

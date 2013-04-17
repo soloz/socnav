@@ -67,11 +67,9 @@
              </div>
 
                 <ul class="right">  
+                     
                         <li>
-                          <a href="search">People</a>
-                        </li> 
-                        <li>
-                          <a href="search">Places</a>
+                          <a href="search">Search</a>
                         </li>
                         <li>
                           <a href="">Reviews</a>
@@ -104,10 +102,6 @@
                 </ul>
         	</div>
      </div>
-	<div class="row hide-on-phones">
-            <a href="index.php" class="back two columns hide-on-phones">&larr; Home</a>
-
-</div>
 
  <?php
   $megadropfile = 'navigation_bar.html';
@@ -139,10 +133,8 @@
                     		echo anchor('/signup', 'Sign Up', array('class' => 'decorate'));
                 	}
                 		
-                ?>
-
-
-                </div>
+               	 ?>
+			    </div>
 
 
         </header>

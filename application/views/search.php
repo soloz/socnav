@@ -9,7 +9,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 
-  <title>Welcome to Foundation</title>
+  <title>Welcome to Socnav Search</title>
   
   <!-- Included CSS Files (Uncompressed) -->
   <!--
@@ -20,162 +20,34 @@
   <link rel="stylesheet" href="stylesheets/foundation.min.css">
   <link rel="stylesheet" href="stylesheets/app.css">
 
-  <script src="javascripts/modernizr.foundation.js"></script>
-  
-</script>
-
+<script src="javascripts/modernizr.foundation.js"></script>  
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>	
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&key=AIzaSyCcFgjjow3Zqtk4j38D900zae0WnlvGu24"></script>
-    </script>
-    
-    
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
-        var map = new google.maps.Map(document.getElementById("map-canvas2"),
-        mapOptions);
-        var map = new google.maps.Map(document.getElementById("map-canvas3"),
-        mapOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-    
+ 
+<style type="text/css">	
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      	#gmap_canvas { height: 100% }
+</style>
     
 </head>
-
-
-<body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-</script>
-
-    
- <div class="row">
-
-  <div class="two columns">
-      <h3>SocNav</h3>
-  </div>
+<div class="container">	
+	<ul class="breadcrumbs">
+	  <li><a href="#">Home</a></li>
+	  <li class="current"><a href="#">Search</a></li>
+	</ul>
 </div>
 
-<hr/>
-
- <div class="row">
-
-  <div class="four columns">
-  
-    <div class="panel">
-		<h4> Your Location</h4>
-	</div>
-  
-  	<div class="panel">
-		<h4><div class="panel" id="map-canvas3"/></h4>
-	</div>
-	
-  </div>
-  
+ <div class="container">
+ 
   <div class="eight columns">
-  
-   <ul class="accordion">  
-  		<li>
-		    <div class="title">
-		      	<h5>Location 1</h5>
-		      	<p> Some Information about location 1</p>
-		      	</div>
-		    <div class="content">
-		     	 <dl class="tabs pill">
-  					<dd class="active"><a href="#summary">Summary</a></dd>
-					  <dd><a href="#direction">Map and Direction</a></dd>
-					  <dd class="hide-for-small"><a href="#comments">Comments</a></dd>
-					</dl>
-					<ul class="tabs-content">
-					  	<li class="active" id="summaryTab">Summary about location 1</li>
-						<li id="directionTab"><div class="panel" id="map-canvas"/></li>
-						<li id="commentsTab">
-							<form>
- 								 <fieldset>
-								  <legend>Add Comment</legend>
-								    <label>Comment</label>
-								    <input type="text" />
-								    <input type="button" class="button" value="Post" />
-								
-								  </fieldset>
-							</form>
-						</li>
-					</ul>
-		    </div>
-		  </li>
-	</ul>
-  
-   <ul class="accordion">  
-  		<li>
-	   		<div class="title">
-		    		 <a href=""> <b>Chinese Restaurant 2</b></a>
-					<p>Lorem ipsum dolor <a href> sit amet</a> Some information about Chinese Restaurant .</p>
-				   
-				    <div class="row">
-				    <div class="nine columns">
-				    </div>
-				    <div class="two columns">
-				  		<a href="http://twitter.com/socnav" class="twitter-follow-button" data-show-count="false">Share on twitter</a>
-						<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script></p>
-					</div>
-					 <div class="one columns">
-						<!--div class="fb-like" data-send="false" data-width="450" data-show-faces="true"></div>-->
-					</div>
-					</div>
-					
-		    </div>    
-		    
-		    <div class="content">
-		     	<dl class="tabs pill">
-  					<dd class="active"><a href="#summary2">Summary</a></dd>
-					  <dd><a href="#direction2">Map and Direction</a></dd>
-					  <dd class="hide-for-small"><a href="#comments2">Comments</a></dd>
-					</dl>
-					<ul class="tabs-content">
-					  	<li class="active" id="summary2Tab">Summary about location 2</li>
-						<li id="direction2Tab"><div class="panel" id="map-canvas2"/></li>
-						<li id="comments2Tab">
-							<form>
- 								 <fieldset>
-								  <legend>Add Comment</legend>
-								    <label>Comment</label>
-								    <input type="text" />
-								    <input type="button" class="button" value="Post" />
-								
-								  </fieldset>
-							</form>
-						</li>
-					</ul>
-			</div>
-	  	 	</li>
-  		</ul>
-  
-   <ul class="accordion">  
-  		<li>
-		    <div class="title">
-		      <b>Location 3</b>
-		      <p> Some Information about Location 3</p>
-		      </div>
-	    	<div class="content">
-		      Noting. That's all.
-		    </div>
-		</li>
-	</ul>
+  	<div id="gmap_canvas"></div>
   </div>
-    
+  
+  <div class="four columns">
+ 	<div class="panel"> <h5>Details</h5></div>
+  </div>  
+  
  </div>
 
   
@@ -207,13 +79,233 @@
   
   <!-- Initialize JS Plugins -->
   <script src="javascripts/app.js"></script>
+  
 
-  
-    <script>
-    $(window).load(function(){
-      $("#featured").orbit();
-    });
-    </script> 
-  
 </body>
+ 
+<script>
+		var map;
+		var latit;
+		var longit;
+		var baseUrl = "http://138.251.249.115:8080/";
+		var watchProcess;
+		
+		var geocoder = new google.maps.Geocoder();
+		var directionsService = new google.maps.DirectionsService();
+		var directionsDisplay = new google.maps.DirectionsRenderer();
+		
+		var markers = Array();
+		var infos = Array();
+		
+		var clickedMarkerPosition; // Stores the LatLng object of the last-clicked marker by the user
+		var placeResults; // Array that stores the results of the latest place search
+		var userAddress; // The user's address based on geocoding
+		var userLocation;
+		var userInfowindow;
+		var userMarker;
+
+		var placeAddressList = Array();
+
+		function getLocation_and_showMap() {
+			// Check if geolocation is supported on the browser and get the location
+			if (navigator.geolocation) {
+				//Start monitoring user's position
+				if (watchProcess == null) {  
+					watchProcess = navigator.geolocation.watchPosition(createMap, handle_errors);  
+				}  
+			} else {
+				error('Geo Location is not supported');
+			}
+
+			// Create the map based on location
+			function createMap(position) {
+				latit = position.coords.latitude;
+				longit = position.coords.longitude;
+
+				userLocation = new google.maps.LatLng(latit, longit);
+				
+				// Create an object with map options (includes the latitude and longitude 
+				// taken from the geolocation request).
+				var mapOptions = {
+				  center: userLocation,
+				  zoom: 14,
+				  mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+
+				// Create and show the map on a certain div using the above options
+				map = new google.maps.Map(document.getElementById("gmap_canvas"), mapOptions);
+
+				// Add marker to the center of map.
+				userMarker = new google.maps.Marker({
+					position: map.getCenter(),
+					map: map,
+					title: 'You are here!'
+				}); 
+
+				  // Use a blue colored marker.
+				  userMarker.setIcon('http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png');
+
+				  directionsDisplay.setMap(map);
+				  directionsDisplay.setPanel(document.getElementById('directions_panel'));
+
+				// Getting the user's address with geocoding
+				geocoder.geocode({ 'latLng': userLocation }, userGeocode);
+			}
+		}
+
+		
+		function userGeocode(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				for (var i = 0; i < results.length; i++) {
+					if(isValidPostcode(results[i].formatted_address))
+					{
+						userAddress = results[i].formatted_address;
+						break;
+					}
+					else
+					{
+						userAddress = results[0].formatted_address;
+					}
+				}
+				// Create info window
+				infowindow = new google.maps.InfoWindow({
+					content: 'You are at: '+ userAddress,
+					size: new google.maps.Size(10,50)
+				});
+				infowindow.open(map, userMarker);
+			}
+		}
+
+		// find custom places function
+		function findPlaces() {
+
+			// prepare variables (filter)
+			var type = document.getElementById('gmap_type').value;
+			var radius = document.getElementById('gmap_radius').value;
+			var keyword = document.getElementById('gmap_keyword').value;
+
+			// prepare request to Places
+			var request = {
+				location: map.getCenter(),
+				radius: radius,
+				query: type
+			};
+			if (keyword) {
+				request.keyword = [keyword];
+			}
+
+			// send request
+			service = new google.maps.places.PlacesService(map);
+			service.textSearch(request, createMarkers);
+		}
+
+		// create markers (from 'findPlaces' function)
+		function createMarkers(results, status) {
+			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				placeResults = results;
+				// if we have found something - clear map (overlays)
+				clearOverlays();
+				
+				// and create new markers by search result
+				for (var i = 0; i < placeResults.length; i++) {
+					createMarker(placeResults[i]);
+				}
+			} else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+				alert('Sorry, nothing is found');
+			}
+		}
+
+		// creare single marker function
+		function createMarker(obj) {
+
+			// prepare new Marker object
+			var mark = new google.maps.Marker({
+				position: obj.geometry.location,
+				map: map,
+				title: obj.name
+			});
+			markers.push(mark);
+
+			// prepare info window
+			var infowindow = new google.maps.InfoWindow({
+				content: '<img src="' + obj.icon + '" /><font style="color:#000;">' + obj.name +
+				'<br />Rating: ' + obj.rating + '<br />Vicinity: ' + obj.vicinity + '</font>'
+				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To">'
+			});
+
+			// add event handler to current marker
+			google.maps.event.addListener(mark, 'click', function() {
+				clearInfos();
+				clickedMarkerPosition = mark.getPosition();
+				infowindow.open(map,mark);
+			});
+			infos.push(infowindow);
+		}
+
+		function isValidPostcode(p) { 
+			var postcodeRegEx = /([a-zA-Z^([a-zA-Z]){1}([0-9][0-9]|[0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][0-9][0-9]|[a-zA-Z][0-9]){1}([ ])([0-9][a-zA-z][a-zA-z]){1}/; 
+			return postcodeRegEx.test(p);
+		}
+
+		// clear overlays function
+		function clearOverlays() {
+			if (markers) {
+				for (i in markers) {
+					markers[i].setMap(null);
+				}
+				markers = [];
+				infos = [];
+			}
+		}
+
+		// clear infos function
+		function clearInfos() {
+			if (infos) {
+				for (i in infos) {
+					if (infos[i].getMap()) {
+						infos[i].close();
+					}
+				}
+			}
+		}
+
+		function calculateRoute() {
+			var start = userAddress;
+			var destination = clickedMarkerPosition;
+
+			if (start == '') {
+				start = center;
+			}
+
+			var request = {
+				origin: start,
+				destination: destination,
+				travelMode: google.maps.DirectionsTravelMode.DRIVING
+			};
+			directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				}
+			});
+		}
+		
+		function handle_errors(error)  
+		{  
+		    switch(error.code)  
+		    {  
+		        case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
+		        break;  
+		        case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
+		        break;  
+		        case error.TIMEOUT: alert("retrieving position timedout");  
+		        break;  
+		        default: alert("unknown error");  
+		        break;  
+		    }  
+		}
+
+		// The function is automatically run after loading the window.
+		google.maps.event.addDomListener(window, 'load', getLocation_and_showMap);
+ 
+</script>
 </html>

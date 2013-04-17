@@ -13,6 +13,7 @@ class User extends CI_Model {
 
         if ($query->num_rows == 1) {
             return $query->row_array();
+            
         } else {
             return false;
         }
@@ -82,9 +83,47 @@ class User extends CI_Model {
         }
     }
 
-    private function generateUserID() {
-        return rand(99999, 1000000);
+public function getPhotoUrl($userid){
+	 $this->db->where('userid', $userid);
+	 $photo = $this->db->get('userphotogallery');
+	
+	if ($photo->num_rows == 1) {
+            return $photo->row_array();
+            
+    } else {
+            return false;
     }
+        
+}
+
+public function postPhotoUrl($userid, $photourl){
+	
+	 $this->db->where('userid', $userid);
+	 $photo = $this->db->get('userphotogallery');
+	
+	if ($photo->num_rows == 1) {
+			 $data = array(
+            	'photourl' => $photourl,
+            	
+        	 );
+        	$this->db->where('userid', $userid);
+            $status = $this->db->update('userphotogallery', $data);
+            
+    } else {
+       		 $data = array(
+            	'photourl' => $photourl,
+            	'userid' => $userid,
+        	 );
+            $this->db->insert('userphotogallery', $data);
+           
+    }
+        
+}
+
+
+private function generateUserID() {
+    return rand(99999, 1000000);
+}
 
  private function generateLocationID() {
         return rand(99999, 1000000);

@@ -25,113 +25,50 @@
 </head>
 <body>
 
-  <div class="row">
-  
-    <div class="two columns">
-      <h3>SocNav</h3>
-    </div>
-    
-    <label>Search Locations</label>
-
-  	<div class="five columns">
-    <div class="row collapse">
-      <div class="four mobile-one columns">
-        <span class="prefix twelve columns">I'm looking for</span>
-      </div>
-      
-      <div class="eight mobile-three columns">
-        <input type="text" />
-      </div>
-    </div>
-  </div>
-  
-  
- 	<div class="row collapse">
-  		<div class="four mobile-three columns">
-  			 <div class="four mobile-one columns">
-      		  	<span class="prefix twelve columns">In</span>
-     		 </div>
-   			 <div class="eight mobile-three columns">
-        		<input type="text" />
-      		 </div>
-  		</div>
-  	<div class="one mobile-one columns">
-	    <a class="button expand postfix">Search</a>
-	</div>  
-
-  </div>
-
-  <hr />
-  
-  </div>
-
-<div class="row">	
+<div class="container">	
 	<ul class="breadcrumbs">
 	  <li><a href="#">Home</a></li>
 	  <li class="current"><a href="#">My Profile</a></li>
 	</ul>
 </div>
 
-</div>
+<div class="container">	
 
-
-<div class="row">	
-   <div class="four columns">
-   
-      <div class="row">
+   <div class="three columns">
         <div class="twelve columns">
           <div class="panel">
-            <p><a href="#" class="th"><img src="http://placehold.it/350x200"></a></p>
+          
+          <?php
+          
+         		$photourl = $this->session->userdata('photourl');
+				$username = $this->session->userdata('username');
+				
+          ?>
+            <p><a href="#" class="th"><img src="<?php echo base_url(); ?>uploads/users/<?php echo $username; ?>/<?php echo $photourl; ?>"></a></p>
           </div>
-        </div>
-        
-      </div>
-      <div class="row">
+        </div> 
       
       <div class="twelve columns">
           <p><a href="#" data-reveal-id="profileedit" class="expand small button">Edit Profile</a></p>
           <p><a href="#" data-reveal-id="pictureupload" class="expand small button">Edit Picture</a></p>
           <p><a href="#" data-reveal-id="editPreferences" class="expand small button">Edit Preferences</a></p>
       </div>
-        
-      </div>
-      			 <div id="editProfile" class="reveal-modal">
-   				 <h2>Edit Your Profile.</h2>
-				    <p>
-				      Edit your profile here.
-				    </p>
-				    <a class="close-reveal-modal">×</a>
-				  </div>
-				   <div id="" class="reveal-modal">
-   				 <h2>Change Your Picture.</h2>
-				    <p>
-				      Change your Picture here.
-				    </p>
-				    <a class="close-reveal-modal">×</a>
-				  </div>
-				   <div id="editPreferences" class="reveal-modal">
-   				 <h2>Change your preferences here.</h2>
-				    <p>
-				      Change your preferences here
-				    </p>
-				    <a class="close-reveal-modal">×</a>
-				  </div>
-				  
-  
+     
   </div>
   
-  
-    <div class="four columns">
+  <div class="six columns">
       <h3>Solomon</h3>
-
-      
-    </div>
-
-    <div class="four columns">
+   </div>
+ 
+    <div class="three columns">
     
     <div class="row">
-  			</div>
+   
+  	</div>
+  	
 			  <div class="twelve columns">
+			   <h4>Privacy</h4>
+			   
 				<div class="switch tiny round">
 			  	<input id="z" name="switch-z" type="radio" checked>
 			  <label for="z" onclick="">Disable</label>
@@ -142,11 +79,12 @@
 			  <span></span>
 
 	</div>
-
+<br/>
       <h4>Location History</h4>
       <p>We're stoked you want to try Foundation! To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
 
-      <h4>Popular Locations</h4>
+<br/>
+     <h4>Popular Locations</h4>
       <p>Once you've exhausted the fun in this document, you should check out:</p>
       <ul class="disc">
         <li><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</li>
@@ -204,11 +142,10 @@
 
 
 <div id="pictureupload" class="reveal-modal" >
+	<?php $attributes = array('class' => 'nice custom', 'id' => 'pictureupload'); ?>
+    <?php echo form_open_multipart('/pictureupload', $attributes); ?>
 
-    <?php $attributes = array('class' => 'nice custom', 'id' => 'pictureupload'); ?>
-    <?php echo form_open('/pictureupload', $attributes); ?>
-
-	<?php $upload_input_attr = array('name'=>'upload',  'style'=>'width: 286px; height: 40px;'); ?>
+	<?php $upload_input_attr = array('name'=>'userfile', 'type'=>'file', 'size'=>'20','style'=>'width: 286px; height: 40px;'); ?>
 	<?php $upload_button_attr = array('name'=>'create', 'type'=>'submit', 'value' => 'Upload', 'class'=>'nice small radius blue button', 'style'=>'width: 286px; height: 40px;'); ?>
 	
 		<?php echo form_fieldset("Change Your Picture"); ?>
@@ -223,6 +160,10 @@
 
 </div>
 
+<div id="pictureupload" class="reveal-modal">
+
+
+</div>
 
   <!-- Included JS Files (Uncompressed) -->
   <!--

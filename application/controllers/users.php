@@ -16,9 +16,11 @@ class Users extends CI_Controller {
                 $this->login();
             } else {
                 $user = $this->user->validateUser();
+                 $photo = $this->user->getPhotoUrl($user['userid']);
 
-	        if (isset($user) ) { // Todo: Check for user activation by adding && $user['STATUS'] == "ACTIVE") {
+	        if (isset($user)  && isset($photo)  ) { // Todo: Check for user activation by adding && $user['STATUS'] == "ACTIVE") {
                     //if user exists, lets put his detail in the sesssion
+                  
                     $extraSessionData = array(
                         'email' => $user['email'],
                         'username' => $user['username'],
@@ -29,6 +31,7 @@ class Users extends CI_Controller {
                         'gender' => $user['gender'],
                         'password' => $user['password'],
                         'explorationrange' => $user['setrangeofexploration'],
+                        'photourl'=> $photo['photourl'],
                         'is_logged_in' => TRUE
                     );
 
@@ -71,7 +74,7 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('lastname', 'Lastname', 'required');
             $this->form_validation->set_rules('email', 'Email', 'required');
             $this->form_validation->set_rules('username', 'Username', 'required');
-	    $this->form_validation->set_rules('passwd', 'Password', 'required');
+	    	$this->form_validation->set_rules('passwd', 'Password', 'required');
             $this->form_validation->set_rules('passwd2', 'Password', 'required');
 
             if ($this->form_validation->run() == FALSE) {
@@ -83,6 +86,19 @@ class Users extends CI_Controller {
                 $user_id = $this->user->createUser($this->input->post());
                 if ($user_id) {
                     echo "Registration Successful";
+                    
+                    //We want to create a socnav user's directory to store files since they've successfully registered
+                    
+                    $path = "uploads/users/".$this->input->post('username');
+                    
+                    echo "<br/> Successfully created directory ".$path;
+                     
+                     if(!is_dir($path)) //create the folder if it's not already exists
+					   {
+				      		mkdir($path,0755,TRUE);
+				       } 
+	
+                    
                     //load success view page
                     //tell them to follow the link or check their email to activate their account
                 } else {
@@ -154,13 +170,46 @@ class Users extends CI_Controller {
         $data['main_content'] = "login_form"; //body of home page
         $this->load->view('includes/templates.php', $data);
     }
+    
+    //Function for Uploading Files
+    public function pictureupload() {
 
+       $config['upload_path'] = './uploads/users/'.$this->session->userdata('username');
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '100';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		
+		if ( ! $this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+			$this->load->view('upload_error', $error);
+		}
+		else
+		{
+			$upload_data = $this->upload->data();
+			$this->user->postPhotoUrl($this->session->userdata('userid'), $upload_data['file_name']);
+			
+			$this->session->unset_userdata('photourl');
+			 $newSessionData = array(
+                        'photourl' => $upload_data['file_name'],
+              );
+			$this->session->set_userdata($newSessionData);
+			
+			redirect('/profile');
+		}
+	}
+	
+ 
 	//Function for logging out
     public function logout() {
         $this->session->sess_destroy();
         redirect('/login');
     }
-
+    
 }
 
 ?>
