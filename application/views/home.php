@@ -44,7 +44,7 @@
 
 <div id="orbitDemo">
 
-        <img src="<?php echo base_url(); ?>/images/samples/overflow.jpg" alt="Overflow: Hidden No More" />
+        <img src="<?php echo base_url(); ?>/images/people.jpg" alt="people" />
         <img src="<?php echo base_url(); ?>/images/samples/captions.jpg"  alt="HTML Captions" data-caption="#htmlCaption" />
         <img src="<?php echo base_url(); ?>/images/samples/features.jpg" alt="and more features" />
         <div class="content" style="">
