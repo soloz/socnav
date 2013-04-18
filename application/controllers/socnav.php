@@ -140,6 +140,7 @@ class Socnav extends CI_Controller {
 		$googleid = $_GET['googleid'];
 		
 		$query = $this->db->get_where('places', array('google_id' => $googleid));
+		$str = "Whatever";
 		
 		foreach ($query->result() as $row)
 		{	

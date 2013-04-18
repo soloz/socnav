@@ -505,7 +505,7 @@
 		//This function stores places that don't exist in the db
 		function storeplaces(placesrefarr, placesidarr)
 		{
-			$.get("/socnav/index.php/storeplaces", {category: document.getElementById('gmap_type').value, placesrefs: placesrefarr, placesids: placesidarr}, function(data) {
+			$.get("/index.php/storeplaces", {category: document.getElementById('gmap_type').value, placesrefs: placesrefarr, placesids: placesidarr}, function(data) {
 				//do nothing
 			});
 		}
@@ -538,10 +538,13 @@
 		}
 		
 		//Method for inserting comments
-		function insertComment(){			
-			$.get("/socnav/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
+		function insertComment(){		
+				
+			$.get("/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
 				//do nothing
+				alert(data);			
 				document.getElementById('placecomment').value = "";
+			
 				document.getElementById('lblmsg').innerText = data;
 				
 				//Refresh comments
@@ -559,7 +562,7 @@
               }
             }
 			
-			$.get("/socnav/index.php/rateplace", {rating: ratingselected, googleid: placegoogleid}, function(data) {
+			$.get("/index.php/rateplace", {rating: ratingselected, googleid: placegoogleid}, function(data) {
 				//do nothing
 				document.getElementById('lblmsg').innerText = data;
 				
@@ -579,7 +582,7 @@
 		
 		//Method for loading comments from DB
 		function loadCommentsFromDB(){
-			$.getJSON("/socnav/index.php/loadcomments", {googleid: placegoogleid}, function(data) {
+			$.getJSON("/index.php/loadcomments", {googleid: placegoogleid}, function(data) {
 				//Clear the comments div
 				document.getElementById('comments_section').innerHTML = "";
 				
@@ -598,7 +601,7 @@
 		
 		//Method for loading ratings from the DB
 		function loadRatingFromDB(){
-			$.get("/socnav/index.php/loadrating", {googleid: placegoogleid}, function(data) {
+			$.get("/index.php/loadrating", {googleid: placegoogleid}, function(data) {
 				//set rating with appropriate image based on the returned value
 				if(data == 1){
 					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating1.png';
