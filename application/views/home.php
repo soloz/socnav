@@ -105,13 +105,13 @@
 
 		<div class="row">
                         <div class="twelve columns" >
-          <p><a href="#" data-reveal-id="exampleModal" class="radius button">Read More&hellip;</a></p>
+          <p style="text-align:center;"><a href="#" data-reveal-id="exampleModal" class="radius button">Read More&hellip;</a></p>
                         </div>
 		 </div>
                 
 		<div class="row">
 			<div class="twelve columns">
-				<p>Follow us on Twitter</p>
+				<p style="text-align:center;"><strong>Follow us on Twitter</strong></p>
 				<p class="left follow" style="width: 180px; overflow: hidden;">
 				<a href="https://twitter.com/socnav"><img src="<?php echo base_url(); ?>/images/twitter1.png" alt="twitter"/></a>
 				<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script></p>
@@ -121,7 +121,7 @@
 		
 		<div class="row">
 			<div class="twelve columns">
-				<p>Find us on Facebook</p>
+				<p style="text-align:center;"><strong>Find us on Facebook</strong></p>
 				<p class="left follow" style="width: 180px; overflow: hidden;">
 				<a href="https://facebook.com/socnav"><img src="<?php echo base_url(); ?>/images/facebook1.png" alt="facebook"/></a>
 				<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script></p>
@@ -130,7 +130,7 @@
 
 		<div class="row">
 			<div class="twelve columns">
-				<p>Get in touch through Email</p>
+				<p style="text-align:center;"><strong>Get in touch through Email</strong></p>
 				<p class="left follow" style="width: 180px; overflow: hidden;">
 				<a class="contact" href="mailto:limd1989@hotmail.com"><img src="<?php echo base_url(); ?>/images/email.png" alt="email"/></a>
 				<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script></p>

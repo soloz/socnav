@@ -50,7 +50,7 @@
 		       					}
        					?>
        				
-                        <li><a class="medium blue nice button" href="logout">
+                        <li><a style="color: grey" href="logout">
                         
                         <?php 
                         $is_logged_in = $this->session->userdata('is_logged_in');
@@ -84,10 +84,7 @@
                 	       //	echo "<b>Welcome ". $this->session->userdata('firstname')."</b>";
 
                		 } else {
-                   		 echo anchor('/login', 'Member Login', array('class' => 'decorate'));
-                    		echo "  ";
-                    		echo "  ";
-                    		echo anchor('/signup', 'Sign Up', array('class' => 'decorate'));
+
                 	}
 
                 ?>
