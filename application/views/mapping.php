@@ -36,6 +36,7 @@
 		#peopleUI { width: 49%; float: right; border-style:solid; border-width:1px }
 		#places_label { font-size: 24pt }
 		#people_label { font-size: 24pt }
+		#placesdiv { display: none }
 		
 </style>
 	
@@ -50,8 +51,8 @@
   	<div class="row">
 	  	<?php $this->load->view('search_criteria'); ?>
 	</div>
-  		 <div class="panel">
-			<h5>Details</h5><br />
+  		 <div id="placesdiv" class="panel">
+			<h5>Place Details</h5><br />
 			<!--This table is for showing details (added by lekan)-->
 			<table id="tbldetails">
 				<tr>
@@ -90,6 +91,43 @@
 				
 				<tr>
 					<td><input type="submit" onclick="insertCommentRating(); return false;" value="Submit"></td>
+				<tr>
+				
+				<tr>
+					<td><label id="lblmsg"></label></td>
+				<tr>
+			</table>
+		 </div>
+
+ 		 <div id="peoplediv" class="panel">
+			<h5>Person Details</h5><br />
+			<!--This table is for showing details (added by nick)-->
+			<table id="peopletbldetails">
+				<tr>
+					<td><img id="profpic" name="profpic" src = "" alt = "icon" /></td>
+				<tr>
+				<tr>
+					<td><label for="username">Username:</label></td>
+					<td><input id="username" type="text" name="username" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="firstname">First Name:</label></td>
+					<td><input id="firstname" type="text" name="firstname" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="lastname">Last Name:</label></td>
+					<td><input id="lastname" type="text" name="lastname" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="gender">Gender:</label></td>
+					<td><input id="gender" type="text" name="gender" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="email">Email:</label></td>
+					<td><input id="email" type="text" name="email" readonly /></td>
+				<tr>
+				<tr>
+					<td><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></td>
 				<tr>
 				
 				<tr>
