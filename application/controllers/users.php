@@ -96,7 +96,7 @@ class Users extends CI_Controller {
                      
                      if(!is_dir($path)) //create the folder if it's not already exists
 					   {
-				      		mkdir($path,0755,TRUE);
+				      		mkdir($path,0777,TRUE);
 				       } 
 	
                     
@@ -199,7 +199,7 @@ class Users extends CI_Controller {
                         'photourl' => $upload_data['file_name'],
               );
 			$this->session->set_userdata($newSessionData);
-			$this->createThumb($upload_data);
+		//	$this->createThumb($upload_data);
 			
 			redirect('/profile');
 		}

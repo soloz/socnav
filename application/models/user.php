@@ -88,7 +88,8 @@ class User extends CI_Model {
 	
 	public function getOnlineUsersAndLocations() {
 		$this->db->where('user.online', TRUE);
-		return $this->db->get('location join user on location.locationid = user.locationid');
+		return $this->db->get('location join user on location.locationid = user.locationid
+		join userphotogallery on userphotogallery.userid = user.userid');
 	}
 
 	public function updateUserLocation($userID, $lat, $long) {

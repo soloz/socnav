@@ -298,7 +298,7 @@
 
 			// prepare info window
 			var infowindow = new google.maps.InfoWindow({
-				content: '<p style="font-weight:bold" >first name: '+user.firstname+'<br/> last name: '+user.lastname+'<br/> email: '+user.email+'<br/> longit: '+ user.longitude +'<br/> latit: '+user.latitude
+				content: '<p style="font-weight:bold" ><img style="height: 100px; width:100px" src="<?php echo base_url(); ?>uploads/users/'+user.username+'/'+user.photourl+'"/><br/>first name: '+user.firstname+'<br/> last name: '+user.lastname+'<br/> email: '+user.email+'<br/> longit: '+ user.longitude +'<br/> latit: '+user.latitude
 				+ '<br/><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
 			});
 
