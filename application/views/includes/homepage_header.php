@@ -40,20 +40,7 @@
                 <!--<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> -->
         <![endif]-->
 
-	<title>
-            <?php
-            if (isset($cityName)) {
-                echo $cityName;
-                echo "| Locations around ";
-                echo $cityName;
-            } elseif (isset($eventName)) {
-                echo $eventName;
-            } else {
-                echo "Navigation Engine: Your location privacy is enabled";
-            }
-            ?>
-	</title>
-
+<title>SocNav - Navigate | Explore | Socialize</title>
 
     </head>
 
@@ -67,15 +54,8 @@
              </div>
 
                 <ul class="right">  
-                     
                         <li>
                           <a href="search">Search</a>
-                        </li>
-                        <li>
-                          <a href="">Reviews</a>
-                        </li>
-                        <li>
-                          <a href="">Latest</a>
                         </li>
                         <li>
                            <a href="profile">
@@ -83,8 +63,7 @@
                        		 $is_logged_in = $this->session->userdata('is_logged_in');
 		                        if ($is_logged_in == true) {
 		                	        	echo	"My Profile</a></li>";
-		                   					
-		       					} else {
+		                   		} else {
 		       					    	echo "Sign Up</a></li>";
 		       					}
        					?>

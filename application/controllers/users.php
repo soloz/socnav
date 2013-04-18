@@ -124,7 +124,7 @@ class Users extends CI_Controller {
 
         if ($is_logged_in == true) {
             //load the profile edit page
-            $data['main_content'] = "profile"; //body of home page
+            $data['main_content'] = "profile_display"; //body of home page
             $data['user_details'] = $this->user->getUser($this->session->userdata('userid'));
             $this->load->view('includes/templates.php', $data);
         } else {

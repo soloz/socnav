@@ -39,9 +39,6 @@
                         </li>
                         
                         <li>
-                          <a href="">Latest</a>
-                        </li>
-                        <li>
                           <a href="profile">
                            <?php 
                        		 $is_logged_in = $this->session->userdata('is_logged_in');
@@ -84,7 +81,7 @@
                 	$is_logged_in = $this->session->userdata('is_logged_in');
 
                 	if ($is_logged_in == true) {
-                	       	echo "<b>Welcome ". $this->session->userdata('firstname')."</b>";
+                	       //	echo "<b>Welcome ". $this->session->userdata('firstname')."</b>";
 
                		 } else {
                    		 echo anchor('/login', 'Member Login', array('class' => 'decorate'));

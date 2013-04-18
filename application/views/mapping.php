@@ -10,7 +10,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
-  <title>Welcome to Socnav Search</title>
+  <title>Socnav Search</title>
   
   <!-- Included CSS Files (Uncompressed) -->
   <!--
@@ -43,22 +43,19 @@
 </head>
 
 <body>
-<div class="container">	
-	<ul class="breadcrumbs">
-	  <li><a href="main">Home</a></li>
-	  <li class="current"><a href="#">Search</a></li>
-	</ul>
-</div>
 
  <div class="container">
- 
-  <div class="eight columns">
+  
+  <div class="three columns">
+  	<div class="row">
+	  	<?php $this->load->view('search_criteria'); ?>
+	</div>
+  		 <div class="panel"> <h5>Details</h5></div>
+  </div>
+ 	  
+  <div class="nine columns">
   	<div id="gmap_canvas"></div>
   </div>
-  
-  <div class="four columns">
- 	<div class="panel"> <h5>Details</h5></div>
-  </div>  
   
  </div>
 
@@ -219,7 +216,6 @@
 			// Get the radius for searching nearby users from the UI.
 			var people_radius = document.getElementById("gmap_radius_people").value;
 			
-			alert(people_radius);
 			
 			$.getJSON("/socnav/index.php/nearbyusers", { latitude:latit, longitude:longit, radius: people_radius }, function(userlist) 
 			{
