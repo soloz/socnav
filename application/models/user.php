@@ -26,8 +26,9 @@ class User extends CI_Model {
 	$this->db->set('locationid', $userLocationID);
 	$this->db->insert('location');
 
+	$newUserID = $this->generateUserID();
         $new_user = array(
-            'userid' => $this->generateUserID(),
+            'userid' => $newUserID,
             'locationid' => $userLocationID, // Add foreign key to that location table entry for the user.
             'firstname' => $userdetails['firstname'],
             'lastname' => $userdetails['lastname'],
@@ -39,6 +40,13 @@ class User extends CI_Model {
 
         );
         if ($this->db->insert('user', $new_user)) {
+		$defaultpicurl = 'default_pic.png';
+	 	$data = array(
+			'usergalleryid' => $this->generateUserPhotoID(),
+		    	'photourl' => $defaultpicurl,
+		    	'userid' => $newUserID
+			 );
+		$this->db->insert('userphotogallery', $data);
             return true;
         }
     }
@@ -159,6 +167,9 @@ private function generateUserID() {
         return rand(99999, 1000000);
  }
     
+ private function generateUserPhotoID() {
+        return rand(99999, 1000000);
+ }
 
 public function deleteUser(){
 	

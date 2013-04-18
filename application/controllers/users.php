@@ -95,10 +95,10 @@ class Users extends CI_Controller {
                     $path = "uploads/users/".$this->input->post('username');
                      
                      if(!is_dir($path)) //create the folder if it's not already exists
-					   {
-				      		mkdir($path,0777,TRUE);
-				       } 
-	
+		   	{
+	      			mkdir($path,0777,TRUE);
+				copy('uploads/users/default_pic.png',$path.'/default_pic.png');
+	       		} 
                     
                     //load success view page
                     //tell them to follow the link or check their email to activate their account
