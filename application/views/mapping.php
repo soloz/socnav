@@ -100,7 +100,16 @@
   </div>
  	  
   <div class="nine columns">
-  	<div id="gmap_canvas"></div>
+  	
+  	<div class="row">	
+  		<div id="gmap_canvas"></div>
+  	</div>
+  	
+  	<div class="row">	
+  		<div id="directions_panel"></div>
+  	</div>
+  	
+  	
   </div>
   
  </div>
