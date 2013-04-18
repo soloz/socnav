@@ -24,8 +24,14 @@ class Main extends CI_Controller {
         
     }
     
-    public function testmap() {
-        $this->load->view('maps');
+    public function admin() {
+        
+      	$data['main_content'] = "admin"; 
+      	
+      	$data['places'] = $this->places->getPlaces();
+      	$data['users'] = $this->user->getUsers();
+      	
+        $this->load->view('includes/templates.php', $data);
     }
 
 }

@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="stylesheets/app.css">
 
   <script src="javascripts/modernizr.foundation.js"></script>
+
+    
 </head>
 
 
@@ -30,75 +32,86 @@
 <div class="container">	
 	<ul class="breadcrumbs">
 	  <li><a href="#">Home</a></li>
-	  <li class="current"><a href="#">My Profile (<?php echo $this->session->userdata('username')?>)</a></li>
+	  <li class="current"><a href="#">Admin (<?php echo $this->session->userdata('username')?>)</a></li>
 	</ul>
 	
 </div>
 
 <div class="container">	
 
-   <div class="three columns">
-        <div class="twelve columns">
-          <div class="panel">
-          
-          <?php
-          
-         		$photourl = $this->session->userdata('photourl');
-				$username = $this->session->userdata('username');
-				
-          ?>
-            <p><a href="#" class="th"><img src="<?php echo base_url(); ?>uploads/users/<?php echo $username; ?>/<?php echo $photourl; ?>"></a></p>
-          </div>
-        </div> 
-      
-      <div class="twelve columns">
-          <p><a href="#" data-reveal-id="profileedit" class="expand small button">Edit Profile</a></p>
-          <p><a href="#" data-reveal-id="pictureupload" class="expand small button">Edit Picture</a></p>
-          <p><a href="#" data-reveal-id="editPreferences" class="expand small button">Edit Preferences</a></p>
-      </div>
-     
-  </div>
+<dl class="tabs">
+  <dd class="active"><a href="#manageplaces">Manage Places</a></dd>
+  <dd><a href="#managepeople">Manage People</a></dd>
   
-  <div class="six columns">
-      <h3><?php echo $this->session->userdata('firstname')?></h3>
-   </div>
- 
-    <div class="three columns">
+</dl>
+<ul class="tabs-content">
+  <li class="active" id="manageplacesTab">
+  
+   <table id="placestable">
+    <thead>
+     <tr>
+            <th>PlaceID</th>
+            <th>Category</th>
+            
+        </tr>
+    </thead>
     
-    <div class="row">
-   
-  	</div>
-  	
-			  <div class="twelve columns">
-			   <h4>Privacy</h4>
-			   
-				<div class="switch tiny round">
-			  	<input id="z" name="switch-z" type="radio" checked>
-			  <label for="z" onclick="">Disable</label>
-			
-			  <input id="z1" name="switch-z" type="radio">
-			  <label for="z1" onclick="">Enable Navigation</label>
-			
-			  <span></span>
-
-	</div>
-<br/>
-      <h4>Location History</h4>
-      <p>We're stoked you want to try Foundation! To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
-
-<br/>
-     <h4>Popular Locations</h4>
-      <p>Once you've exhausted the fun in this document, you should check out:</p>
-      <ul class="disc">
-        <li><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</li>
-        <li><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</li>
-        <li><a href="http://twitter.com/foundationzurb">@foundationzurb</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li>
-      </ul>
-    </div>
-  </div>
+  <?php foreach ($places as $place):?> 
+  <tr>
+  <td>
+	  <p> <?php echo $place['placeid'];?></p>
+  </td>
+    <td>
+	  <p> <?php echo $place['category'];?></p>
+  </td>
+  
+  </tr>
+ 
+  <?php endforeach;?>
+  </tbody>
+ </table>
 
 
-<div id="profileedit" class="reveal-modal" >
+</li>
+  <li id="managepeopleTab">
+   <table id="peopletable">
+    <thead>
+     <tr>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+             <th>Email</th
+        </tr>
+    </thead>
+    
+  <?php foreach ($users as $user):?> 
+  <tr>
+  <td>
+	  <p> <?php echo $user['username'];?></p>
+  </td>
+    <td>
+	  <p> <?php echo $user['firstname'];?></p>
+  </td>
+    <td>
+	  <p> <?php echo $user['lastname'];?></p>
+  </td>
+   <td>
+	  <p> <?php echo $user['email'];?></p>
+  </td>
+  </tr>
+ 
+  <?php endforeach;?>
+  </tbody>
+ </table>
+</li>
+ 
+</ul>
+
+ 
+</div>
+
+
+<div id="placeedit" class="reveal-modal" >
 
     <?php $attributes = array('class' => 'nice custom', 'id' => 'updateprofile'); ?>
     <?php echo form_open('/updateprofile', $attributes); ?>
@@ -144,7 +157,7 @@
 
 
 
-<div id="pictureupload" class="reveal-modal" >
+<div id="placepictureupload" class="reveal-modal" >
 	<?php $attributes = array('class' => 'nice custom', 'id' => 'pictureupload'); ?>
     <?php echo form_open_multipart('/pictureupload', $attributes); ?>
 
@@ -162,6 +175,7 @@
 <a class="close-reveal-modal">&#215;</a>
 
 </div>
+
 
 
   <!-- Included JS Files (Uncompressed) -->
@@ -199,7 +213,7 @@
       $("#featured").orbit();
     });
     </script> 
-  
+
   
 </body>
 </html>

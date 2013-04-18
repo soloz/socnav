@@ -12,30 +12,38 @@ class Places extends CI_Model {
         return $query->result_array();
     }
 
-    public function getCityName($cityID) {
-        $whereArray = array('city_name' => $cityID);
-        $query = $this->db->get_where('city', $whereArray);
-        $id = $query->row_array();
-        return $id['CITY_NAME'];
-    }
+ 
 
 	public function getPostCode($locationID) {
         $whereArray = array('locationid' => $locationID);
         return $query->result_array();
     }
     
-    public function validCityID($cityID) {
-        //returns true is $cityID exists in the database
-        $whereArray = array('CITY_ID' => $cityID);
-        $query = $this->db->get_where('city', $whereArray);
-
-        if ($query->num_rows() > 0) {
-            $status = true;
-        } else {
-            $status = false;
-        }
-        return $status;
+    //Retrieve all the places stored in the database
+    public function getPlaces() {
+       
+       $query = $this->db->query("SELECT * FROM places");
+        return $query->result_array();
     }
+    
+    
+//Create a new place in the database
+public function createPlace($placedetails = array()) {
+
+
+}
+
+//Delete a place from the system
+public function deletePlace($placeid){
+	
+	
+}
+
+//Update information about a place
+public function updatePlace($placeid, $edit_data = array()){
+	
+}
+
 
 }
 
