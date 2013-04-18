@@ -50,62 +50,66 @@
   	<div class="row">
 	  	<?php $this->load->view('search_criteria'); ?>
 	</div>
-  		 <div class="panel">
-			<h5>Details</h5><br />
-			<!--This table is for showing details (added by lekan)-->
-			<table id="tbldetails">
-				<tr>
-					<td><img id="placeicon" name="placeicon" src = "" alt = "icon" /></td>
-				<tr>
-				<tr>
-					<td><label for="placename">Name:</label></td>
-					<td><input id="placename" type="text" name="placename" readonly /></td>
-				<tr>
-				<tr>
-					<td><label for="placephone">Phone:</label></td>
-					<td><input id="placephone" type="text" name="placephone" readonly /></td>
-				<tr>
-				<tr>
-					<td><label for="placewebsite">Website:</label></td>
-					<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
-				<tr>
-				<tr>
-					<td><label for="placerating">SocNav Rating:</label></td>
-					<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
-				<tr>
-				<tr>
-					<td><label for="placecomment">Comment:</label></td>
-					<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
-				<tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" onclick="insertComment(); return false;" value="Comment"></td>
-				<tr>
-				<tr>
-					<td><label for="theratings">Rate:</label></td>
-					<td>
-						<div id="theratings">
-							<input type="radio" name="rating" id="1" value="1" onchange="ratePlace(); return false;">1 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="2" value="2" onchange="ratePlace(); return false;">2 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="3" value="3" onchange="ratePlace(); return false;">3 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="4" value="4" onchange="ratePlace(); return false;">4 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="5" value="5" onchange="ratePlace(); return false;">5
-						</div>
-					</td>
-				<tr>
-				<tr>
-					<td><label id="lblmsg"></label></td>
-				<tr>
-				<tr>
-					<td>
-						<h5>Comments</h5><br />
-						<div id="comments_section">
-							
-						</div>
-					</td>
-				<tr>
-			</table>
-		 </div>
+	 <div class="panel">
+		<h5>Details</h5><br />
+		<!--This table is for showing details (added by lekan)-->
+		<table id="tbldetails">
+			<tr>
+				<td><img id="placeicon" name="placeicon" src = "" alt = "icon" /></td>
+			<tr>
+			<tr>
+				<td><label for="placename">Name:</label></td>
+				<td><input id="placename" type="text" name="placename" readonly /></td>
+			<tr>
+			<tr>
+				<td><label for="placephone">Phone:</label></td>
+				<td><input id="placephone" type="text" name="placephone" readonly /></td>
+			<tr>
+			<tr>
+				<td><label for="placewebsite">Website:</label></td>
+				<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
+			<tr>
+			<tr>
+				<td><label for="placerating">SocNav Rating:</label></td>
+				<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
+			<tr>
+			<tr>
+				<td><label for="placecomment">Comment:</label></td>
+				<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
+			<tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" onclick="insertComment(); return false;" value="Comment"></td>
+			<tr>
+			<tr>
+				<td><label for="theratings">Rate:</label></td>
+				<td>
+					<div id="theratings">
+						<input type="radio" name="rating" id="1" value="1" onchange="ratePlace(); return false;">1 &nbsp;&nbsp;
+						<input type="radio" name="rating" id="2" value="2" onchange="ratePlace(); return false;">2 &nbsp;&nbsp;
+						<input type="radio" name="rating" id="3" value="3" onchange="ratePlace(); return false;">3 &nbsp;&nbsp;
+						<input type="radio" name="rating" id="4" value="4" onchange="ratePlace(); return false;">4 &nbsp;&nbsp;
+						<input type="radio" name="rating" id="5" value="5" onchange="ratePlace(); return false;">5
+					</div>
+				</td>
+			<tr>
+			<tr>
+				<td><label>Upload Photo:</label></td>
+				<td><a href="#" data-reveal-id="pictureupload" class="expand small button">Add Picture</a></td>
+			<tr>
+			<tr>
+				<td><label id="lblmsg"></label></td>
+			<tr>
+			<tr>
+				<td>
+					<h5>Comments</h5><br />
+					<div id="comments_section">
+						
+					</div>
+				</td>
+			<tr>
+		</table>
+	 </div>
   </div>
  	  
   <div class="nine columns">
@@ -119,6 +123,25 @@
   	</div>
   	
   	
+  </div>
+  
+  <!--Copied from profile_display page-->
+  <div id="pictureupload" class="reveal-modal" >
+	<?php $attributes = array('class' => 'nice custom', 'id' => 'pictureupload'); ?>
+    <?php echo form_open_multipart('/pictureupload', $attributes); ?>
+
+	<?php $upload_input_attr = array('name'=>'userfile', 'type'=>'file', 'size'=>'20','style'=>'width: 286px; height: 40px;'); ?>
+	<?php $upload_button_attr = array('name'=>'create', 'type'=>'submit', 'value' => 'Upload', 'class'=>'nice small radius blue button', 'style'=>'width: 286px; height: 40px;'); ?>
+	
+		<?php echo form_fieldset("Change Your Picture"); ?>
+        <?php echo form_upload($upload_input_attr); ?>
+        
+	<?php echo form_submit($upload_button_attr); ?>
+
+	<?php echo form_fieldset_close(); ?>
+
+	<?php echo form_close(); ?>
+	<a class="close-reveal-modal">&#215;</a>
   </div>
   
  </div>
