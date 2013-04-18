@@ -11,9 +11,6 @@ class Socnav extends CI_Controller {
     public function search() {
 
         $data['main_content'] = "search"; //body of page
-        $data['history'] = $this->history->getHistory();
-        $data['locations'] = $this->location->getLocations();
-        $data['cityName'] = $this->location->getCurrentLocation();
         $this->load->view('includes/templates.php', $data); //header, footer, data
     }
     

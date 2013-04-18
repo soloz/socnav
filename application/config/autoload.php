@@ -108,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('user', 'location', 'history', 'places');
+$autoload['model'] = array('user', 'places');
 
 
 /* End of file autoload.php */

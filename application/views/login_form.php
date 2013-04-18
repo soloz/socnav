@@ -44,6 +44,7 @@
 		<?php $lastname_input_attr = array('name'=>'lastname', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Last Name', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $email_input_attr = array('name'=>'email', 'value' => '', 'class' => 'input-text blue',  'placeholder'=>'Email', 'style'=>'width: 386px; height: 40px;') ;?>
 		<?php $username_input_attr = array('name'=>'username', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Username', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $gender_attr = array('male'=>'Male', 'female' => 'Female'); ?>
 		<?php $passwd_input_attr = array('name'=>'passwd', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Password', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $passwd2_input_attr = array('name'=>'passwd2', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Confirm Password', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $create_button_attr = array('name'=>'create', 'type'=>'submit', 'value' => 'Create Account', 'class'=>'nice small radius blue button', 'style'=>'width: 386px; height: 40px;'); ?>
@@ -53,10 +54,12 @@
 
 	        <?php echo form_input($email_input_attr);?> 
 
-	        <?php echo form_input($username_input_attr);?> 
+	        <?php echo form_input($username_input_attr);?>
 	        <?php echo form_password($passwd_input_attr); ?>
 	        <?php echo form_password($passwd2_input_attr); ?>
-			<?php echo form_submit($create_button_attr); ?>
+	        
+	        <?php echo form_dropdown('Gender',$gender_attr);?>
+	        <?php echo form_submit($create_button_attr); ?>
 
 			<?php echo form_close(); ?>
 

@@ -17,9 +17,7 @@ class Main extends CI_Controller {
     public function home() {
 
         $data['main_content'] = "home"; //body of page
-        $data['history'] = $this->history->getHistory();
-        $data['locations'] = $this->location->getLocations();
-        $data['cityName'] = $this->location->getCurrentLocation();
+     
         $this->load->view('includes/homepage_templates.php', $data); //header, footer, data
         
     }
