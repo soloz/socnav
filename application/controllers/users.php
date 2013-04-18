@@ -15,7 +15,7 @@ class Users extends CI_Controller {
             if ($this->form_validation->run() == FALSE) {
                 $this->login();
             } else {
-                $user = $this->user->validateUser();
+                 $user = $this->user->validateUser();
                  $photo = $this->user->getPhotoUrl($user['userid']);
 
 	        if (isset($user)  && isset($photo)  ) { // Todo: Check for user activation by adding && $user['STATUS'] == "ACTIVE") {
@@ -63,7 +63,7 @@ class Users extends CI_Controller {
             $data['main_content'] = "loggedIn"; //body of home page
             $this->load->view('includes/templates.php', $data);
         } else {
-            $data['main_content'] = "register_form"; //body of home page
+            $data['main_content'] = "login_form"; //body of home page
             $this->load->view('includes/templates.php', $data);
         }
     }
@@ -75,15 +75,16 @@ class Users extends CI_Controller {
 
             $this->form_validation->set_rules('firstname', 'Firstname', 'required');
             $this->form_validation->set_rules('lastname', 'Lastname', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required');
-            $this->form_validation->set_rules('username', 'Username', 'required');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
+            $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[12]|is_unique[user.username]');
             $this->form_validation->set_rules('phonenumber', 'Phone', 'required');
             $this->form_validation->set_rules('gender', 'Gender', 'required');
-	    	$this->form_validation->set_rules('passwd', 'Password', 'required');
+	    	$this->form_validation->set_rules('passwd', 'Password', 'required|matches[passwd2]');
             $this->form_validation->set_rules('passwd2', 'Password', 'required');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->signup();
+                
             } else {
                 /*
                  * TODO: Check if email exists before we post.
@@ -139,20 +140,50 @@ class Users extends CI_Controller {
             if ($is_logged_in == true) {
                 //get the userid in the session
                 $userid = $this->session->userdata('userid');
-                $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
-                $this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
-                $this->form_validation->set_rules('phonenumber', 'Phone', 'trim|required');
-                $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+                $this->form_validation->set_rules('firstname', 'Firstname', 'required');
+                $this->form_validation->set_rules('lastname', 'Lastname', 'required');
+                $this->form_validation->set_rules('phonenumber', 'Phone', 'required');
+                $this->form_validation->set_rules('email', 'Email', 'required');
+                $this->form_validation->set_rules('gender', 'Gender', 'required');
                 
                 if ($this->form_validation->run() == FALSE) {
                     $this->session->set_flashdata('updateFailure', 'Failure');
-                    redirect('/profile');
-                    return false;
+                    //redirect('/profile');
+                    //return false;
                 }
 
                 $status = $this->user->updateUser($userid, $this->input->post());
                 if ($status == TRUE) {
                     $this->session->set_flashdata('updateSuccess', 'Profile Sucessfully Updated');
+                   
+                   $oldSessionData = array(
+                        'email' => '',
+                        'username' => '',
+                        'userid' => '',
+                        'lastname' => '',
+                        'firstname' => '',
+                        'phonenumber' => '',
+                        'gender' => '',                   
+                    );
+                    $this->session->unset_userdata($oldSessionData);
+                    $user = $this->user->validateUser();
+                    
+                     $newSessionData = array(
+                       'email' => $user['email'],
+                        'username' => $user['username'],
+                        'userid' => $user['userid'],
+                        'lastname' => $user['lastname'],
+                        'firstname' => $user['firstname'],
+                        'phonenumber' => $user['phonenumber'],
+                        'gender' => $user['gender'],
+                        'password' => $user['password'],
+                        'explorationrange' => $user['setrangeofexploration'],
+                        
+                        'is_logged_in' => TRUE                  
+                    );
+                    
+                      $this->session->set_userdata($newSessionData);
+                      
                     redirect('/profile', 'refresh');
                 } else {
                      

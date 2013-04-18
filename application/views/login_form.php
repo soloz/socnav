@@ -37,12 +37,14 @@
 	<h2>Create an account</h2>
 	    <?php $attributes = array('class' => 'nice custom', 'id' => 'registrationform'); ?>
 	    <?php echo form_open('/registeruser', $attributes); ?>
-
-		<?php $firstname_input_attr = array('name'=>'firstname', 'value' => '', 'class' => 'input-text blue', 'placeholder'=>'First Name', 'style'=>'width: 386px; height: 40px;'); ?>
-		<?php $lastname_input_attr = array('name'=>'lastname', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Last Name', 'style'=>'width: 386px; height: 40px;'); ?>
-		<?php $email_input_attr = array('name'=>'email', 'value' => '', 'class' => 'input-text blue',  'placeholder'=>'Email', 'style'=>'width: 386px; height: 40px;') ;?>
-		<?php $username_input_attr = array('name'=>'username', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Username', 'style'=>'width: 386px; height: 40px;'); ?>
-		<?php $phone_input_attr = array('name'=>'phonenumber', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Phone', 'style'=>'width: 386px; height: 40px;'); ?>
+		
+		
+		
+		<?php $firstname_input_attr = array('name'=>'firstname', 'value' => ''.$this->form_validation->set_value('firstname'), 'class' => 'input-text blue', 'placeholder'=>'First Name', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $lastname_input_attr = array('name'=>'lastname', 'value' => ''.$this->form_validation->set_value('lastname'), 'class' => 'input-text', 'placeholder'=>'Last Name', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $email_input_attr = array('name'=>'email', 'value' => ''.$this->form_validation->set_value('email'), 'class' => 'input-text blue',  'placeholder'=>'Email', 'style'=>'width: 386px; height: 40px;') ;?>
+		<?php $username_input_attr = array('name'=>'username', 'value' => ''.$this->form_validation->set_value('username'), 'class' => 'input-text', 'placeholder'=>'Username', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $phone_input_attr = array('name'=>'phonenumber', 'value' => ''.$this->form_validation->set_value('phonenumber'), 'class' => 'input-text', 'placeholder'=>'Phone', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $gender_attr = array('male'=>'Male', 'female' => 'Female'); ?>
 		<?php $passwd_input_attr = array('name'=>'passwd', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Password', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $passwd2_input_attr = array('name'=>'passwd2', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Confirm Password', 'style'=>'width: 386px; height: 40px;'); ?>
