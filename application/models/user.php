@@ -9,7 +9,7 @@ class User extends CI_Model {
     public function validateUser() {
         $this->db->where('email', $this->input->post('email'));
         $this->db->where('password', md5($this->input->post('passwd'))); 
-      $query = $this->db->get('user');
+      	$query = $this->db->get('user');
 
         if ($query->num_rows == 1) {
             return $query->row_array();
@@ -74,6 +74,12 @@ class User extends CI_Model {
         $this->db->where('userid', $userID);
         $query = $this->db->get('user');
         return $query->row_array();
+    }
+    
+    public function getUsers() {
+      
+		$query = $this->db->query("SELECT * FROM user");
+        return $query->result_array();
     }
 
     public function emailExist($email) {
@@ -158,8 +164,24 @@ private function generateUserID() {
 
  private function generateLocationID() {
         return rand(99999, 1000000);
-    }
+ }
     
+
+public function deleteUser(){
+	
+	
 }
 
+public function deactivateUser(){
+	
+	
+}
+
+
+public function activateUser(){
+	
+	
+}
+
+}
 ?>

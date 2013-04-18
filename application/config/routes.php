@@ -47,6 +47,7 @@ $route['signup'] = "/users/signup";
 $route['validatelogin'] = "/users/validateLogin";
 $route['registeruser'] = "/users/registerUser";
 $route['pictureupload'] = "/users/pictureupload";
+$route['admin'] = "/main/admin";
 
 $route['placesearch'] = "/socnav/placesearch"; //<-- added by Nick
 $route['nearbyusers'] = "/socnav/nearbyusers"; //<-- added by Nick

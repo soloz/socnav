@@ -57,8 +57,6 @@ class Users extends CI_Controller {
     public function signup() {
         //display register form
 
-        $data['locations'] = $this->location->getLocations(); //for links
-
         $is_logged_in = $this->session->userdata('is_logged_in');
         if ($is_logged_in == true) {
             //load the already logged in message
@@ -79,6 +77,7 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('lastname', 'Lastname', 'required');
             $this->form_validation->set_rules('email', 'Email', 'required');
             $this->form_validation->set_rules('username', 'Username', 'required');
+         //   $this->form_validation->set_rules('gender', 'Gender', 'required');
 	    	$this->form_validation->set_rules('passwd', 'Password', 'required');
             $this->form_validation->set_rules('passwd2', 'Password', 'required');
 
@@ -119,7 +118,6 @@ class Users extends CI_Controller {
 
 	public function displayProfile() {
 
-        $data['locations'] = $this->location->getLocations(); //for links
         $is_logged_in = $this->session->userdata('is_logged_in');
 
         if ($is_logged_in == true) {
@@ -168,8 +166,7 @@ class Users extends CI_Controller {
     
 	//Function for Logging into the system
     public function login() {
-        $data['locations'] = $this->location->getLocations(); //for links
-        $this->load->library('form_validation');
+         $this->load->library('form_validation');
         $data['main_content'] = "login_form"; //body of home page
         $this->load->view('includes/templates.php', $data);
     }
