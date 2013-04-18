@@ -56,9 +56,6 @@ class Users extends CI_Controller {
 	//Function for displaying signup page
     public function signup() {
         //display register form
-
-        $data['locations'] = $this->location->getLocations(); //for links
-
         $is_logged_in = $this->session->userdata('is_logged_in');
         if ($is_logged_in == true) {
             //load the already logged in message
@@ -118,8 +115,6 @@ class Users extends CI_Controller {
     }
 
 	public function displayProfile() {
-
-        $data['locations'] = $this->location->getLocations(); //for links
         $is_logged_in = $this->session->userdata('is_logged_in');
 
         if ($is_logged_in == true) {
@@ -168,7 +163,6 @@ class Users extends CI_Controller {
     
 	//Function for Logging into the system
     public function login() {
-        $data['locations'] = $this->location->getLocations(); //for links
         $this->load->library('form_validation');
         $data['main_content'] = "login_form"; //body of home page
         $this->load->view('includes/templates.php', $data);
@@ -197,8 +191,7 @@ class Users extends CI_Controller {
 			$this->user->postPhotoUrl($this->session->userdata('userid'), $upload_data['file_name']);
 			
 			$this->session->unset_userdata('photourl');
-			 $newSessionData = array(
-                        'photourl' => $upload_data['file_name'],
+			 $newSessionData = array('photourl' => $upload_data['file_name'],
               );
 			$this->session->set_userdata($newSessionData);
 			
