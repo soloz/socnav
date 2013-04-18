@@ -33,6 +33,7 @@
 	        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/ie.css">
         <![endif]-->
 	<script src="<?php echo base_url(); ?>zurbs/javascripts/modernizr.foundation.js"></script>
+<script src="<?php echo base_url(); ?>zurbs/javascripts/foundation.js"></script>
 
 
         <!-- IE Fix for HTML5 Tags -->
