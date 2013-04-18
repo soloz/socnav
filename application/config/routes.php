@@ -53,7 +53,10 @@ $route['placesearch'] = "/socnav/placesearch"; //<-- added by Nick
 $route['nearbyusers'] = "/socnav/nearbyusers"; //<-- added by Nick
 $route['updateuserlocation'] = "/socnav/updateuserlocation"; //<-- added by Nick
 $route['storeplaces'] = "/socnav/storeplaces"; //<-- added by Lekan
-$route['commentandrate'] = "/socnav/commentandrate"; //<-- added by Lekan
+$route['postcomment'] = "/socnav/postcomment"; //<-- added by Lekan
+$route['rateplace'] = "/socnav/rateplace"; //<-- added by Lekan
+$route['loadcomments'] = "/socnav/loadcomments"; //<-- added by Lekan
+$route['loadrating'] = "/socnav/loadrating"; //<-- added by Lekan
 
 //Todo: April 06, 2013
 $route['profile'] = "/users/displayProfile";

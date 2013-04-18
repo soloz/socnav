@@ -19,12 +19,123 @@ class Socnav extends CI_Controller {
     }
 	
 	// Added by Lekan
-	public function commentandrate()
+	public function loadrating()
+	{
+		//Get unique google id and use it to get the place
+		$googleid = $_GET['googleid'];
+		
+		$query = $this->db->get_where('places', array('google_id' => $googleid));
+		
+		//Values to be returned
+		$avgrating = 0;
+		
+		//load comments and calculate rating
+		foreach ($query->result() as $row)
+		{
+			//Get all the comments and ratings with place id
+			$ratings = $this->db->get_where('ratings', array('placeid' => $row->placeid));
+			$count = 0;//count rows
+			$sum = 0;
+			
+			foreach ($ratings->result() as $row2)
+			{				
+				//Calculate sum
+				$sum = $sum + $row2->rating;
+				$count++;
+			}
+			
+			//Calculate average rating
+			$avgrating = round($sum/$count);
+		}
+		
+		echo $avgrating;
+	}
+	
+	// Added by Lekan
+	public function loadcomments()
+	{
+		//Get unique google id and use it to get the place
+		$googleid = $_GET['googleid'];
+		$query = $this->db->get_where('places', array('google_id' => $googleid));
+		
+		//Values to be returned
+		$comments = array();
+		
+		//load comments and calculate rating
+		foreach ($query->result() as $row)
+		{
+			//Get all the comments and ratings with place id
+			$this->db->join('user', 'comments.userid = user.userid');
+			$commentsquery = $this->db->get_where('comments', array('placeid' => $row->placeid));
+			
+			foreach ($commentsquery->result() as $row2)
+			{
+				//store comments in array
+				$comments[] = array(
+					'comment' => $row2->user_comment,
+					'username' => $row2->username,
+					'date' => $row2->_date
+				);
+			}
+		}
+		
+		echo json_encode($comments);
+	}
+	
+	// Added by Lekan
+	public function rateplace()
 	{
 		$str = "Oops, something went wrong";
 		$userID = $this->session->userdata('userid');
-			
+		
 		$rating = $_GET['rating'];
+		$googleid = $_GET['googleid'];
+		
+		$query = $this->db->get_where('places', array('google_id' => $googleid));
+		
+		foreach ($query->result() as $row)
+		{
+			$query2 = $this->db->get_where('ratings', array('userid' => $userID, 'placeid' => $row->placeid));
+			$hasrating = false;
+			foreach ($query2->result() as $row2){
+				if(!empty($row2->rating)){
+					$hasrating = true;
+				}
+			}
+		
+			if(!$hasrating)
+			{
+				$data = array(
+				   'placeid' => $row->placeid,
+				   'rating' => $rating,
+				   'userid' => $userID
+				);
+
+				$this->db->insert('ratings', $data);
+				
+				$str = "Place rated!";
+			}
+			/*else{
+				$data = array(
+				   'rating' => $rating
+				);
+
+				$this->db->where('userid', $userID);
+				$this->db->update('ratings', $data); 
+				
+				$str = "Place rated!";
+			}*/
+		}
+		
+		echo $str;
+	}
+	
+	// Added by Lekan
+	public function postcomment()
+	{
+		$str = "Oops, something went wrong";
+		$userID = $this->session->userdata('userid');
+		
 		$comment = $_GET['comment'];
 		$googleid = $_GET['googleid'];
 		
@@ -35,11 +146,10 @@ class Socnav extends CI_Controller {
 			$data = array(
 				   'placeid' => $row->placeid,
 				   'user_comment' => $comment,
-				   'userid' => $userID,
-				   'rating' => $rating
+				   'userid' => $userID
 			);
 
-			$this->db->insert('commentsandratings', $data);
+			$this->db->insert('comments', $data);
 			
 			$str = "Successful!";
 		}
@@ -102,17 +212,6 @@ class Socnav extends CI_Controller {
 			$str = "inserted";
 		}
 		echo $str;
-	}
-
-	// Added by Nick
-	public function placesearch()
-	{
-		
-		$arr = array('a' => 33, 'b' => 22, 'c' => 55, 'd' => 44, 'e' => 66);
-		$data['ajax_request'] = TRUE;
-		$data['json'] = $arr;
-		$this->load->view('placesearch', $data);
-		
 	}
 
 	// THe user sent his location, so we update it on the db.

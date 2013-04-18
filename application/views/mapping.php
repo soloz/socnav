@@ -69,31 +69,40 @@
 					<td><label for="placewebsite">Website:</label></td>
 					<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
 				<tr>
-				
+				<tr>
+					<td><label for="placerating">SocNav Rating:</label></td>
+					<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
+				<tr>
 				<tr>
 					<td><label for="placecomment">Comment:</label></td>
 					<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
 				<tr>
-					
 				<tr>
-					<td><label for="theratings">Rating:</label></td>
+					<td></td>
+					<td><input type="submit" onclick="insertComment(); return false;" value="Comment"></td>
+				<tr>
+				<tr>
+					<td><label for="theratings">Rate:</label></td>
 					<td>
 						<div id="theratings">
-							<input type="radio" name="rating" id="1" value="1">1 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="2" value="2">2 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="3" value="3">3 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="4" value="4">4 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="5" value="5">5
+							<input type="radio" name="rating" id="1" value="1" onchange="ratePlace(); return false;">1 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="2" value="2" onchange="ratePlace(); return false;">2 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="3" value="3" onchange="ratePlace(); return false;">3 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="4" value="4" onchange="ratePlace(); return false;">4 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="5" value="5" onchange="ratePlace(); return false;">5
 						</div>
 					</td>
 				<tr>
-				
-				<tr>
-					<td><input type="submit" onclick="insertCommentRating(); return false;" value="Submit"></td>
-				<tr>
-				
 				<tr>
 					<td><label id="lblmsg"></label></td>
+				<tr>
+				<tr>
+					<td>
+						<h5>Comments</h5><br />
+						<div id="comments_section">
+							
+						</div>
+					</td>
 				<tr>
 			</table>
 		 </div>
@@ -332,7 +341,6 @@
 			// send request
 			service = new google.maps.places.PlacesService(map);
 			service.textSearch(request, createMarkersForPlaces);
-			
 		}
 
 
@@ -476,7 +484,6 @@
 		{
 			$.get("/socnav/index.php/storeplaces", {category: document.getElementById('gmap_type').value, placesrefs: placesrefarr, placesids: placesidarr}, function(data) {
 				//do nothing
-				//alert('store 2 -> ' + data);
 			});
 		}
 		
@@ -493,20 +500,34 @@
 
 			function callback(place, status) {
 			  if (status == google.maps.places.PlacesServiceStatus.OK) {
-				//alert(place.name + " -> " + place.international_phone_number + " -> " + place.rating);
-				//alert(ref);
-				//document.getElementById('tbldetails').style.display = "visible";
+				//Set details from DB
 				document.getElementById('placename').value = place.name;
 				document.getElementById('placephone').value = place.international_phone_number;
 				document.getElementById('placewebsite').value = place.website;
 				document.getElementById('placeicon').src = place.icon;
 				document.getElementById('lblmsg').innerText = "";
+				
+				//Load rating and comment from the database fro the chosen place
+				loadRatingFromDB();
+				loadCommentsFromDB();
 			  }
 			}
 		}
 		
-		//Method for inserting comment and rating
-		function insertCommentRating(){
+		//Method for inserting comments
+		function insertComment(){			
+			$.get("/socnav/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
+				//do nothing
+				document.getElementById('placecomment').value = "";
+				document.getElementById('lblmsg').innerText = data;
+				
+				//Refresh comments
+				loadCommentsFromDB();
+			});
+		}
+		
+		//Method for rating places
+		function ratePlace(){
 			var ratingselected = 0;
 			var inputs = document.getElementsByName("rating");
             for (var i = 0; i < inputs.length; i++) {
@@ -515,12 +536,65 @@
               }
             }
 			
-			$.get("/socnav/index.php/commentandrate", {rating: ratingselected, comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
+			$.get("/socnav/index.php/rateplace", {rating: ratingselected, googleid: placegoogleid}, function(data) {
 				//do nothing
-				//alert('comm -> ' + data);
-				document.getElementById('placecomment').value = "";
 				document.getElementById('lblmsg').innerText = data;
-				document.getElementById("rating").reset();
+				
+				//Clear comment and chosen rating
+				var inputs2 = document.getElementsByName("rating");
+				for (var i = 0; i < inputs2.length; i++) {
+				  if (inputs2[i].checked) {
+					inputs2[i].checked = false;
+					break;
+				  }
+				}
+				
+				//Refresh rating
+				loadRatingFromDB();
+			});
+		}
+		
+		//Method for loading comments from DB
+		function loadCommentsFromDB(){
+			$.getJSON("/socnav/index.php/loadcomments", {googleid: placegoogleid}, function(data) {
+				//Clear the comments div
+				document.getElementById('comments_section').innerHTML = "";
+				
+				//put comments in div
+				for(var j=0; j < data.length; j++) {
+					//create paragraph and add text
+					newParagraph = document.createElement('p');
+					newText = document.createTextNode(data[j].username + ': ' + data[j].comment);
+					newParagraph.appendChild(newText);
+					
+					// Append the new paragraph to the comments_section Div
+					document.getElementById('comments_section').appendChild(newParagraph);
+				}
+			});
+		}
+		
+		//Method for loading ratings from the DB
+		function loadRatingFromDB(){
+			$.get("/socnav/index.php/loadrating", {googleid: placegoogleid}, function(data) {
+				//set rating with appropriate image based on the returned value
+				if(data == 1){
+					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating1.png';
+				}
+				else if(data == 2){
+					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating2.png';
+				}
+				else if(data == 3){
+					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating3.png';
+				}
+				else if(data == 4){
+					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating4.png';
+				}
+				else if(data == 5){
+					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating5.png';
+				}
+				else{
+					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating0.png';
+				}
 			});
 		}
 </script>
