@@ -30,8 +30,9 @@
 <div class="container">	
 	<ul class="breadcrumbs">
 	  <li><a href="#">Home</a></li>
-	  <li class="current"><a href="#">My Profile</a></li>
+	  <li class="current"><a href="#">My Profile (<?php echo $this->session->userdata('username')?>)</a></li>
 	</ul>
+	
 </div>
 
 <div class="container">	
@@ -59,7 +60,7 @@
   </div>
   
   <div class="six columns">
-      <h3>Solomon</h3>
+      <h3><?php echo $this->session->userdata('firstname')?></h3>
    </div>
  
     <div class="three columns">

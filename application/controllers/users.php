@@ -201,6 +201,7 @@ class Users extends CI_Controller {
                         'photourl' => $upload_data['file_name'],
               );
 			$this->session->set_userdata($newSessionData);
+			$this->createThumb($upload_data);
 			
 			redirect('/profile');
 		}
@@ -217,6 +218,29 @@ class Users extends CI_Controller {
         redirect('/login');
     }
     
-}
+    //method to create thumbnail images of places and user pictures
+    public function createThumb($upload_data = array()){
+	
+		$image_data = $upload_data; //get image data
+
+		$config['image_library'] = 'gd2';
+		$config['source_image']	= './uploads/users/'.$this->session->userdata('username').'/'.$image_data['file_name'];
+		$config['new_image']	= './uploads/users/'.$this->session->userdata('username').'/thumbs';
+		$config['create_thumb'] = TRUE;
+		$config['maintain_ratio'] = TRUE;
+		$config['width']	 = 75;
+		$config['height']	= 50;
+
+		$this->load->library('image_lib', $config); //load library
+			
+		if ( ! $this->image_lib->resize()){ //do whatever specified in config
+			 
+			 $error = array('error' => $this->image_lib->display_errors());
+			$this->load->view('upload_error', $error);
+		} 
+
+	}
+	
+ }
 
 ?>

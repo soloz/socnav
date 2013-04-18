@@ -146,7 +146,7 @@ class Socnav extends CI_Controller {
 	  	return $angle * $earthRadius;
 
 	}
-
+	
 }
 
 ?>
