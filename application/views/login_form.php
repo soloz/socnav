@@ -16,8 +16,6 @@
 		<h2>Sign In</h2>
 		<?php $attributes = array('class' => 'nice custom', 'id' => 'loginform'); ?>
 		<?php echo form_open('/validatelogin', $attributes); ?>
-
-
 		<?php $email_input_attr = array('name'=>'email', 'value' => '', 'class' => 'input-text',  'placeholder'=>'Email', 'style'=>'width: 286px; height: 40px;') ;?>
 		<?php $passwd_input_attr = array('name'=>'passwd', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Password', 'style'=>'width: 286px; height: 40px;'); ?>
 		<?php $signin_button_attr = array('name'=>'signin', 'type'=>'submit', 'value' => 'Sign In', 'class'=>'nice small radius blue button', 'style'=>'width: 286px; height: 40px;'); ?>
@@ -44,6 +42,7 @@
 		<?php $lastname_input_attr = array('name'=>'lastname', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Last Name', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $email_input_attr = array('name'=>'email', 'value' => '', 'class' => 'input-text blue',  'placeholder'=>'Email', 'style'=>'width: 386px; height: 40px;') ;?>
 		<?php $username_input_attr = array('name'=>'username', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Username', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $phone_input_attr = array('name'=>'phonenumber', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Phone', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $gender_attr = array('male'=>'Male', 'female' => 'Female'); ?>
 		<?php $passwd_input_attr = array('name'=>'passwd', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Password', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $passwd2_input_attr = array('name'=>'passwd2', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Confirm Password', 'style'=>'width: 386px; height: 40px;'); ?>
@@ -55,10 +54,11 @@
 	        <?php echo form_input($email_input_attr);?> 
 
 	        <?php echo form_input($username_input_attr);?>
+	        <?php echo form_input($phone_input_attr);?>
 	        <?php echo form_password($passwd_input_attr); ?>
 	        <?php echo form_password($passwd2_input_attr); ?>
 	        
-	        <?php echo form_dropdown('Gender',$gender_attr);?>
+	        <?php echo form_dropdown('gender',$gender_attr, 'male');?>
 	        <?php echo form_submit($create_button_attr); ?>
 
 			<?php echo form_close(); ?>

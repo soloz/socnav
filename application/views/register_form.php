@@ -40,7 +40,7 @@
         <?php echo form_input($email_input_attr);?> 
 
         <?php echo form_input($username_input_attr);?> 
-         <?php echo form_dropdown('Gender', $gender_attr); ?>
+         <?php echo form_dropdown('gender', $gender_attr, 'female'); ?>
         <?php echo form_password($passwd_input_attr); ?>
         <?php echo form_password($passwd2_input_attr); ?>
 	<?php echo form_submit($create_button_attr); ?>

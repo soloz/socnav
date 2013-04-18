@@ -77,7 +77,8 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('lastname', 'Lastname', 'required');
             $this->form_validation->set_rules('email', 'Email', 'required');
             $this->form_validation->set_rules('username', 'Username', 'required');
-         //   $this->form_validation->set_rules('gender', 'Gender', 'required');
+            $this->form_validation->set_rules('phonenumber', 'Phone', 'required');
+            $this->form_validation->set_rules('gender', 'Gender', 'required');
 	    	$this->form_validation->set_rules('passwd', 'Password', 'required');
             $this->form_validation->set_rules('passwd2', 'Password', 'required');
 
@@ -107,7 +108,7 @@ class Users extends CI_Controller {
                 } else {
                     $this->session->set_flashdata('RegError', 'There was a problem 
                         creating your account, please try again later');
-                    redirect('/signup', 'refresh');
+                    redirect('/profile', 'refresh');
                     return false;
                 }
             }
@@ -141,7 +142,7 @@ class Users extends CI_Controller {
                 $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
                 $this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
                 $this->form_validation->set_rules('phonenumber', 'Phone', 'trim|required');
-                //$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+                $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
                 
                 if ($this->form_validation->run() == FALSE) {
                     $this->session->set_flashdata('updateFailure', 'Failure');

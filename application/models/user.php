@@ -31,9 +31,11 @@ class User extends CI_Model {
             'locationid' => $userLocationID, // Add foreign key to that location table entry for the user.
             'firstname' => $userdetails['firstname'],
             'lastname' => $userdetails['lastname'],
+            'phonenumber' => $userdetails['phonenumber'],
+             'gender' => $userdetails['gender'],
 	    	'username' => $userdetails['username'],
             'email' => $userdetails['email'],
-            'password' => md5($userdetails['passwd']),
+            'password' => md5($userdetails['passwd'])
 
         );
         if ($this->db->insert('user', $new_user)) {
@@ -42,22 +44,12 @@ class User extends CI_Model {
     }
 
     public function updateUser($userid, $edit_data = array()) {
-       /* if ($this->input->post('pref') != false) {
-
-            if (is_array($edit_data['pref'])) {
-                $pref = implode(',', $edit_data['pref']);
-            } else {
-                $pref = $edit_data['pref'];
-            }
-        } else {
-            $pref = "NULL";
-        }
-        */
+      
         $data = array(
             'firstname' => $edit_data['firstname'],
             'lastname' => $edit_data['lastname'],
             'username' => $edit_data['username'],
-            //'gender' => $edit_data['gender'],
+            'gender' => $edit_data['gender'],
             'phonenumber' => $edit_data['phonenumber']
         );
         $this->db->where('userid', $userid);

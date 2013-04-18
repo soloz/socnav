@@ -97,7 +97,6 @@
     </div>
   </div>
 
-
 <div id="profileedit" class="reveal-modal" >
 
     <?php $attributes = array('class' => 'nice custom', 'id' => 'updateprofile'); ?>
@@ -106,34 +105,34 @@
 	<?php $firstname = $this->session->userdata('firstname'); ?>
 	<?php $lastname = $this->session->userdata('lastname'); ?>
 	<?php $email = $this->session->userdata('email'); ?>
+	<?php $gender = $this->session->userdata('gender'); ?>
 	<?php $phone = $this->session->userdata('phonenumber'); ?>
 	<?php $username = $this->session->userdata('username'); ?>
+	<?php $passwd = ""; ?>
+	<?php $passwd2 = ""; ?>
 	
-	<?php $firstname_input_attr = array('name'=>'firstname', 'value' => ''.$firstname, 'class' => 'input-text blue', 'placeholder'=>'First Name', 'style'=>'width: 286px; height: 40px;'); ?>
-	<?php $lastname_input_attr = array('name'=>'lastname', 'value' => ''.$lastname, 'class' => 'input-text', 'placeholder'=>'Last Name', 'style'=>'width: 286px; height: 40px;'); ?>
-	<?php $email_input_attr = array('name'=>'email', 'value' => ''.$email, 'class' => 'input-text blue',  'placeholder'=>'Email', 'style'=>'width: 286px; height: 40px;') ;?>
-	<?php $username_input_attr = array('name'=>'username', 'value' => ''.$username, 'class' => 'input-text', 'placeholder'=>'Username', 'style'=>'width: 286px; height: 40px;'); ?>
-	<?php $phone_input_attr = array('name'=>'phonenumber', 'value' => ''.$phone, 'class' => 'input-text', 'placeholder'=>'Phone', 'style'=>'width: 286px; height: 40px;'); ?>
-	<?php $passwd_input_attr = array('name'=>'passwd', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Password', 'style'=>'width: 286px; height: 40px;'); ?>
-	<?php $passwd2_input_attr = array('name'=>'passwd2', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Confirm Password', 'style'=>'width: 286px; height: 40px;'); ?>
-	<?php $description_attr = array('name'=>'Description', 'placeholder' => 'Update Description', 'rows' => '100', 'cols' => '50', 'style'=>'width: 286px; height: 40px;'); ?>
-	<?php $gender_attr = array('male'=>'Male', 'female' => 'Female', 'hermaphrodite' => 'Hermaphrodite'); ?>
-	<?php $update_button_attr = array('name'=>'create', 'type'=>'submit', 'value' => 'Update Account', 'class'=>'nice small radius blue button', 'style'=>'width: 286px; height: 40px;'); ?>
-	
-		<?php echo form_fieldset("Edit Your Profile"); ?>
-        <?php echo form_input($firstname_input_attr); ?>
-        <?php echo form_input($lastname_input_attr); ?>
+	<?php $firstname_input_attr = array('name'=>'firstname', 'value' => ''.$firstname , 'class' => 'input-text blue', 'placeholder'=>'First Name', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $lastname_input_attr = array('name'=>'lastname', 'value' => ''.$lastname, 'class' => 'input-text', 'placeholder'=>'Last Name', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $email_input_attr = array('name'=>'email', 'value' => ''.$email, 'class' => 'input-text blue',  'placeholder'=>'Email', 'style'=>'width: 386px; height: 40px;') ;?>
+		<?php $username_input_attr = array('name'=>'username', 'value' => ''.$username, 'class' => 'input-text', 'placeholder'=>'Username', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $phone_input_attr = array('name'=>'phonenumber', 'value' => ''.$phone, 'class' => 'input-text', 'placeholder'=>'Phone', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $gender_attr = array('male'=>'Male', 'female' => 'Female'); ?>
+		<?php $passwd_input_attr = array('name'=>'passwd', 'value' => ''.$passwd, 'class' => 'input-text', 'placeholder'=>'Password', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $passwd2_input_attr = array('name'=>'passwd2', 'value' => ''.$passwd, 'class' => 'input-text', 'placeholder'=>'Confirm Password', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $create_button_attr = array('name'=>'create', 'type'=>'submit', 'value' => 'Create Account', 'class'=>'nice small radius blue button', 'style'=>'width: 386px; height: 40px;'); ?>
 
-        <?php echo form_input($email_input_attr);?> 
+	        <?php echo form_input($firstname_input_attr); ?>
+	        <?php echo form_input($lastname_input_attr); ?>
 
-        <?php echo form_input($username_input_attr);?> 
-        <?php echo form_input($phone_input_attr);?> 
-        <?php echo form_password($passwd_input_attr); ?>
-        <?php echo form_password($passwd2_input_attr); ?>
-        <?php echo form_textarea($description_attr); ?>
-        <?php echo form_dropdown('Gender', $gender_attr); ?>
-        
-	<?php echo form_submit($update_button_attr); ?>
+	        <?php echo form_input($email_input_attr);?> 
+
+	        <?php echo form_input($username_input_attr);?>
+	        <?php echo form_input($phone_input_attr);?>
+	        <?php echo form_password($passwd_input_attr); ?>
+	        <?php echo form_password($passwd2_input_attr); ?>
+	        
+	        <?php echo form_dropdown('gender',$gender_attr, $gender);?>
+	        <?php echo form_submit($create_button_attr); ?>
 
 <?php echo form_fieldset_close(); ?>
 
