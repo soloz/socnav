@@ -69,7 +69,6 @@
 					<td><label for="placewebsite">Website:</label></td>
 					<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
 				<tr>
-				
 				<tr>
 					<td><label for="placerating">SocNav Rating:</label></td>
 					<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
@@ -80,7 +79,7 @@
 				<tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" onclick="insertComment(); return false;" value="Submit"></td>
+					<td><input type="submit" onclick="insertComment(); return false;" value="Comment"></td>
 				<tr>
 				<tr>
 					<td><label for="theratings">Rate:</label></td>
