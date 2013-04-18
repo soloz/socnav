@@ -50,7 +50,53 @@
   	<div class="row">
 	  	<?php $this->load->view('search_criteria'); ?>
 	</div>
-  		 <div class="panel"> <h5>Details</h5></div>
+  		 <div class="panel">
+			<h5>Details</h5><br />
+			<!--This table is for showing details (added by lekan)-->
+			<table id="tbldetails">
+				<tr>
+					<td><img id="placeicon" name="placeicon" src = "" alt = "icon" /></td>
+				<tr>
+				<tr>
+					<td><label for="placename">Name:</label></td>
+					<td><input id="placename" type="text" name="placename" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="placephone">Phone:</label></td>
+					<td><input id="placephone" type="text" name="placephone" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="placewebsite">Website:</label></td>
+					<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
+				<tr>
+				
+				<tr>
+					<td><label for="placecomment">Comment:</label></td>
+					<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
+				<tr>
+					
+				<tr>
+					<td><label for="theratings">Rating:</label></td>
+					<td>
+						<div id="theratings">
+							<input type="radio" name="rating" id="1" value="1">1 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="2" value="2">2 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="3" value="3">3 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="4" value="4">4 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="5" value="5">5
+						</div>
+					</td>
+				<tr>
+				
+				<tr>
+					<td><input type="submit" onclick="insertCommentRating(); return false;" value="Submit"></td>
+				<tr>
+				
+				<tr>
+					<td><label id="lblmsg"></label></td>
+				<tr>
+			</table>
+		 </div>
   </div>
  	  
   <div class="nine columns">
@@ -292,10 +338,25 @@
 				clearOverlays();
 				directionsDisplay.setMap(null);
 				
+				//Array for holding references and id of places from google
+				var placesrefarr = "[";
+				var placesidarr = "[";
+				
 				// and create new markers by search result
 				for (var i = 0; i < placeResults.length; i++) {
 					createPlaceMarker(placeResults[i]);
+					
+					//Get the refrences and ids of places
+					placesrefarr += "\"" + placeResults[i].reference + "\",";
+					placesidarr += "\"" + placeResults[i].id + "\",";
 				}
+				
+				//alert(the);
+				placesrefarr = placesrefarr.slice(0, -1); placesrefarr += "]";
+				placesidarr = placesidarr.slice(0, -1); placesidarr += "]";
+				
+				//Call function to carry out operation
+				storeplaces(placesrefarr, placesidarr);
 			} else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
 				alert('Sorry, nothing is found');
 			}
@@ -317,6 +378,7 @@
 				content: '<img src="' + obj.icon + '" /><font style="color:#000;">' + obj.name +
 				'<br />Rating: ' + obj.rating + '<br />Vicinity: ' + obj.vicinity + '</font>'
 				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To">'
+				+ '<input type="submit" onclick="viewDetails(\'' + obj.reference + '\', \'' + obj.id + '\'); return false;" value="View Details">'
 			});
 
 			// add event handler to current marker
@@ -397,4 +459,59 @@
 		// The function is automatically run after loading the window.
 		google.maps.event.addDomListener(window, 'load', getLocation_and_showMap);
 
+		/*
+			THIS SECTION DOWNWARDS ARE LEKAN'S FUNCTIONS FOR PLACES
+		*/
+		//This function stores places that don't exist in the db
+		function storeplaces(placesrefarr, placesidarr)
+		{
+			$.get("/socnav/index.php/storeplaces", {category: document.getElementById('gmap_type').value, placesrefs: placesrefarr, placesids: placesidarr}, function(data) {
+				//do nothing
+				//alert('store 2 -> ' + data);
+			});
+		}
+		
+		//Method for showing place details
+		function viewDetails(googleref, googleid){
+			placegoogleid = googleid;
+			
+			var request = {
+			  reference: googleref
+			};
+
+			service = new google.maps.places.PlacesService(map);
+			service.getDetails(request, callback);
+
+			function callback(place, status) {
+			  if (status == google.maps.places.PlacesServiceStatus.OK) {
+				//alert(place.name + " -> " + place.international_phone_number + " -> " + place.rating);
+				//alert(ref);
+				//document.getElementById('tbldetails').style.display = "visible";
+				document.getElementById('placename').value = place.name;
+				document.getElementById('placephone').value = place.international_phone_number;
+				document.getElementById('placewebsite').value = place.website;
+				document.getElementById('placeicon').src = place.icon;
+				document.getElementById('lblmsg').innerText = "";
+			  }
+			}
+		}
+		
+		//Method for inserting comment and rating
+		function insertCommentRating(){
+			var ratingselected = 0;
+			var inputs = document.getElementsByName("rating");
+            for (var i = 0; i < inputs.length; i++) {
+              if (inputs[i].checked) {
+                ratingselected = inputs[i].value;
+              }
+            }
+			
+			$.get("/socnav/index.php/commentandrate", {rating: ratingselected, comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
+				//do nothing
+				//alert('comm -> ' + data);
+				document.getElementById('placecomment').value = "";
+				document.getElementById('lblmsg').innerText = data;
+				document.getElementById("rating").reset();
+			});
+		}
 </script>
