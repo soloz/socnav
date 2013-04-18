@@ -20,6 +20,92 @@ class Socnav extends CI_Controller {
     public function testmap() {
         $this->load->view('maps');
     }
+	
+	// Added by Lekan
+	public function commentandrate()
+	{
+		$str = "Oops, something went wrong";
+		$userID = $this->session->userdata('userid');
+			
+		$rating = $_GET['rating'];
+		$comment = $_GET['comment'];
+		$googleid = $_GET['googleid'];
+		
+		$query = $this->db->get_where('places', array('google_id' => $googleid));
+		
+		foreach ($query->result() as $row)
+		{	
+			$data = array(
+				   'placeid' => $row->placeid,
+				   'user_comment' => $comment,
+				   'userid' => $userID,
+				   'rating' => $rating
+			);
+
+			$this->db->insert('commentsandratings', $data);
+			
+			$str = "Successful!";
+		}
+		
+		echo $str;
+	}
+	
+	// Added by Lekan
+	public function storeplaces()
+	{
+		$str;
+		//get the refs and ids
+		$placesrefs = json_decode($_GET['placesrefs']);
+		$placesids = json_decode($_GET['placesids']);
+		$category = $_GET['category'];
+		
+		// Iterate through the rows
+		//$obj = json_decode($places);
+		$query = $this->db->get('places');
+
+		//if db contains places, enter here
+		if($this->db->count_all('places') > 0){
+			$itexists;
+			for($i = 0; $i < count($placesids); $i++){
+				$itexists = false;
+				//$str = "" . count($places);
+				//check if current id exists
+				foreach ($query->result() as $row){
+					if($row->google_id == $placesids[$i]){
+						$itexists = true;
+						break;
+					}
+				}
+				
+				//if id does not exist, add it to the db
+				if(!$itexists){
+					$data = array(
+					   'rating' => 0 ,
+					   'category' => $category ,
+					   'google_ref' => $placesrefs[$i],
+					   'google_id' => $placesids[$i]
+					);
+
+					$this->db->insert('places', $data);
+				}
+			}
+			$str = "checks -> " . $itexists;
+		}
+		else{//add all places, if its first time
+			for($i = 0; $i < count($placesids); $i++){
+				$data = array(
+				   'rating' => 0 ,
+				   'category' => $category ,
+				   'google_ref' => $placesrefs[$i],
+				   'google_id' => $placesids[$i]
+				);
+
+				$this->db->insert('places', $data);
+			}
+			$str = "inserted";
+		}
+		echo $str;
+	}
 
 	// Added by Nick
 	public function placesearch()
