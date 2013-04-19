@@ -257,7 +257,8 @@
 
 		var placeAddressList = Array();
 
-		var nearbyUserList = Array();		
+		var nearbyUserList = Array();
+		var placesList = Array();		
 		
 		function getLocation_and_showMap() {
 			// Check if geolocation is supported on the browser and get the location
@@ -450,6 +451,7 @@
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				
 				placeResults = results;
+				
 				// if we have found something - clear map (overlays)
 				// clear the field from old markers and direction routes.
 				clearOverlays();
@@ -462,7 +464,8 @@
 				// and create new markers by search result
 				for (var i = 0; i < placeResults.length; i++) {
 					createPlaceMarker(placeResults[i]);
-					
+					placesList[i] = placeResults[i];
+
 					//Get the refrences and ids of places
 					placesrefarr += "\"" + placeResults[i].reference + "\",";
 					placesidarr += "\"" + placeResults[i].id + "\",";
@@ -495,13 +498,21 @@
 				content: '<img src="' + obj.icon + '" /><font style="color:#000;">' + obj.name +
 				'<br />Rating: ' + obj.rating + '<br />Vicinity: ' + obj.vicinity + '</font>'
 				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To">'
-				+ '<input type="submit" onclick="viewDetails(\'' + obj.reference + '\', \'' + obj.id + '\'); return false;" value="View Details">'
 			});
 
 			// add event handler to current marker
 			google.maps.event.addListener(mark, 'click', function() {
 				clearInfos();
 				clickedMarkerPosition = mark.getPosition();
+
+				var placename = mark.get("title");
+				for(var i=0 ; i < placesList.length ; i++) {
+					if(placesList[i].name == placename) {
+						viewDetails(placesList[i].reference, placesList[i].id);
+					}
+				}
+
+
 				infowindow.open(map,mark);
 				showPlaces();
 			});
