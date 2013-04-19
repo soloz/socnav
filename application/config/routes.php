@@ -59,6 +59,7 @@ $route['loadcomments'] = "/socnav/loadcomments"; //<-- added by Lekan
 $route['loadrating'] = "/socnav/loadrating"; //<-- added by Lekan
 $route['loadgallery'] = "/socnav/loadgallery"; //<-- added by Lekan
 $route['placepictureupload'] = "/socnav/placepictureupload"; //<-- added by Lekan
+$route['showglobalcomments'] = "/socnav/showglobalcomments"; //<-- added by Lekan
 
 //Todo: April 06, 2013
 $route['profile'] = "/users/displayProfile";

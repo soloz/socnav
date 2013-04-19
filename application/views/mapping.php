@@ -62,7 +62,7 @@
  <div class="container">
 
   
-  <div class="three columns" style="margin: 0 0 0 30px;">
+  <div class="five columns" style="margin: 0 0 0 30px;">
   	<div class="row">
 	  <?php $this->load->view('search_criteria'); ?>
 	</div>
@@ -161,46 +161,10 @@
 					<td><label id="lblmsg"></label></td>
 				<tr>
 			</table>
-
 		 </div>
-
- 		 <div id="commentsdiv" class="panel" style="width:410px; display:none">
-			
-
-				<ul class="accordion">
-				  <li class="active">
-				    <div class="title">
-				      <h5>Accordion Panel 1</h5>
-				    </div>
-				    <div class="content">
-				      
-				    </div>
-				  </li>
-				  <li>
-				    <div class="title">
-				      <h5>Accordion Panel 2</h5>
-				    </div>
-				    <div class="content">
-				      
-				    </div>
-				  </li>
-				  <li>
-				    <div class="title">
-				      <h5>Accordion Panel 3</h5>
-				    </div>
-				    <div class="content">
-				     
-				    </div>
-				  </li>
-				</ul>
-
-		</div>
-
-
-
 </div>
 
-  <div class="eight columns" style="margin:0 0 0 -120px;">
+  <div class="seven columns" style="margin:0 0 0 -120px;">
   	
   	<div class="row">	
   		<div id="gmap_canvas"></div>
@@ -432,7 +396,7 @@
 				// pass data to create each user marker
 				for(var i=0; i < userlist.length; i++) {
 
-				    	createPersonMarker(userlist[i]);
+				    createPersonMarker(userlist[i]);
 					nearbyUserList[i] = userlist[i];
 
 				}
@@ -727,11 +691,9 @@
 		}
 		
 		//Method for inserting comments
-		function insertComment(){		
-				
-			$.get("/socnav/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
-				//do nothing
-							
+		function insertComment(){				
+			$.get("/socnav/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid, latitude: latit, longitude: longit}, function(data) {
+				//do nothing							
 				document.getElementById('placecomment').value = "";
 			
 				document.getElementById('lblmsg').innerText = data;
@@ -818,8 +780,9 @@
 			$.getJSON("/socnav/index.php/loadgallery", {googleid: gid}, function(data) {
 				//Clear the comments div
 				document.getElementById('placegallery').innerHTML = "";
-				alert('-> ' + data[0].username);
-				//put comments in div
+				//alert('-> ' + data[0].username);
+				
+				//put pictures in div
 				for(var j=0; j < data.length; j++) {
 					//create paragraph and add text
 					newParagraph = document.createElement('p');
