@@ -52,7 +52,8 @@
 		#placesdiv { display: none }
 		
 </style>
-	
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+</script>	
 	
 </head>
 
@@ -98,16 +99,16 @@
 			<tr>
 			<tr>
 				<td>
-					<h5><a href="#" data-reveal-id="exampleModal" class="radius button">Reviews&hellip;</a></h5><br />
-				</td>
+					<label for="placewebsite"><strong>Reviews:</strong></label>
+                                </td>
+			        <td>
+                               <div style="border:1px solid black;width:200px;height:100px;overflow:scroll;">
+                               <div id="comments_section">
+			       </div>
+		               </div>
+			</td>
 			<tr>
                </table>
-	       <div id="exampleModal" class="reveal-modal">
-		   <div id="comments_section">
-					
-		   </div>
-		  <a class="close-reveal-modal">&#215;</a>
-		</div>
                </br>
 
                  <form id="opiniontbldetails">
