@@ -22,6 +22,9 @@
   <!--link rel="stylesheet" href="stylesheets/foundation.min2.css"-->
   <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs3/stylesheets/app.css">
   <script src="<?php echo base_url(); ?>zurbs3/javascripts/modernizr.foundation.js" type="text/javascript"></script>
+	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery.orbit.min.js" type="text/javascript"></script>
   
 </head>
 
@@ -65,7 +68,23 @@
                 
         	</div>
      </div>
-     
+
+ <div class="container" id="megaDrop" style="display: none;">
+  <div class="mobile-main-nav-padding">
+    <div class="row top">
+
+ <?php 
+                        	$is_logged_in = $this->session->userdata('is_logged_in');
+	                        if ($is_logged_in == true) {
+	                	        	echo	$this->load->view('megadrop_login');
+	                   					
+	       					} else {
+	       					    	echo $this->load->view('megadrop_image');
+	       					}
+ ?>
+  </div>
+  </div>
+</div>
 
  <header>
 <div class="container">
@@ -93,3 +112,9 @@
                 </div>
 	</div>
 	</header>
+
+
+ <script src="<?php echo base_url(); ?>system/libraries/zurbs/javascripts/jquery.min.js"></script>
+        <script src="<?php echo base_url(); ?>system/libraries/zurbs/javascripts/foundation.js"></script>
+        <script src="<?php echo base_url(); ?>system/libraries/zurbs/javascripts/app.js"></script>
+	<script src="http://www.zurb.com/assets/zurb.mega-drop.js"></script>
