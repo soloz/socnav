@@ -19,7 +19,7 @@
 		
 		</div>
 		<div class="eight columns">
-             <p><a href="main">Home</a> | <a href="https://www.facebook.com/pages/Socnav/373971352720684">Facebook</a> | <a href="https://twitter.com/SocNav">Twitter</a> | <a href="admin">Admin</a> </p>
+             <p><a href="main">Home</a> | <a href="https://www.facebook.com/pages/Socnav/373971352720684">Facebook</a> | <a href="https://twitter.com/SocNav">Twitter</a> </p>
         </div>
         </div>
 </div>

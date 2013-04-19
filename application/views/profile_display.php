@@ -62,23 +62,23 @@
 		<table id="profile" style="border: none; width: 400px;" >
 			<tr>
 			<td><label for="username"><strong>Username:</strong></label></td>
-			<td><input id="username" type="text" name="username" readonly style="border: none;"/></td>
+			<td><input id="username" type="text" name="username" readonly style="border: none;" value="<?php echo $this->session->userdata('username'); ?>" /></td>
 			<tr>
 			<tr>
 			<td><label for="firstname"><strong>First Name:<strong></label></td>
-			<td><input id="firstname" type="text" name="firstname" readonly style="border: none;"/></td>
+			<td><input id="firstname" type="text" name="firstname" readonly style="border: none;" value="<?php echo $this->session->userdata('firstname'); ?>" /></td>
 			<tr>
 			<tr>
 			<td><label for="lastname"><strong>Last Name:<strong></label></td>
-			<td><input id="lastname" type="text" name="lastname" readonly style="border: none;"/></td>
+			<td><input id="lastname" type="text" name="lastname" readonly style="border: none;" value="<?php echo $this->session->userdata('lastname'); ?>" /></td>
 			<tr>
 			<tr>
 			<td><label for="email"><strong>Email:<strong></label></td>
-			<td><input id="email" type="text" name="email" readonly style="border: none;"/></td>
+			<td><input id="email" type="text" name="email" readonly style="border: none;" value="<?php echo $this->session->userdata('email'); ?>" /></td>
 			<tr>
 			<tr>
 			<td><label for="gender"><strong>Gender:<strong></label></td>
-			<td><input id="gender" type="text" name="gender" readonly style="border: none;"/></td>
+			<td><input id="gender" type="text" name="gender" readonly style="border: none;" value="<?php echo $this->session->userdata('gender'); ?>" /></td>
 			<tr>
 		</table>
    </div>

@@ -1,9 +1,10 @@
 <div class="seven columns hide-on-phones">
 <div class="row">
             
-            <dl class="tabs">
-		 		 <dd class="active"><a id="peopletab" onclick="peopleClicked()" href="#people">Find People</a></dd>
+            		<dl class="tabs">
+		 		<dd class="active"><a id="peopletab" onclick="peopleClicked()" href="#people">Find People</a></dd>
 				 <dd><a id="placestab" onclick="placesClicked()" href="#places">Find Places</a></dd>
+ 				<dd><a id="placestab" onclick="commentsClicked()" href="#comments">Socialize</a></dd>
 			 </dl>
 		
 			 <ul class="tabs-content">
@@ -91,6 +92,11 @@ function placesClicked() {
 	document.getElementById('peoplediv').style.display = 'none';
 }
 
+function commentsClicked() {
+	document.getElementById('placesdiv').style.display = 'none';
+	document.getElementById('peoplediv').style.display = 'none';
+}
+
 function showPeople() {
 	document.getElementById('peoplediv').style.display = 'block';
 }
@@ -98,5 +104,10 @@ function showPeople() {
 function showPlaces() {
 	document.getElementById('placesdiv').style.display = 'block';
 }
+
+function showComments() {
+	document.getElementById('commentsdiv').style.display = 'block';
+}
+
 
 </script>

@@ -84,6 +84,7 @@
 						echo "<li>";                	        		
 						echo anchor('/logout', 'Logout', array('class' => 'nice blue button'));
 						echo "</li>";
+						echo $this->session->userdata('username');
                    					
        					} else {
 						echo "<li>";       					    	
