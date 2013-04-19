@@ -393,8 +393,7 @@
 		// Checks the results from the PlaceService and passes the data for each place to createPlaceMarker().
 		function createMarkersForPlaces(results, status) {
 
-			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				
+			if (status == google.maps.places.PlacesServiceStatus.OK) {				
 				placeResults = results;
 				// if we have found something - clear map (overlays)
 				// clear the field from old markers and direction routes.
@@ -672,7 +671,13 @@
 					document.getElementById('placegallery').appendChild(newParagraph);
 				}
 				
-				gid = ""; gref = "";
+				//clear
+				if(gid != ""){
+					var tr = '<?php $array_items = array('googleid' => '', 'googleref' => ''); 
+									echo $this->session->unset_userdata($array_items);
+								?>';
+					gid = ""; gref = "";
+				}
 			});
 		}
 </script>
