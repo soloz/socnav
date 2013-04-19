@@ -9,10 +9,115 @@ class Socnav extends CI_Controller {
     }
 
     public function search() {
-
-        $data['main_content'] = "search"; //body of page
-        $this->load->view('includes/templates.php', $data); //header, footer, data
+		if(!empty($_GET['gid'])){
+			//Get query string variables
+			/*$data['googleid'] = $_GET['gid']; $data['type'] = $_GET['typ']; $data['radius'] = $_GET['rad']; 
+			$data['keyword'] = $_GET['key']; $data['googleref'] = $_GET['ref'];*/
+			$placedata = array(
+                   'googleid'  => $_GET['gid'],
+                   'type'     => $_GET['typ'],
+                   'radius' => $_GET['rad'],
+				   'keyword'     => $_GET['key'],
+				   'googleref'     => $_GET['ref']
+               );
+			$this->session->set_userdata($placedata);
+		}
+		
+		$data['main_content'] = "search"; //body of page
+		$this->load->view('includes/templates.php', $data); //header, footer, data
     }
+	
+	// Added by Lekan
+	public function loadgallery()
+	{
+		//Get unique google id and use it to get the place
+		$googleid = $_GET['googleid'];
+		$query = $this->db->get_where('places', array('google_id' => $googleid));
+		
+		//Values to be returned
+		$placephotogallery = array();
+		
+		//load comments and calculate rating
+		foreach ($query->result() as $row)
+		{
+			//Get all the phop and ratings with place id
+			//$this->db->where('placephotogallery.placeid', $row->placeid);
+			//$galleryquery = $this->db->get('placephotogallery join user on placephotogallery.userid = user.userid');
+			//$this->db->join('user', 'placephotogallery.userid = user.userid');
+			$galleryquery = $this->db->get_where('placephotogallery', array('placeid' => $row->placeid));
+			
+			foreach ($galleryquery->result() as $row2)
+			{
+				//store photo urls in array -- $row2->username
+				$placephotogallery[] = array(
+					'photourl' => $row2->photourl,
+					'username' => '',
+					'date' => $row2->dateposted
+				);
+			}
+		}
+		
+		echo json_encode($placephotogallery);
+	}
+	
+	//Function for Uploading Files (Copied from users controller) -- Added by Lekan
+    public function placepictureupload() {
+		if(isset($_POST)){
+			//Get all the hidden fields
+			$googleid = $this->input->post('hgid');
+			$radius = $this->input->post('hradius');
+			$type = $this->input->post('htype');
+			$keyword = $this->input->post('hkeyword');
+			$googleref = $this->input->post('hgref');
+		
+			$path = "uploads/places/".$googleid;
+            //create the folder if it's not already exists         
+			if(!is_dir($path)){
+				mkdir($path,0755,TRUE);
+		   } 
+		
+			$config['upload_path'] = './uploads/places/'.$googleid;
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']	= '1000';
+			$config['max_width']  = '1024';
+			$config['max_height']  = '1024';
+
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+			
+			if (! $this->upload->do_upload())
+			{
+				$error = array('error' => $this->upload->display_errors());
+				$this->load->view('upload_error', $error);
+			}
+			else
+			{
+				$upload_data = $this->upload->data();
+				$this->user->postPhotoUrl($this->session->userdata('userid'), $upload_data['file_name']);
+				
+				$this->session->unset_userdata('photourl');
+				 $newSessionData = array('photourl' => $upload_data['file_name'],
+				  );
+				$this->session->set_userdata($newSessionData);
+				
+				//Insert record into db
+				$query = $this->db->get_where('places', array('google_id' => $googleid));			
+				//load comments and calculate rating
+				foreach ($query->result() as $row)
+				{
+					$data = array(
+					   'placeid' => $row->placeid,
+					   'photourl' => $upload_data['file_name'],
+					   'userid' => $this->session->userdata('userid')
+					);
+
+					$this->db->insert('placephotogallery', $data);
+				}
+				
+				redirect('/search?gid='.$googleid.'&typ='.$type.'&rad='.$radius.'&key='.$keyword.'&ref='.$googleref.'#places');
+			}
+		}
+	}
 	
 	// Added by Lekan
 	public function loadrating()

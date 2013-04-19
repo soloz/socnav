@@ -215,21 +215,29 @@
   
   <!--Copied from profile_display page-->
   <div id="pictureupload" class="reveal-modal" >
-	<?php $attributes = array('class' => 'nice custom', 'id' => 'pictureupload'); ?>
-    <?php echo form_open_multipart('/pictureupload', $attributes); ?>
+	<?php $attributes = array('class' => 'nice custom', 'id' => 'placepictureupload'); ?>
+    <?php echo form_open_multipart('/placepictureupload', $attributes); ?>
 
-	<?php $upload_input_attr = array('name'=>'userfile', 'type'=>'file', 'size'=>'20','style'=>'width: 286px; height: 40px;'); ?>
+	<?php $upload_input_attr = array('name'=>'userfile', 'type'=>'file', 'size'=>'20', 'style'=>'width: 286px; height: 40px;'); ?>
 	<?php $upload_button_attr = array('name'=>'create', 'type'=>'submit', 'value' => 'Upload', 'class'=>'nice small radius blue button', 'style'=>'width: 286px; height: 40px;'); ?>
 	
-		<?php echo form_fieldset("Change Your Picture"); ?>
-        <?php echo form_upload($upload_input_attr); ?>
+	<?php echo form_fieldset("Upload Picture"); ?>
+	<?php echo form_upload($upload_input_attr); ?>
         
 	<?php echo form_submit($upload_button_attr); ?>
 
 	<?php echo form_fieldset_close(); ?>
-
+	<input id="hgid" type="hidden" value="" name="hgid">
+	<input id="hradius" type="hidden" value="" name="hradius">
+	<input id="htype" type="hidden" value="" name="htype">
+	<input id="hkeyword" type="hidden" value="" name="hkeyword">
+	<input id="hgref" type="hidden" value="" name="hgref">
 	<?php echo form_close(); ?>
 	<a class="close-reveal-modal">&#215;</a>
+  </div>
+  
+  <div id="placegallery">
+	
   </div>
   
  </div>
@@ -287,6 +295,9 @@
 		var userLocation; // LatLng object that stores the user's location.
 		var userInfowindow;
 		var userMarker;
+		
+		//For places after upload
+		var gid; var type; var radius; var keyword; var gref;
 
 		var placeAddressList = Array();
 
@@ -369,6 +380,27 @@
 				google.maps.event.addListener(userMarker, 'click', function() {
 					infowindow.open(map,userMarker);
 				});
+				
+				//Show places if
+				gid = '<?php echo $this->session->userdata('googleid');?>';
+				type = '<?php echo $this->session->userdata('type');?>';
+				radius = '<?php echo $this->session->userdata('radius');?>';
+				keyword = '<?php echo $this->session->userdata('keyword');?>';
+				gref = '<?php echo $this->session->userdata('googleref');?>';
+				
+				if(gid != ""){
+					document.getElementById('gmap_type').value = type;
+					document.getElementById('gmap_radius_places').value = radius;
+					document.getElementById('gmap_keyword').value = keyword;
+					
+					var tr = '<?php $array_items = array('type' => '', 'radius' => '', 'keyword' => ''); 
+									echo $this->session->unset_userdata($array_items);
+								?>';
+					
+					findPlaces();
+					viewDetails(gref, gid);
+					//gref = ""; gid = "";
+				}
 			}
 		}
 
@@ -399,8 +431,10 @@
 			{
 				// pass data to create each user marker
 				for(var i=0; i < userlist.length; i++) {
+
 				    	createPersonMarker(userlist[i]);
 					nearbyUserList[i] = userlist[i];
+
 				}
 			});
 		}
@@ -501,11 +535,10 @@
 		}
 
 
-	// Checks the results from the PlaceService and passes the data for each place to createPlaceMarker().
+		// Checks the results from the PlaceService and passes the data for each place to createPlaceMarker().
 		function createMarkersForPlaces(results, status) {
 
-			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				
+			if (status == google.maps.places.PlacesServiceStatus.OK) {				
 				placeResults = results;
 				
 				// if we have found something - clear map (overlays)
@@ -574,6 +607,10 @@
 			});
 			
 			infos.push(infowindow);
+			
+			if(obj.id == gid){
+				infowindow.open(map,mark);
+			}
 		}
 
 		function isValidPostcode(p) { 
@@ -659,6 +696,11 @@
 		//Method for showing place details
 		function viewDetails(googleref, googleid){
 			placegoogleid = googleid;
+			document.getElementById('hgid').value = placegoogleid;
+			document.getElementById('htype').value = document.getElementById('gmap_type').value;
+			document.getElementById('hradius').value = document.getElementById('gmap_radius_places').value;
+			document.getElementById('hkeyword').value = document.getElementById('gmap_keyword').value;
+			document.getElementById('hgref').value = googleref;
 			
 			var request = {
 			  reference: googleref
@@ -676,9 +718,10 @@
 				document.getElementById('placeicon').src = place.icon;
 				document.getElementById('lblmsg').innerText = "";
 				
-				//Load rating and comment from the database fro the chosen place
+				//Load rating, comment, and gallery from the database fro the chosen place
 				loadRatingFromDB();
 				loadCommentsFromDB();
+				loadGalleryFromDB(placegoogleid);
 			  }
 			}
 		}
@@ -766,6 +809,34 @@
 				}
 				else{
 					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating0.png';
+				}
+			});
+		}
+	
+		//Method for loading gallery from DB
+		function loadGalleryFromDB(gid){
+			$.getJSON("/socnav/index.php/loadgallery", {googleid: gid}, function(data) {
+				//Clear the comments div
+				document.getElementById('placegallery').innerHTML = "";
+				alert('-> ' + data[0].username);
+				//put comments in div
+				for(var j=0; j < data.length; j++) {
+					//create paragraph and add text
+					newParagraph = document.createElement('p');
+					newImg = document.createElement('img');
+					newImg.src = '<?php echo base_url();?>uploads/places/' + gid + '/' + data[j].photourl;
+					newParagraph.appendChild(newImg);
+					
+					// Append the new paragraph to the comments_section Div
+					document.getElementById('placegallery').appendChild(newParagraph);
+				}
+				
+				//clear
+				if(gid != ""){
+					var tr = '<?php $array_items = array('googleid' => '', 'googleref' => ''); 
+									echo $this->session->unset_userdata($array_items);
+								?>';
+					gid = ""; gref = "";
 				}
 			});
 		}
