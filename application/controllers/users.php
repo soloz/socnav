@@ -108,6 +108,8 @@ class Users extends CI_Controller {
                     //load success view page
                     //tell them to follow the link or check their email to activate their account
                  //   $this->validateLogin();
+			
+		  $photo = "default_pic.png";
                   $user = $this->user->validateUser();
                   $extraSessionData = array(
                         'email' => $user['email'],
@@ -119,7 +121,7 @@ class Users extends CI_Controller {
                         'gender' => $user['gender'],
                         'password' => $user['password'],
                         'explorationrange' => $user['setrangeofexploration'],
-                        'photourl'=> $photo['photourl'],
+                        'photourl'=> $photo,
                         'is_logged_in' => TRUE
                     );
 

@@ -574,8 +574,7 @@
 
 			// prepare info window
 			var infowindow = new google.maps.InfoWindow({
-				content: '<img src="' + obj.icon + '" /><font style="color:#000;">' + obj.name +
-				'<br />Rating: ' + obj.rating + '<br />Vicinity: ' + obj.vicinity + '</font>'
+				content: '<img src="' + obj.icon + '" /><font style="color:#000;">' + obj.name
 				+ '<br /><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To">'
 			});
 
