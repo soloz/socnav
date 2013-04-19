@@ -18,8 +18,21 @@
   -->
   
   <!-- Included CSS Files (Compressed) -->
-  <link rel="stylesheet" href="stylesheets/foundation.min.css">
-  <link rel="stylesheet" href="stylesheets/app.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/globals.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/typography.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/grid.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/orbit.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/ui.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/forms.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/reveal.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/mobile.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/app.css"> 
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.top-bar.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs3/stylesheets/foundation2.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/zurb.mega-drop.css">
+       <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.min.css">
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script src="javascripts/modernizr.foundation.js"></script>  
@@ -29,7 +42,7 @@
 <style type="text/css">
 	      html { height: 100% }
 	      body { height: 100%; margin: 0; padding: 0 }
-	      	#gmap_canvas { height: 100% }
+	      	#gmap_canvas { height: 100%; width: 130%;}
 	      	#gmap_canvas img{max-width:none}
 		#wrapper { height: 20%; clear: both;}
 		#placesUI { width: 49%; float: left; border-style:solid; border-width:1px }
@@ -44,100 +57,106 @@
 </head>
 
 <body>
+<div class="row">
+	<ul class="breadcrumbs" style="width:980px;">
+	  <li><a href="main">Home</a></li>
+	  <li class="current">&nbsp Search</li>
+	</ul>
 
+</div>
  <div class="container">
+<div class="row" style="margin-bottom: 40px"><h3 style="color: #33CCFF;">SocNav enables you to explore the world around you! <strong>Try It Now!</strong></h3></div>
   
-  <div class="three columns">
+  <div class="three columns" style="margin: 0 0 0 30px;">
   	<div class="row">
-	  	<?php $this->load->view('search_criteria'); ?>
+	  <?php $this->load->view('search_criteria'); ?>
 	</div>
-  		 <div id="placesdiv" class="panel">
-			<h5>Place Details</h5><br />
-			<!--This table is for showing details (added by lekan)-->
-			<table id="tbldetails">
-				<tr>
-					<td><img id="placeicon" name="placeicon" src = "" alt = "icon" /></td>
-				<tr>
-				<tr>
-					<td><label for="placename">Name:</label></td>
-					<td><input id="placename" type="text" name="placename" readonly /></td>
-				<tr>
-				<tr>
-					<td><label for="placephone">Phone:</label></td>
-					<td><input id="placephone" type="text" name="placephone" readonly /></td>
-				<tr>
-				<tr>
-					<td><label for="placewebsite">Website:</label></td>
-					<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
-				<tr>
-				<tr>
-					<td><label for="placerating">SocNav Rating:</label></td>
-					<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
-				<tr>
-				<tr>
-					<td><label for="placecomment">Comment:</label></td>
-					<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
-				<tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" onclick="insertComment(); return false;" value="Comment"></td>
-				<tr>
-				<tr>
-					<td><label for="theratings">Rate:</label></td>
-					<td>
-						<div id="theratings">
-							<input type="radio" name="rating" id="1" value="1" onchange="ratePlace(); return false;">1 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="2" value="2" onchange="ratePlace(); return false;">2 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="3" value="3" onchange="ratePlace(); return false;">3 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="4" value="4" onchange="ratePlace(); return false;">4 &nbsp;&nbsp;
-							<input type="radio" name="rating" id="5" value="5" onchange="ratePlace(); return false;">5
-						</div>
-					</td>
-				<tr>
-				<tr>
-					<td><label>Upload Photo:</label></td>
-					<td><a href="#" data-reveal-id="pictureupload" class="expand small button">Add Picture</a></td>
-				<tr>
-				<tr>
-					<td><label id="lblmsg"></label></td>
-				<tr>
-				<tr>
-					<td>
-						<h5>Comments</h5><br />
-						<div id="comments_section">
-						
-						</div>
-					</td>
-				<tr>
-			</table>
-		 </div>
+        <div id="placesdiv" class="panel" style="width: 410px;">
 
- 		 <div id="peoplediv" class="panel">
+                 
+		<h5>Place Details</h5><br />
+		<!--This table is for showing details (added by lekan)-->
+		<table id="tbldetails" style="width: 380px;border: none;">
+			<tr>
+				<td><img id="placeicon" name="placeicon" src = "" alt = "icon" /></td>
+			<tr>
+			<tr>
+				<td><label for="placename"><strong>Name:</strong></label></td>
+				<td><input id="placename" type="text" name="placename" readonly style="border:none"/></td>
+			<tr>
+			<tr>
+				<td><label for="placephone"><strong>Phone:</strong></label></td>
+				<td><input id="placephone" type="text" name="placephone" readonly style="border:none"/></td>
+			<tr>
+			<tr>
+				<td><label for="placewebsite"><strong>Website:</strong></label></td>
+				<td><input id="placewebsite" type="text" name="placewebsite" readonly style="border:none"/></td>
+			<tr>
+			<tr>
+				<td><label for="placerating"><strong>SocNav Rating:<strong></label></td>
+				<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
+			<tr>
+			<tr>
+				<td>
+					<h5><a href="#" data-reveal-id="exampleModal" class="radius button">Reviews&hellip;</a></h5><br />
+				</td>
+			<tr>
+               </table>
+	       <div id="exampleModal" class="reveal-modal">
+		   <div id="comments_section">
+					
+		   </div>
+		  <a class="close-reveal-modal">&#215;</a>
+		</div>
+               </br>
+
+                 <form id="opiniontbldetails">
+                 <fieldset>
+                 <legend><h4>Express your opinion</h4></legend>
+			 <label for="theratings"><strong>Please Rate:<strong></label>
+				<div id="theratings">
+					<input type="radio" name="rating" id="1" value="1" onchange="ratePlace(); return false;">1 &nbsp;&nbsp;
+					<input type="radio" name="rating" id="2" value="2" onchange="ratePlace(); return false;">2 &nbsp;&nbsp;
+					<input type="radio" name="rating" id="3" value="3" onchange="ratePlace(); return false;">3 &nbsp;&nbsp;
+					<input type="radio" name="rating" id="4" value="4" onchange="ratePlace(); return false;">4 &nbsp;&nbsp;
+					<input type="radio" name="rating" id="5" value="5" onchange="ratePlace(); return false;">5
+				</div>
+                        <label for="placecomment"><strong>Please Comment:<strong></label>
+		        <textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea>
+		        <input type="submit" onclick="insertComment(); return false;" value="Post"> &nbsp
+                         <a href="#" data-reveal-id="pictureupload" class="expand small button">Add Picture</a>
+	                 <label id="lblmsg"></label>	
+                  </fieldset>
+	          </form>
+        </div>
+
+ 		 <div id="peoplediv" class="panel" style="width:410px">
 			<h5>Person Details</h5><br />
 			<!--This table is for showing details (added by nick)-->
-			<table id="peopletbldetails">
+			<table id="peopletbldetails" style="width:380px;border: none;margin-bottom:30px;">
 				<tr>
 					<td><img id="profpic" style="height: 100px; width:100px" name="profpic" src = "" alt = "icon" /></td>
+
 				<tr>
 				<tr>
-					<td><label for="username">Username:</label></td>
-					<td><input id="username" type="text" name="username" readonly /></td>
+					<td><label for="username"><strong>Username:</strong></label></td>
+					<td><input id="username" type="text" name="username" readonly style="border:none"/></td>
 				<tr>
 				<tr>
-					<td><label for="firstname">First Name:</label></td>
-					<td><input id="firstname" type="text" name="firstname" readonly /></td>
+					<td><label for="firstname"><strong>First Name:<strong></label></td>
+					<td><input id="firstname" type="text" name="firstname" readonly style="border:none"/></td>
 				<tr>
 				<tr>
-					<td><label for="lastname">Last Name:</label></td>
-					<td><input id="lastname" type="text" name="lastname" readonly /></td>
+					<td><label for="lastname"><strong>Last Name:<strong></label></td>
+					<td><input id="lastname" type="text" name="lastname" readonly style="border:none"/></td>
 				<tr>
 				<tr>
-					<td><label for="gender">Gender:</label></td>
-					<td><input id="gender" type="text" name="gender" readonly /></td>
+					<td><label for="gender"><strong>Gender:<strong></label></td>
+					<td><input id="gender" type="text" name="gender" readonly style="border:none"/></td>
 				<tr>
 				<tr>
-					<td><label for="email">Email:</label></td>
-					<td><input id="email" type="text" name="email" readonly /></td>
+					<td><label for="email"><strong>Email:<strong></label></td>
+					<td><input id="email" type="text" name="email" readonly style="border:none"/></td>
 				<tr>
 				<tr>
 					<td><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></td>
@@ -147,17 +166,20 @@
 					<td><label id="lblmsg"></label></td>
 				<tr>
 			</table>
-		 </div>
-  </div>
 
-  <div class="nine columns">
+		 </div>
+
+
+</div>
+
+  <div class="eight columns" style="margin:0 0 0 -120px;">
   	
   	<div class="row">	
   		<div id="gmap_canvas"></div>
   	</div>
   	
   	<div class="row">	
-  		<div id="directions_panel"></div>
+  		<div id="directions_panel" style="margin-top:40px;"><h5>Suggested Route:</h5></div>
   	</div>
   	
   	

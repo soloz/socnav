@@ -16,84 +16,96 @@
   <link rel="stylesheet" href="stylesheets/foundation.css">
   -->
   
-  <!-- Included CSS Files (Compressed) -->
-  <link rel="stylesheet" href="stylesheets/foundation.css">
-  <!--link rel="stylesheet" href="stylesheets/foundation.min2.css"-->
-  <link rel="stylesheet" href="stylesheets/app.css">
 
+        <!-- Included CSS Files -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/globals.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/typography.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/grid.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/orbit.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/ui.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/forms.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/reveal.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/mobile.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/app.css"> 
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.top-bar.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs3/stylesheets/foundation2.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/zurb.mega-drop.css">
+       <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.css">
   <script src="javascripts/modernizr.foundation.js"></script>
 </head>
 
 
 <body>
 
-<div class="container">	
-	<ul class="breadcrumbs">
-	  <li><a href="#">Home</a></li>
-	  <li class="current"><a href="#">My Profile (<?php echo $this->session->userdata('username')?>)</a></li>
+<div class="row">
+	<ul class="breadcrumbs" style="width:980px;">
+	  <li><a href="main">Home</a></li>
+	  <li class="current">&nbsp My Profile (<?php echo $this->session->userdata('username')?>)</li>
 	</ul>
-	
+
 </div>
 
-<div class="container">	
+<div class="row">	
 
    <div class="three columns">
-        <div class="twelve columns">
+
           <div class="panel">
-          
           <?php
-          
-         		$photourl = $this->session->userdata('photourl');
-				$username = $this->session->userdata('username');
-				
+                 	$photourl = $this->session->userdata('photourl');
+			$username = $this->session->userdata('username');		
           ?>
-            <p><a href="#" class="th"><img src="<?php echo base_url(); ?>uploads/users/<?php echo $username; ?>/<?php echo $photourl; ?>"></a></p>
+           <p><a href="#" class="th"><img src="<?php echo base_url(); ?>uploads/users/<?php echo $username; ?>/<?php echo $photourl; ?>"></a></p>
           </div>
-        </div> 
+
       
       <div class="twelve columns">
-          <p><a href="#" data-reveal-id="profileedit" class="expand small button">Edit Profile</a></p>
-          <p><a href="#" data-reveal-id="pictureupload" class="expand small button">Edit Picture</a></p>
-          <p><a href="#" data-reveal-id="editPreferences" class="expand small button">Edit Preferences</a></p>
+          <p><a href="#" data-reveal-id="profileedit" class="expand small radius button" style="width:150px">Edit Your Profile</a></p>
+          <p><a href="#" data-reveal-id="pictureupload" class="expand small radius button" style="width:150px">Change Photo</a></p>
       </div>
      
   </div>
   
   <div class="six columns">
-      <h3><?php echo $this->session->userdata('firstname')?></h3>
+      <h3 style="margin-bottom: 35px;"><?php echo $this->session->userdata('firstname')?></h3>
+		<table id="profile" style="border: none; width: 400px;" >
+			<tr>
+			<td><label for="username"><strong>Username:</strong></label></td>
+			<td><input id="username" type="text" name="username" readonly /></td>
+			<tr>
+			<tr>
+			<td><label for="firstname"><strong>First Name:<strong></label></td>
+			<td><input id="firstname" type="text" name="firstname" readonly /></td>
+			<tr>
+			<tr>
+			<td><label for="lastname"><strong>Last Name:<strong></label></td>
+			<td><input id="lastname" type="text" name="lastname" readonly /></td>
+			<tr>
+			<tr>
+			<td><label for="email"><strong>Email:<strong></label></td>
+			<td><input id="email" type="text" name="email" readonly /></td>
+			<tr>
+			<tr>
+			<td><label for="gender"><strong>Gender:<strong></label></td>
+			<td><input id="gender" type="text" name="gender" readonly /></td>
+			<tr>
+		</table>
    </div>
  
-    <div class="three columns">
-    
+   <div class="three columns">
     <div class="row">
-   
-  	</div>
-  	
-			  <div class="twelve columns">
-			   <h4>Privacy</h4>
-			   
-				<div class="switch tiny round">
-			  	<input id="z" name="switch-z" type="radio" checked>
-			  <label for="z" onclick="">Disable</label>
-			
-			  <input id="z1" name="switch-z" type="radio">
-			  <label for="z1" onclick="">Enable Navigation</label>
-			
-			  <span></span>
+	<h4>Privacy</h4>
+	<div class="switch tiny round">
+	<input id="z" name="switch-z" type="radio" checked>
+	<label for="z" onclick="">Disable</label>
+	<input id="z1" name="switch-z" type="radio">
+	<label for="z1" onclick="">Enable Navigation</label>
+	 <span></span>
 
 	</div>
-<br/>
-      <h4>Location History</h4>
-      <p>We're stoked you want to try Foundation! To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
-
-<br/>
-     <h4>Popular Locations</h4>
-      <p>Once you've exhausted the fun in this document, you should check out:</p>
-      <ul class="disc">
-        <li><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</li>
-        <li><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</li>
-        <li><a href="http://twitter.com/foundationzurb">@foundationzurb</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li>
-      </ul>
+	<br/>
+        <h4>Location History</h4>
+        <br/>
+        <h4>Popular Locations</h4>
     </div>
   </div>
 

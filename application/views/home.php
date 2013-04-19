@@ -53,7 +53,7 @@
 
         <img src="<?php echo base_url(); ?>/images/people.jpg" alt="people" data-caption="#caption1" />
         <img src="<?php echo base_url(); ?>/images/meetpeople.jpg"  alt="meetpeople" data-caption="#caption2" />
-        <img src="<?php echo base_url(); ?>/images/findplace.png" alt="findplace" data-caption="#caption3" />
+        <img src="<?php echo base_url(); ?>/images/findplace.jpg" alt="findplace" data-caption="#caption3" />
 	<span class="orbit-caption" id="caption1"><strong>Explore Locations around you </strong> Check this out </span>
         <span class="orbit-caption" id="caption2"><strong>Find people in your area </strong> Date them now</span>
         <span class="orbit-caption" id="caption3"><strong>Search interesting places in your city </strong> Find them out</span>
@@ -113,7 +113,7 @@
 			<div class="twelve columns">
 				<p style="text-align:center;"><strong>Follow us on Twitter</strong></p>
 				<p class="left follow" style="width: 180px; overflow: hidden;">
-				<a href="https://twitter.com/socnav"><img src="<?php echo base_url(); ?>/images/twitter1.png" alt="twitter"/></a>
+				<a href="https://twitter.com/SocNav"><img src="<?php echo base_url(); ?>/images/twitter1.png" alt="twitter"/></a>
 				<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script></p>
 			</div>
 		
@@ -123,7 +123,7 @@
 			<div class="twelve columns">
 				<p style="text-align:center;"><strong>Find us on Facebook</strong></p>
 				<p class="left follow" style="width: 180px; overflow: hidden;">
-				<a href="https://facebook.com/socnav"><img src="<?php echo base_url(); ?>/images/facebook1.png" alt="facebook"/></a>
+				<a href="https://www.facebook.com/pages/Socnav/373971352720684"><img src="<?php echo base_url(); ?>/images/facebook1.png" alt="facebook"/></a>
 				<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script></p>
 			</div>
 		</div>
@@ -132,7 +132,7 @@
 			<div class="twelve columns">
 				<p style="text-align:center;"><strong>Get in touch through Email</strong></p>
 				<p class="left follow" style="width: 180px; overflow: hidden;">
-				<a class="contact" href="mailto:limd1989@hotmail.com"><img src="<?php echo base_url(); ?>/images/email.png" alt="email"/></a>
+				<a class="contact" href="mailto:socnavstandrews@gmail.com"><img src="<?php echo base_url(); ?>/images/email.png" alt="email"/></a>
 				<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script></p>
 			</div>
 		</div>
