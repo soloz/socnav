@@ -3,6 +3,6 @@
 </div>
 <div class="four columns">
         <div class="right links">
-          <a href="search">Search</a> | <a href="profile">My Profile </a> | <a href="login">Logout</a>
+          <?php echo anchor('/search', 'Search');?>  | <?php echo anchor('/profile', 'My Profile');?>  | <?php echo anchor('/logout', 'Logout');?> 
         </div>
       </div>

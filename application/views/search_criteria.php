@@ -147,12 +147,12 @@ function showComments() {
 }
 
 function showGlobalComments() {
-alert('global');
+
 	//Method for loading comments from DB
 	$.getJSON("/socnav/index.php/showglobalcomments", function(data) {
 		//Clear the comments div
 		document.getElementById('commentsdiv').innerHTML = "";
-		alert('>' + data[0].username);
+		
 		
 		//create ul
 		newUl = document.createElement('ul'); newUl.className = 'accordion';

@@ -16,11 +16,12 @@
 		<h2>Sign In</h2>
 		<?php $attributes = array('class' => 'nice custom', 'id' => 'loginform'); ?>
 		<?php echo form_open('/validatelogin', $attributes); ?>
-		<?php $email_input_attr = array('name'=>'email', 'value' => '', 'class' => 'input-text',  'placeholder'=>'Email', 'style'=>'width: 286px; height: 40px;') ;?>
+		
+		<?php $username_input_attr = array('name'=>'username', 'value' => '', 'class' => 'input-text',  'placeholder'=>'Username', 'style'=>'width: 286px; height: 40px;') ;?>
 		<?php $passwd_input_attr = array('name'=>'passwd', 'value' => '', 'class' => 'input-text', 'placeholder'=>'Password', 'style'=>'width: 286px; height: 40px;'); ?>
 		<?php $signin_button_attr = array('name'=>'signin', 'type'=>'submit', 'value' => 'Sign In', 'class'=>'nice small radius blue button', 'style'=>'width: 286px; height: 40px;'); ?>
 
-		<?php echo form_input($email_input_attr);?> 
+		<?php echo form_input($username_input_attr);?> 
 		<?php echo form_password($passwd_input_attr); ?>
 
 		<?php echo form_submit($signin_button_attr); ?>

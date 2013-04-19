@@ -19,7 +19,7 @@
 		
 		</div>
 		<div class="eight columns">
-             <p><a href="main">Home</a> | <a href="https://www.facebook.com/pages/Socnav/373971352720684">Facebook</a> | <a href="https://twitter.com/SocNav">Twitter</a> </p>
+             <p><?php echo anchor('/main', 'Home');?> | <a href="https://www.facebook.com/pages/Socnav/373971352720684">Facebook</a> | <a href="https://twitter.com/SocNav">Twitter</a> </p>
         </div>
         </div>
 </div>

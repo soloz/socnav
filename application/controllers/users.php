@@ -9,7 +9,10 @@ class Users extends CI_Controller {
     public function validateLogin() {
         if (isset($_POST)) {
 
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+//            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+  		
+	     $this->form_validation->set_rules('username', 'Username', 'required');
+           
             $this->form_validation->set_rules('passwd', 'Password', 'required');
 
             if ($this->form_validation->run() == FALSE) {
@@ -40,16 +43,17 @@ class Users extends CI_Controller {
 					// Update the user's state to online in the db.
 					$userID = $this->session->userdata('userid');
 					$this->user->setUserOnline($userID);
-					
-                    redirect('main/');
+			redirect('main/');
+
                 } else {
+
                     $this->session->set_flashdata('loginError', 'Username or Password 
                         incorrect');
                     redirect('/login');
                 }
             }
         } else {
-            redirect('main/');
+            redirect('/login');
         }
     }
 

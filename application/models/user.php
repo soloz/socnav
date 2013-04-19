@@ -7,17 +7,69 @@ class User extends CI_Model {
     }
 
     public function validateUser() {
-        $this->db->where('email', $this->input->post('email'));
-        $this->db->where('password', md5($this->input->post('passwd'))); 
-      	$query = $this->db->get('user');
+        
+	//$input_username = $this->input->post('username') ;
+	//$query = $this->db->query("SELECT * FROM user WHERE username =".$input_username .";");
 
-        if ($query->num_rows == 1) {
-            return $query->row_array();
-            
+	$sql = "SELECT * FROM user WHERE username = ? AND password = ? ";
+	$username = $this->input->post('username');
+
+	$encrypted_password = md5($this->input->post('passwd'));
+
+	$query = $this->db->query($sql, array($username, $encrypted_password));
+
+	//$this->db->where('username', $this->input->post('username'));
+       // $this->db->where('password', md5($this->input->post('passwd'))); 
+      //	$query = $this->db->get('user');
+
+        if ($query->num_rows() > 0) {
+           return $query->row_array();
+ 
         } else {
             return false;
         }
     }
+
+//Login a user
+	public function login($username, $password)
+	{
+
+		// Select user details
+		$user = $this->ci->db->select($this->identifier_field.' as identifier, '.$this->username_field.' as username, '.$this->password_field.' as password')->where($this->username_field, $username)->get($this->user_table);
+
+		// Ensure there is a user with that username
+		if ($user->num_rows() == 0)
+		{
+			// There is no user with that username, but we won't tell the user that
+			return FALSE;
+		}
+
+		// Set the user details
+		$user_details = $user->row();
+
+		// Do passwords match
+		if ($this->generate_hash($password, $user_details->password) == $user_details->password)
+		{
+
+			// Yes, the passwords match
+
+			// Set the userdata for the current user
+		/*	$this->ci->session->set_userdata(array(
+				'identifier' => $user_details->identifier,
+				'username' => $user_details->username,
+				'logged_in' => $_SERVER['REQUEST_TIME']
+			));*/
+
+			return TRUE;
+
+		// The passwords don't match
+		} else {
+			// The passwords don't match, but we won't tell the user that
+			return FALSE;
+		}
+
+	}
+
 
     public function createUser($userdetails = array()) {
 
