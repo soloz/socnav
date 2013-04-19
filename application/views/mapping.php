@@ -803,4 +803,28 @@
 				}
 			});
 		}
+		
+		// Calculates and displays the route between the user and the clicked comment -- Added by Lekan
+function calculateRoute2(latitude, longitude) {
+alert(latitude);
+	var start = userAddress;
+	var destination = new google.maps.LatLng(latitude, longitude);
+
+	if (start == '') {
+		start = center;
+	}
+
+	var request = {
+		origin: start,
+		destination: destination,
+		travelMode: google.maps.DirectionsTravelMode.DRIVING
+	};
+
+	directionsService.route(request, function(response, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setMap(map);
+			directionsDisplay.setDirections(response);
+		}
+	});
+}
 </script>
