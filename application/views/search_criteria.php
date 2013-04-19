@@ -1,9 +1,9 @@
-<div class="four columns hide-on-phones">
+<div class="seven columns hide-on-phones">
 <div class="row">
             
             <dl class="tabs">
-		 		 <dd class="active"><a id="peopletab" onclick="peopleClicked()" href="#people">People</a></dd>
-				 <dd><a id="placestab" onclick="placesClicked()" href="#places">Places</a></dd>
+		 		 <dd class="active"><a id="peopletab" onclick="peopleClicked()" href="#people">Find People</a></dd>
+				 <dd><a id="placestab" onclick="placesClicked()" href="#places">Find Places</a></dd>
 			 </dl>
 		
 			 <ul class="tabs-content">

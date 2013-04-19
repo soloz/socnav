@@ -16,45 +16,52 @@
   <link rel="stylesheet" href="stylesheets/foundation.css">
   -->
   
-  <!-- Included CSS Files (Compressed) -->
-  <link rel="stylesheet" href="stylesheets/foundation.css">
-  <!--link rel="stylesheet" href="stylesheets/foundation.min2.css"-->
-  <link rel="stylesheet" href="stylesheets/app.css">
 
+        <!-- Included CSS Files -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/globals.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/typography.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/grid.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/orbit.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/ui.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/forms.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/reveal.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/mobile.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/app.css"> 
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.top-bar.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs3/stylesheets/foundation2.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/zurb.mega-drop.css">
+       <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.css">
   <script src="javascripts/modernizr.foundation.js"></script>
 </head>
 
 
 <body>
 
-<div class="container">	
+<div class="row">
 	<ul class="breadcrumbs">
-	  <li><a href="#">Home</a></li>
-	  <li class="current"><a href="#">My Profile (<?php echo $this->session->userdata('username')?>)</a></li>
+	  <li><a href="main">Home</a></li>
+	  <li class="current">My Profile (<?php echo $this->session->userdata('username')?>)</li>
 	</ul>
-	
+
 </div>
 
-<div class="container">	
+<div class="row">	
 
    <div class="three columns">
-        <div class="twelve columns">
+
           <div class="panel">
-          
           <?php
-          
-         		$photourl = $this->session->userdata('photourl');
-				$username = $this->session->userdata('username');
-				
+                 	$photourl = $this->session->userdata('photourl');
+			$username = $this->session->userdata('username');		
           ?>
-            <p><a href="#" class="th"><img src="<?php echo base_url(); ?>uploads/users/<?php echo $username; ?>/<?php echo $photourl; ?>"></a></p>
+           <p><a href="#" class="th"><img src="<?php echo base_url(); ?>uploads/users/<?php echo $username; ?>/<?php echo $photourl; ?>"></a></p>
           </div>
-        </div> 
+
       
       <div class="twelve columns">
-          <p><a href="#" data-reveal-id="profileedit" class="expand small button">Edit Profile</a></p>
-          <p><a href="#" data-reveal-id="pictureupload" class="expand small button">Edit Picture</a></p>
-          <p><a href="#" data-reveal-id="editPreferences" class="expand small button">Edit Preferences</a></p>
+          <p><a href="#" data-reveal-id="profileedit" class="expand small round button">Edit Your Profile</a></p>
+          <p><a href="#" data-reveal-id="pictureupload" class="expand small round button">Change Photo</a></p>
+          <p><a href="#" data-reveal-id="editPreferences" class="expand small round button">Edit Preferences</a></p>
       </div>
      
   </div>

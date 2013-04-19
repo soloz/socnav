@@ -29,7 +29,7 @@
 <style type="text/css">
 	      html { height: 100% }
 	      body { height: 100%; margin: 0; padding: 0 }
-	      	#gmap_canvas { height: 100% }
+	      	#gmap_canvas { height: 100%; width: 130%;}
 	      	#gmap_canvas img{max-width:none}
 		#wrapper { height: 20%; clear: both;}
 		#placesUI { width: 49%; float: left; border-style:solid; border-width:1px }
@@ -46,44 +46,48 @@
 <body>
 
  <div class="container">
+<div class="row" style="margin-bottom: 40px"><h3 style="color: #33CCFF;">SocNav enables you to explore the world around you! <strong>Try Now!</strong></h3></div>
   
-  <div class="three columns">
+  <div class="three columns" style="margin: 0 0 0 30px;">
   	<div class="row">
 	  	<?php $this->load->view('search_criteria'); ?>
 	</div>
   		 <div id="placesdiv" class="panel">
 			<h5>Place Details</h5><br />
 			<!--This table is for showing details (added by lekan)-->
-			<table id="tbldetails">
+			<table id="tbldetails" style="width: 400px;">
 				<tr>
 					<td><img id="placeicon" name="placeicon" src = "" alt = "icon" /></td>
 				<tr>
 				<tr>
-					<td><label for="placename">Name:</label></td>
+					<td><label for="placename"><strong>Name:</strong></label></td>
 					<td><input id="placename" type="text" name="placename" readonly /></td>
 				<tr>
 				<tr>
-					<td><label for="placephone">Phone:</label></td>
+					<td><label for="placephone"><strong>Phone:</strong></label></td>
 					<td><input id="placephone" type="text" name="placephone" readonly /></td>
 				<tr>
 				<tr>
-					<td><label for="placewebsite">Website:</label></td>
+					<td><label for="placewebsite"><strong>Website:</strong></label></td>
 					<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
 				<tr>
 				<tr>
-					<td><label for="placerating">SocNav Rating:</label></td>
+					<td><label for="placerating"><strong>SocNav Rating:<strong></label></td>
 					<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
 				<tr>
 				<tr>
-					<td><label for="placecomment">Comment:</label></td>
-					<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
+					<td>
+						<h5>Reviews:</h5><br />
+						<div id="comments_section">
+						
+						</div>
+					</td>
 				<tr>
+                        </table>
+                        <h5>Express your opinion</h5><br />
+                                <table id="opiniontbldetails">
 				<tr>
-					<td></td>
-					<td><input type="submit" onclick="insertComment(); return false;" value="Comment"></td>
-				<tr>
-				<tr>
-					<td><label for="theratings">Rate:</label></td>
+					<td><label for="theratings"><strong>Please Rate:<strong></label></td>
 					<td>
 						<div id="theratings">
 							<input type="radio" name="rating" id="1" value="1" onchange="ratePlace(); return false;">1 &nbsp;&nbsp;
@@ -95,48 +99,49 @@
 					</td>
 				<tr>
 				<tr>
-					<td><label>Upload Photo:</label></td>
+					<td><label for="placecomment"><strong>Please Comment:<strong></label></td>
+					<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
+				<tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" onclick="insertComment(); return false;" value="Post"></td>
+				<tr>
+				<tr>
+					<td><label><strong>Upload Photo:</strong></label></td>
 					<td><a href="#" data-reveal-id="pictureupload" class="expand small button">Add Picture</a></td>
 				<tr>
 				<tr>
 					<td><label id="lblmsg"></label></td>
 				<tr>
-				<tr>
-					<td>
-						<h5>Comments</h5><br />
-						<div id="comments_section">
-						
-						</div>
-					</td>
-				<tr>
+				
 			</table>
 		 </div>
 
  		 <div id="peoplediv" class="panel">
 			<h5>Person Details</h5><br />
 			<!--This table is for showing details (added by nick)-->
-			<table id="peopletbldetails">
+			<table id="peopletbldetails" style="width: 400px;">
 				<tr>
 					<td><img id="profpic" name="profpic" src = "" alt = "icon" /></td>
 				<tr>
 				<tr>
-					<td><label for="username">Username:</label></td>
+					<td><label for="username"><strong>Username:</strong></label></td>
 					<td><input id="username" type="text" name="username" readonly /></td>
 				<tr>
 				<tr>
-					<td><label for="firstname">First Name:</label></td>
+					<td><label for="firstname"><strong>First Name:<strong></label></td>
 					<td><input id="firstname" type="text" name="firstname" readonly /></td>
 				<tr>
 				<tr>
-					<td><label for="lastname">Last Name:</label></td>
+					<td><label for="lastname"><strong>Last Name:<strong></label></td>
 					<td><input id="lastname" type="text" name="lastname" readonly /></td>
 				<tr>
 				<tr>
-					<td><label for="gender">Gender:</label></td>
+					<td><label for="gender"><strong>Gender:<strong></label></td>
 					<td><input id="gender" type="text" name="gender" readonly /></td>
 				<tr>
 				<tr>
-					<td><label for="email">Email:</label></td>
+					<td><label for="email"><strong>Email:<strong></label></td>
 					<td><input id="email" type="text" name="email" readonly /></td>
 				<tr>
 				<tr>
@@ -150,14 +155,14 @@
 		 </div>
   </div>
 
-  <div class="nine columns">
+  <div class="eight columns" style="margin:0 0 0 -120px;">
   	
   	<div class="row">	
   		<div id="gmap_canvas"></div>
   	</div>
   	
   	<div class="row">	
-  		<div id="directions_panel"></div>
+  		<div id="directions_panel" style="margin-top:40px;"><h5>Suggested Route:</h5></div>
   	</div>
   	
   	

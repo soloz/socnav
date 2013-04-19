@@ -30,7 +30,7 @@
   <div class="container top-bar home-border">
     <div class="attached">
       <div class="name" onclick="void(0);">
-        <span><a href="main">Home </a> <a href="#" class="toggle-nav"></a></span>
+        <span><a href="main">Soc Nav</a> <a href="main" class="toggle-nav"></a></span>
       </div>
 
                 <ul class="right">  
@@ -50,7 +50,7 @@
 		       					}
        					?>
        				
-                        <li><a style="color: grey" href="logout">
+                        <li><a style="color: #00CCFF;" href="logout">
                         
                         <?php 
                         $is_logged_in = $this->session->userdata('is_logged_in');
