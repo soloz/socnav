@@ -28,6 +28,30 @@ class Socnav extends CI_Controller {
     }
 	
 	// Added by Lekan
+	public function showglobalcomments()
+	{		
+		//Values to be returned
+		$comments = array();
+		
+		//Get all the comments and ratings with place id
+		$this->db->join('user', 'comments.userid = user.userid');
+		$commentsquery = $this->db->get('comments');
+		
+		foreach ($commentsquery->result() as $row2)
+		{
+			//store comments in array
+			$comments[] = array(
+				'comment' => $row2->user_comment,
+				'username' => $row2->username,
+				'date' => $row2->_date,
+				'longitude' => $row2->longitude,
+				'latitude' => $row2->latitude
+			);
+		}
+		echo json_encode($comments);
+	}
+	
+	// Added by Lekan
 	public function loadgallery()
 	{
 		//Get unique google id and use it to get the place
@@ -239,16 +263,19 @@ class Socnav extends CI_Controller {
 		
 		$comment = $_GET['comment'];
 		$googleid = $_GET['googleid'];
+		$latitude = $_GET['latitude'];
+		$longitude = $_GET['longitude'];
 		
 		$query = $this->db->get_where('places', array('google_id' => $googleid));
-		$str = "Whatever";
 		
 		foreach ($query->result() as $row)
 		{	
 			$data = array(
 				   'placeid' => $row->placeid,
 				   'user_comment' => $comment,
-				   'userid' => $userID
+				   'userid' => $userID,
+				   'latitude' => $latitude,
+				   'longitude' => $longitude,
 			);
 
 			$this->db->insert('comments', $data);

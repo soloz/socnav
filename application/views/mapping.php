@@ -62,7 +62,7 @@
  <div class="container">
 
   
-  <div class="three columns" style="margin: 0 0 0 30px;">
+  <div class="five columns" style="margin: 0 0 0 30px;">
   	<div class="row">
 	  <?php $this->load->view('search_criteria'); ?>
 	</div>
@@ -143,82 +143,47 @@
 				      <h5>Personal Details</h5>
 				    </div>
 				    <div class="content">
-				      <table id="peopletbldetails" style="width:380px;border: none;margin-bottom:30px;">
-				<tr>
-					<td><img id="profpic" style="height: 100px; width:100px" name="profpic" src = "" alt = "icon" /></td>
+					<table id="peopletbldetails" style="width:380px;border: none;margin-bottom:30px;">
+						<tr>
+							<td><img id="profpic" style="height: 100px; width:100px" name="profpic" src = "" alt = "icon" /></td>
 
-				<tr>
-				<tr>
-					<td><label for="username"><strong>Username:</strong></label></td>
-					<td><input id="username" type="text" name="username" readonly style="border:none"/></td>
-				<tr>
-				<tr>
-					<td><label for="firstname"><strong>First Name:<strong></label></td>
-					<td><input id="firstname" type="text" name="firstname" readonly style="border:none"/></td>
-				<tr>
-				<tr>
-					<td><label for="lastname"><strong>Last Name:<strong></label></td>
-					<td><input id="lastname" type="text" name="lastname" readonly style="border:none"/></td>
-				<tr>
-				<tr>
-					<td><label for="gender"><strong>Gender:<strong></label></td>
-					<td><input id="gender" type="text" name="gender" readonly style="border:none"/></td>
-				<tr>
-				<tr>
-					<td><label for="email"><strong>Email:<strong></label></td>
-					<td><input id="email" type="text" name="email" readonly style="border:none"/></td>
-				<tr>
-				<tr>
-					<td><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></td>
-				<tr>
+						<tr>
+						<tr>
+							<td><label for="username"><strong>Username:</strong></label></td>
+							<td><input id="username" type="text" name="username" readonly style="border:none"/></td>
+						<tr>
+						<tr>
+							<td><label for="firstname"><strong>First Name:<strong></label></td>
+							<td><input id="firstname" type="text" name="firstname" readonly style="border:none"/></td>
+						<tr>
+						<tr>
+							<td><label for="lastname"><strong>Last Name:<strong></label></td>
+							<td><input id="lastname" type="text" name="lastname" readonly style="border:none"/></td>
+						<tr>
+						<tr>
+							<td><label for="gender"><strong>Gender:<strong></label></td>
+							<td><input id="gender" type="text" name="gender" readonly style="border:none"/></td>
+						<tr>
+						<tr>
+							<td><label for="email"><strong>Email:<strong></label></td>
+							<td><input id="email" type="text" name="email" readonly style="border:none"/></td>
+						<tr>
+						<tr>
+							<td><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></td>
+						<tr>
 				
-				<tr>
-					<td><label id="lblmsg"></label></td>
-				<tr>
-			</table>
-				    </div>
+						<tr>
+							<td><label id="lblmsg"></label></td>
+						<tr>
+					</table>
+<				    </div>
 				  </li>
 			</ul>
 
 		 </div>
-
- 		 <div id="commentsdiv" class="panel" style="width:410px; display:none">
-			
-
-				<ul class="accordion">
-				  <li class="active">
-				    <div class="title">
-				      <h5>Accordion Panel 1</h5>
-				    </div>
-				    <div class="content">
-				      
-				    </div>
-				  </li>
-				  <li>
-				    <div class="title">
-				      <h5>Accordion Panel 2</h5>
-				    </div>
-				    <div class="content">
-				      
-				    </div>
-				  </li>
-				  <li>
-				    <div class="title">
-				      <h5>Accordion Panel 3</h5>
-				    </div>
-				    <div class="content">
-				     
-				    </div>
-				  </li>
-				</ul>
-
-		</div>
-
-
-
 </div>
 
-  <div class="eight columns" style="margin:0 0 0 -120px;">
+  <div class="seven columns" style="margin:0 0 0 -120px;">
   	
   	<div class="row">	
   		<div id="gmap_canvas"></div>
@@ -455,7 +420,9 @@
 			{
 				// pass data to create each user marker
 				for(var i=0; i < userlist.length; i++) {
+
 			    	createPersonMarker(userlist[i]);
+
 					nearbyUserList[i] = userlist[i];
 
 				}
@@ -750,11 +717,9 @@
 		}
 		
 		//Method for inserting comments
-		function insertComment(){		
-				
-			$.get("/socnav/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
-				//do nothing
-							
+		function insertComment(){				
+			$.get("/socnav/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid, latitude: latit, longitude: longit}, function(data) {
+				//do nothing							
 				document.getElementById('placecomment').value = "";
 			
 				document.getElementById('lblmsg').innerText = data;
@@ -846,9 +811,11 @@
 		function loadGalleryFromDB(gid){
 			$.getJSON("/socnav/index.php/loadgallery", {googleid: gid}, function(data) {
 				//Clear the comments div
+
 				document.getElementById('imagegallery').innerHTML = "";
 				
 				//put comments in div
+
 				for(var j=0; j < data.length; j++) {
 					//create an image
 					

@@ -4,7 +4,7 @@
             		<dl class="tabs">
 		 		<dd class="active"><a id="peopletab" onclick="peopleClicked()" href="#people">Find People</a></dd>
 				 <dd><a id="placestab" onclick="placesClicked()" href="#places">Find Places</a></dd>
- 				<dd><a id="commentstab" onclick="commentsClicked(); showComments()" href="#comments">Socialize</a></dd>
+ 				<dd><a id="commentstab" onclick="commentsClicked(); showGlobalComments();" href="#comments">Socialize</a></dd>
 			 </dl>
 		
 			 <ul class="tabs-content">
@@ -116,7 +116,6 @@
 	</div>
 	</div>
 <script>
-
 function peopleClicked() {
 	document.getElementById('placesdiv').style.display = 'none';
 	document.getElementById('peoplediv').style.display = 'none';
@@ -147,5 +146,51 @@ function showComments() {
 	document.getElementById('commentsdiv').style.display = 'block';
 }
 
-
+function showGlobalComments() {
+alert('global');
+	//Method for loading comments from DB
+	$.getJSON("/socnav/index.php/showglobalcomments", function(data) {
+		//Clear the comments div
+		document.getElementById('commentsdiv').innerHTML = "";
+		alert('>' + data[0].username);
+		
+		//create ul
+		newUl = document.createElement('ul'); newUl.className = 'accordion';
+		//var commentslist = new String();
+		//commentslist = '<ul class=\"accordion\">';
+		//'<li class=\"active\"><div class=\"title\"><h5>Comment by Solomon</h5></div><div class=\"content\">I have </div></li>'
+		
+		//put comments in div
+		for(var j=0; j < data.length; j++) {
+			//create paragraph and add text
+			//newParagraph = document.createElement('p');
+			//newText = document.createTextNode(data[j].username + ': ' + data[j].comment);
+			//newParagraph.appendChild(newText);
+			
+			// Append the new paragraph to the comments_section Div
+			//document.getElementById('commentsdiv').appendChild(newParagraph);
+			newLi = document.createElement('li'); newLi.className = 'active';
+			
+			//title
+			newLiDiv = document.createElement('div'); newLiDiv.className = 'title';
+			newLiH5 = document.createElement('h5');
+			newLiH5Text = document.createTextNode('Comment by ' + data[j].username);
+			newLiH5.appendChild(newLiH5Text);
+			newLiDiv.appendChild(newLiH5);
+			
+			//content
+			newLiDiv2 = document.createElement('div'); newLiDiv2.className = 'content';
+			newLiText2 = document.createTextNode(data[j].comment);
+			newLiDiv2.appendChild(newLiText2);
+			
+			//attach to li
+			newLi.appendChild(newLiDiv);
+			newLi.appendChild(newLiDiv2);
+			newUl.appendChild(newLi);
+		}
+		
+		document.getElementById('commentsdiv').style.display = 'block';
+		document.getElementById('commentsdiv').appendChild(newUl);
+	});
+}
 </script>
