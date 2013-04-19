@@ -4,7 +4,7 @@
             		<dl class="tabs">
 		 		<dd class="active"><a id="peopletab" onclick="peopleClicked()" href="#people">Find People</a></dd>
 				 <dd><a id="placestab" onclick="placesClicked()" href="#places">Find Places</a></dd>
- 				<dd><a id="placestab" onclick="commentsClicked()" href="#comments">Socialize</a></dd>
+ 				<dd><a id="commentstab" onclick="commentsClicked(); showComments()" href="#comments">Socialize</a></dd>
 			 </dl>
 		
 			 <ul class="tabs-content">
@@ -26,6 +26,41 @@
 							 <input type="submit" class="radius button" onclick="findPeople();placesClicked(); return false;" value="Search">
 					</fieldset>
 				</form>
+			</li>
+
+ 		<li id="commentsTab">
+			 	
+			 	 <div id="commentsdiv" class="panel" style="width:410px;">
+			
+
+				<ul class="accordion">
+				  <li class="active">
+				    <div class="title">
+				      <h5>Comment by Solomon</h5>
+				    </div>
+				    <div class="content">
+				      I have been here and it's quite nice
+				    </div>
+				  </li>
+				  <li class="active">
+				    <div class="title">
+				      <h5>Comments by Lekan</h5>
+				    </div>
+				    <div class="content">
+				      
+				    </div>
+				  </li>
+				  <li class="active">
+				    <div class="title">
+				      <h5>Comments by Mengdi</h5>
+				    </div>
+				    <div class="content">
+				     
+				    </div>
+				  </li>
+				</ul>
+
+				</div>
 			</li>
 			
 			<li id="placesTab">
@@ -85,16 +120,19 @@
 function peopleClicked() {
 	document.getElementById('placesdiv').style.display = 'none';
 	document.getElementById('peoplediv').style.display = 'none';
+	document.getElementById('commentsdiv').style.display = 'none';
 }
 
 function placesClicked() {
 	document.getElementById('placesdiv').style.display = 'none';
 	document.getElementById('peoplediv').style.display = 'none';
+	document.getElementById('commentsdiv').style.display = 'none';
 }
 
 function commentsClicked() {
 	document.getElementById('placesdiv').style.display = 'none';
 	document.getElementById('peoplediv').style.display = 'none';
+	document.getElementById('commentsdiv').style.display = 'none';
 }
 
 function showPeople() {

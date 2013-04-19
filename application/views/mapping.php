@@ -164,6 +164,39 @@
 
 		 </div>
 
+ 		 <div id="commentsdiv" class="panel" style="width:410px; display:none">
+			
+
+				<ul class="accordion">
+				  <li class="active">
+				    <div class="title">
+				      <h5>Accordion Panel 1</h5>
+				    </div>
+				    <div class="content">
+				      
+				    </div>
+				  </li>
+				  <li>
+				    <div class="title">
+				      <h5>Accordion Panel 2</h5>
+				    </div>
+				    <div class="content">
+				      
+				    </div>
+				  </li>
+				  <li>
+				    <div class="title">
+				      <h5>Accordion Panel 3</h5>
+				    </div>
+				    <div class="content">
+				     
+				    </div>
+				  </li>
+				</ul>
+
+		</div>
+
+
 
 </div>
 
@@ -423,6 +456,29 @@
 
 		// find custom places function. NOTE: Although radius is used, it is not used since textSearch() is used.
 		function findPlaces() {
+			
+			// prepare variables (filter)
+			var type = document.getElementById('gmap_type').value;
+			var radius = document.getElementById('gmap_radius_places').value;
+			var keyword = document.getElementById('gmap_keyword').value;
+
+			// prepare request to Places
+			var request = {
+				location: map.getCenter(),
+				radius: radius,
+				query: type
+			};
+			if (keyword) {
+				request.keyword = [keyword];
+			}
+
+			// send request
+			service = new google.maps.places.PlacesService(map);
+			service.textSearch(request, createMarkersForPlaces);
+		}
+
+	// find custom places function. NOTE: Although radius is used, it is not used since textSearch() is used.
+		function findComments() {
 			
 			// prepare variables (filter)
 			var type = document.getElementById('gmap_type').value;
