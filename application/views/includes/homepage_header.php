@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.top-bar.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs3/stylesheets/foundation2.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/zurb.mega-drop.css">
+
 	<!-- <link rel="stylesheet" href="presentation.css"> -->
 	<script type="text/javascript" src="<?php echo base_url(); ?>zurbs/javascripts/app.js"></script>
 	<link rel="stylesheet" href="http://www.zurb.com/assets/foundation.top-bar.css">
@@ -33,6 +34,7 @@
 	        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/ie.css">
         <![endif]-->
 	<script src="<?php echo base_url(); ?>zurbs/javascripts/modernizr.foundation.js"></script>
+<script src="<?php echo base_url(); ?>zurbs/javascripts/foundation.js"></script>
 
 
         <!-- IE Fix for HTML5 Tags -->
@@ -67,7 +69,7 @@
 		       					    	echo "Sign Up</a></li>";
 		       					}
        					?>
-                        <li><a class="medium blue nice button" href="logout"> 
+                        <li ><a style="color: grey" href="logout"> 
                         
                         <?php 
                         	$is_logged_in = $this->session->userdata('is_logged_in');
@@ -93,11 +95,11 @@
 <div class="container">
 	 <header class="row">
                 
-                <div class="eight columns">
+                <div class="ten columns">
                         <h1 class="centered">Social Navigator</h1>
                         <p><i>...your preferred choice for socializing, exploring and navigating your vicinity...</i></p>
                 </div>
-                <div class="four columns">
+                <div class="two columns">
 
 				<?php
                 	
@@ -106,10 +108,6 @@
                 	if ($is_logged_in == true) {
                 	    	echo "<b> Welcome </b><b> ".$this->session->userdata('firstname')."</b>" ;
                		 } else {
-                   		 echo anchor('/login', 'Member Login', array('class' => 'decorate'));
-                    		echo "  ";
-                    		echo "  ";
-                    		echo anchor('/signup', 'Sign Up', array('class' => 'decorate'));
                 	}
                 		
                	 ?>
