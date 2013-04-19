@@ -13,10 +13,6 @@ class Socnav extends CI_Controller {
         $data['main_content'] = "search"; //body of page
         $this->load->view('includes/templates.php', $data); //header, footer, data
     }
-    
-    public function testmap() {
-        $this->load->view('maps');
-    }
 	
 	// Added by Lekan
 	public function loadrating()
@@ -260,11 +256,13 @@ class Socnav extends CI_Controller {
 				if($row->userid != $currentUserID) {
 					$allUsersData[] = array(
 						'userid' => $row->userid,
+						'username' => $row->username,
 						'email' => $row->email,
 						'lastname' => $row->lastname,
 						'firstname' => $row->firstname,
 						'longitude' => $row->longitude,
-						'latitude' => $row->latitude
+						'latitude' => $row->latitude,
+						'photourl' => $row->photourl
 					);
 				}
 			}
@@ -280,11 +278,13 @@ class Socnav extends CI_Controller {
 				{
 					    $nearbyUsersData[] = array(
 						'userid' => $userRow['userid'],
+						'username' => $userRow['username'],
 						'email' => $userRow['email'],
 						'lastname' => $userRow['lastname'],
 						'firstname' => $userRow['firstname'],
 						'longitude' => $userRow['longitude'],
-						'latitude' => $userRow['latitude']
+						'latitude' => $userRow['latitude'],
+						'photourl' => $userRow['photourl']
 					    );
 				}
 			}

@@ -36,6 +36,7 @@
 		#peopleUI { width: 49%; float: right; border-style:solid; border-width:1px }
 		#places_label { font-size: 24pt }
 		#people_label { font-size: 24pt }
+		#placesdiv { display: none }
 		
 </style>
 	
@@ -50,68 +51,105 @@
   	<div class="row">
 	  	<?php $this->load->view('search_criteria'); ?>
 	</div>
-	 <div class="panel">
-		<h5>Details</h5><br />
-		<!--This table is for showing details (added by lekan)-->
-		<table id="tbldetails">
-			<tr>
-				<td><img id="placeicon" name="placeicon" src = "" alt = "icon" /></td>
-			<tr>
-			<tr>
-				<td><label for="placename">Name:</label></td>
-				<td><input id="placename" type="text" name="placename" readonly /></td>
-			<tr>
-			<tr>
-				<td><label for="placephone">Phone:</label></td>
-				<td><input id="placephone" type="text" name="placephone" readonly /></td>
-			<tr>
-			<tr>
-				<td><label for="placewebsite">Website:</label></td>
-				<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
-			<tr>
-			<tr>
-				<td><label for="placerating">SocNav Rating:</label></td>
-				<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
-			<tr>
-			<tr>
-				<td><label for="placecomment">Comment:</label></td>
-				<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
-			<tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" onclick="insertComment(); return false;" value="Comment"></td>
-			<tr>
-			<tr>
-				<td><label for="theratings">Rate:</label></td>
-				<td>
-					<div id="theratings">
-						<input type="radio" name="rating" id="1" value="1" onchange="ratePlace(); return false;">1 &nbsp;&nbsp;
-						<input type="radio" name="rating" id="2" value="2" onchange="ratePlace(); return false;">2 &nbsp;&nbsp;
-						<input type="radio" name="rating" id="3" value="3" onchange="ratePlace(); return false;">3 &nbsp;&nbsp;
-						<input type="radio" name="rating" id="4" value="4" onchange="ratePlace(); return false;">4 &nbsp;&nbsp;
-						<input type="radio" name="rating" id="5" value="5" onchange="ratePlace(); return false;">5
-					</div>
-				</td>
-			<tr>
-			<tr>
-				<td><label>Upload Photo:</label></td>
-				<td><a href="#" data-reveal-id="pictureupload" class="expand small button">Add Picture</a></td>
-			<tr>
-			<tr>
-				<td><label id="lblmsg"></label></td>
-			<tr>
-			<tr>
-				<td>
-					<h5>Comments</h5><br />
-					<div id="comments_section">
+  		 <div id="placesdiv" class="panel">
+			<h5>Place Details</h5><br />
+			<!--This table is for showing details (added by lekan)-->
+			<table id="tbldetails">
+				<tr>
+					<td><img id="placeicon" name="placeicon" src = "" alt = "icon" /></td>
+				<tr>
+				<tr>
+					<td><label for="placename">Name:</label></td>
+					<td><input id="placename" type="text" name="placename" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="placephone">Phone:</label></td>
+					<td><input id="placephone" type="text" name="placephone" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="placewebsite">Website:</label></td>
+					<td><input id="placewebsite" type="text" name="placewebsite" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="placerating">SocNav Rating:</label></td>
+					<td><img id="placerating" name="placerating" src = "<?php echo base_url(); ?>images/rating0.png" alt = "icon" /></td>
+				<tr>
+				<tr>
+					<td><label for="placecomment">Comment:</label></td>
+					<td><textarea rows="4" cols="50" id="placecomment" type="text" name="placecomment"></textarea></td>
+				<tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" onclick="insertComment(); return false;" value="Comment"></td>
+				<tr>
+				<tr>
+					<td><label for="theratings">Rate:</label></td>
+					<td>
+						<div id="theratings">
+							<input type="radio" name="rating" id="1" value="1" onchange="ratePlace(); return false;">1 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="2" value="2" onchange="ratePlace(); return false;">2 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="3" value="3" onchange="ratePlace(); return false;">3 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="4" value="4" onchange="ratePlace(); return false;">4 &nbsp;&nbsp;
+							<input type="radio" name="rating" id="5" value="5" onchange="ratePlace(); return false;">5
+						</div>
+					</td>
+				<tr>
+				<tr>
+					<td><label>Upload Photo:</label></td>
+					<td><a href="#" data-reveal-id="pictureupload" class="expand small button">Add Picture</a></td>
+				<tr>
+				<tr>
+					<td><label id="lblmsg"></label></td>
+				<tr>
+				<tr>
+					<td>
+						<h5>Comments</h5><br />
+						<div id="comments_section">
 						
-					</div>
-				</td>
-			<tr>
-		</table>
-	 </div>
+						</div>
+					</td>
+				<tr>
+			</table>
+		 </div>
+
+ 		 <div id="peoplediv" class="panel">
+			<h5>Person Details</h5><br />
+			<!--This table is for showing details (added by nick)-->
+			<table id="peopletbldetails">
+				<tr>
+					<td><img id="profpic" name="profpic" src = "" alt = "icon" /></td>
+				<tr>
+				<tr>
+					<td><label for="username">Username:</label></td>
+					<td><input id="username" type="text" name="username" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="firstname">First Name:</label></td>
+					<td><input id="firstname" type="text" name="firstname" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="lastname">Last Name:</label></td>
+					<td><input id="lastname" type="text" name="lastname" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="gender">Gender:</label></td>
+					<td><input id="gender" type="text" name="gender" readonly /></td>
+				<tr>
+				<tr>
+					<td><label for="email">Email:</label></td>
+					<td><input id="email" type="text" name="email" readonly /></td>
+				<tr>
+				<tr>
+					<td><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></td>
+				<tr>
+				
+				<tr>
+					<td><label id="lblmsg"></label></td>
+				<tr>
+			</table>
+		 </div>
   </div>
- 	  
+
   <div class="nine columns">
   	
   	<div class="row">	
@@ -330,7 +368,7 @@
 
 			// prepare info window
 			var infowindow = new google.maps.InfoWindow({
-				content: '<p style="font-weight:bold" >first name: '+user.firstname+'<br/> last name: '+user.lastname+'<br/> email: '+user.email+'<br/> longit: '+ user.longitude +'<br/> latit: '+user.latitude
+				content: '<p style="font-weight:bold" ><img style="height: 100px; width:100px" src="<?php echo base_url(); ?>uploads/users/'+user.username+'/'+user.photourl+'"/><br/>first name: '+user.firstname+'<br/> last name: '+user.lastname+'<br/> email: '+user.email+'<br/> longit: '+ user.longitude +'<br/> latit: '+user.latitude
 				+ '<br/><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
 			});
 
@@ -505,7 +543,7 @@
 		//This function stores places that don't exist in the db
 		function storeplaces(placesrefarr, placesidarr)
 		{
-			$.get("/index.php/storeplaces", {category: document.getElementById('gmap_type').value, placesrefs: placesrefarr, placesids: placesidarr}, function(data) {
+			$.get("/socnav/index.php/storeplaces", {category: document.getElementById('gmap_type').value, placesrefs: placesrefarr, placesids: placesidarr}, function(data) {
 				//do nothing
 			});
 		}
@@ -540,7 +578,7 @@
 		//Method for inserting comments
 		function insertComment(){		
 				
-			$.get("/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
+			$.get("/socnav/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
 				//do nothing
 				alert(data);			
 				document.getElementById('placecomment').value = "";
@@ -562,7 +600,7 @@
               }
             }
 			
-			$.get("/index.php/rateplace", {rating: ratingselected, googleid: placegoogleid}, function(data) {
+			$.get("/socnav/index.php/rateplace", {rating: ratingselected, googleid: placegoogleid}, function(data) {
 				//do nothing
 				document.getElementById('lblmsg').innerText = data;
 				
@@ -582,7 +620,7 @@
 		
 		//Method for loading comments from DB
 		function loadCommentsFromDB(){
-			$.getJSON("/index.php/loadcomments", {googleid: placegoogleid}, function(data) {
+			$.getJSON("/socnav/index.php/loadcomments", {googleid: placegoogleid}, function(data) {
 				//Clear the comments div
 				document.getElementById('comments_section').innerHTML = "";
 				
@@ -598,10 +636,10 @@
 				}
 			});
 		}
-		
+
 		//Method for loading ratings from the DB
 		function loadRatingFromDB(){
-			$.get("/index.php/loadrating", {googleid: placegoogleid}, function(data) {
+			$.get("/socnav/index.php/loadrating", {googleid: placegoogleid}, function(data) {
 				//set rating with appropriate image based on the returned value
 				if(data == 1){
 					document.getElementById('placerating').src = '<?php echo base_url();?>' + 'images/rating1.png';

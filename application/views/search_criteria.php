@@ -2,8 +2,8 @@
 <div class="row">
             
             <dl class="tabs">
-		 		 <dd class="active"><a href="#people">People</a></dd>
-				 <dd><a href="#places">Places</a></dd>
+		 		 <dd class="active"><a id="peopletab" onclick="peopleClicked()" href="#people">People</a></dd>
+				 <dd><a id="placestab" onclick="placesClicked()" href="#places">Places</a></dd>
 			 </dl>
 		
 			 <ul class="tabs-content">
@@ -79,3 +79,16 @@
 		</ul>  
 	</div>
 	</div>
+<script>
+
+function peopleClicked() {
+	document.getElementById('placesdiv').style.display = 'none';
+	document.getElementById('peoplediv').style.display = 'block';
+}
+
+function placesClicked() {
+	document.getElementById('placesdiv').style.display = 'block';
+	document.getElementById('peoplediv').style.display = 'none';
+}
+
+</script>

@@ -49,7 +49,7 @@ $route['registeruser'] = "/users/registerUser";
 $route['pictureupload'] = "/users/pictureupload";
 $route['admin'] = "/main/admin";
 
-$route['placesearch'] = "/socnav/placesearch"; //<-- added by Nick
+
 $route['nearbyusers'] = "/socnav/nearbyusers"; //<-- added by Nick
 $route['updateuserlocation'] = "/socnav/updateuserlocation"; //<-- added by Nick
 $route['storeplaces'] = "/socnav/storeplaces"; //<-- added by Lekan

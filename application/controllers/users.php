@@ -97,6 +97,7 @@ class Users extends CI_Controller {
                      if(!is_dir($path)) //create the folder if it's not already exists
 					   {
 				      		mkdir($path,0777,TRUE);
+				      		copy('uploads/users/default_pic.png',$path.'/default_pic.png');
 				       } 
 	
                     
@@ -251,7 +252,7 @@ class Users extends CI_Controller {
 			 $newSessionData = array('photourl' => $upload_data['file_name'],
               );
 			$this->session->set_userdata($newSessionData);
-			$this->createThumb($upload_data);
+		//	$this->createThumb($upload_data);
 			
 			redirect('/profile');
 		}
