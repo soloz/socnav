@@ -157,7 +157,7 @@ public function postPhotoUrl($userid, $photourl){
             $this->db->insert('userphotogallery', $data);
            
     }
-        
+
 }
 
 
