@@ -27,8 +27,8 @@
 					</fieldset>
 				</form>
 			</li>
-
- 		<li id="commentsTab">
+			
+ 			<li id="commentsTab">
 			 	
 			 	 <div id="commentsdiv" class="panel" style="width:410px;">
 			
