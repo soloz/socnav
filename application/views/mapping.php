@@ -117,7 +117,7 @@
 			<!--This table is for showing details (added by nick)-->
 			<table id="peopletbldetails">
 				<tr>
-					<td><img id="profpic" name="profpic" src = "" alt = "icon" /></td>
+					<td><img id="profpic" style="height: 100px; width:100px" name="profpic" src = "" alt = "icon" /></td>
 				<tr>
 				<tr>
 					<td><label for="username">Username:</label></td>
@@ -221,7 +221,7 @@
 		var map;
 		var latit;
 		var longit;
-		var baseUrl = "http://138.251.250.251:8080/";
+		var baseUrl = location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/";
 		var watchProcess;
 
 		var geocoder = new google.maps.Geocoder();
@@ -240,6 +240,8 @@
 
 		var placeAddressList = Array();
 
+		var nearbyUserList = Array();		
+		
 		function getLocation_and_showMap() {
 			// Check if geolocation is supported on the browser and get the location
 			if (navigator.geolocation) {
@@ -347,6 +349,7 @@
 				// pass data to create each user marker
 				for(var i=0; i < userlist.length; i++) {
 				    	createPersonMarker(userlist[i]);
+					nearbyUserList[i] = userlist[i];
 				}
 			});
 		}
@@ -368,14 +371,33 @@
 
 			// prepare info window
 			var infowindow = new google.maps.InfoWindow({
-				content: '<p style="font-weight:bold" ><img style="height: 100px; width:100px" src="<?php echo base_url(); ?>uploads/users/'+user.username+'/'+user.photourl+'"/><br/>first name: '+user.firstname+'<br/> last name: '+user.lastname+'<br/> email: '+user.email+'<br/> longit: '+ user.longitude +'<br/> latit: '+user.latitude
+				content: '<p style="font-weight:bold" ><img style="height: 100px; width:100px" src="<?php echo base_url(); ?>uploads/users/'+user.username+'/'+user.photourl+'"/><br/>Username: '+user.username
 				+ '<br/><input type="submit" onclick="calculateRoute(); return false;" value="Navigate To"></p>'
 			});
 
+			
 			// add event handler to current marker
 			google.maps.event.addListener(mark, 'click', function() {
 				clearInfos();
 				clickedMarkerPosition = mark.getPosition();
+
+				var markerfirstname = mark.get("title");
+				for(var i=0 ; i < nearbyUserList.length ; i++) {
+					if(nearbyUserList[i].firstname == markerfirstname) {
+						document.getElementById('profpic').src = "<?php echo base_url(); ?>"+'uploads/users/'+user.username+'/'+nearbyUserList[i].photourl;
+						document.getElementById('username').value = nearbyUserList[i].username;
+						document.getElementById('firstname').value = nearbyUserList[i].firstname;
+						document.getElementById('lastname').value = nearbyUserList[i].lastname;
+						document.getElementById('email').value = nearbyUserList[i].email;
+						if(nearbyUserList[i].gender == 'm') {
+							document.getElementById('gender').value = 'Male';
+						}
+						else if(nearbyUserList[i].gender == 'f'){
+							document.getElementById('gender').value = 'Female';
+						}
+					}
+				}
+
 				infowindow.open(map,mark);
 			});
 			infos.push(infowindow);

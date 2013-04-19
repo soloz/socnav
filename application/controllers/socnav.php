@@ -262,7 +262,8 @@ class Socnav extends CI_Controller {
 						'firstname' => $row->firstname,
 						'longitude' => $row->longitude,
 						'latitude' => $row->latitude,
-						'photourl' => $row->photourl
+						'photourl' => $row->photourl,
+						'gender' => $row->gender
 					);
 				}
 			}
@@ -284,7 +285,8 @@ class Socnav extends CI_Controller {
 						'firstname' => $userRow['firstname'],
 						'longitude' => $userRow['longitude'],
 						'latitude' => $userRow['latitude'],
-						'photourl' => $userRow['photourl']
+						'photourl' => $userRow['photourl'],
+						'gender' => $userRow['gender']
 					    );
 				}
 			}
