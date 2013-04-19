@@ -152,23 +152,12 @@ function showGlobalComments() {
 	$.getJSON("/socnav/index.php/showglobalcomments", function(data) {
 		//Clear the comments div
 		document.getElementById('commentsdiv').innerHTML = "";
-		
-		
+
 		//create ul
 		newUl = document.createElement('ul'); newUl.className = 'accordion';
-		//var commentslist = new String();
-		//commentslist = '<ul class=\"accordion\">';
-		//'<li class=\"active\"><div class=\"title\"><h5>Comment by Solomon</h5></div><div class=\"content\">I have </div></li>'
 		
 		//put comments in div
 		for(var j=0; j < data.length; j++) {
-			//create paragraph and add text
-			//newParagraph = document.createElement('p');
-			//newText = document.createTextNode(data[j].username + ': ' + data[j].comment);
-			//newParagraph.appendChild(newText);
-			
-			// Append the new paragraph to the comments_section Div
-			//document.getElementById('commentsdiv').appendChild(newParagraph);
 			newLi = document.createElement('li'); newLi.className = 'active';
 			
 			//title
@@ -183,12 +172,34 @@ function showGlobalComments() {
 			newLiText2 = document.createTextNode(data[j].comment);
 			newLiDiv2.appendChild(newLiText2);
 			
-			//attach to li
+			//button
+			newLiButton = document.createElement('input');
+			newLiButton.type = 'submit'; newLiButton.value = 'Navigate To';
+			newLiButton.setAttribute('onclick','calculateRoute2(' + data[j].latitude + ',' + data[j].longitude + '); return false;'); // for FF
+			//newLiButton.onclick = function() {calculateRoute2(data[j].latitude, data[j].longitude); return false;}; // for IE
+			//newLiButtonText = document.createTextNode('Navigate To'); 
+			//newLiButton.appendChild(newLiButtonText);
+			//newLiButton.onclick = function() { calculateRoute2(new google.maps.LatLng(data[j].latitude, data[j].longitude)); };
+			//newLiButton.setAttribute('id', new google.maps.LatLng(data[j].latitude, data[j].longitude));
+			//newLiButton.onclick = 'calculateRoute2(data[j].latitude, data[j].longitude);';
+			//newLiButton.addEventListener("mouseup", function () {calculateRoute2(data[j].latitude, data[j].longitude)}, false);
+			/*onclick = 'clickedMarkerPosition = new google.maps.LatLng(' + data[j].latitude + ',' + data[j].longitude + '); calculateRoute(); return false;';function() {
+									clickedMarkerPosition = new google.maps.LatLng(data[j].latitude, data[j].longitude);
+									calculateRoute(); 
+									return false;
+								  };*/
+			//'clickedMarkerPosition = new google.maps.LatLng(' + data[j].latitude + ',' + data[j].longitude + '); calculateRoute(); return false;';
+			
+			//attach elements to li
 			newLi.appendChild(newLiDiv);
 			newLi.appendChild(newLiDiv2);
+			newLi.appendChild(newLiButton);
+			
+			//attach li to ul
 			newUl.appendChild(newLi);
 		}
 		
+		//display div
 		document.getElementById('commentsdiv').style.display = 'block';
 		document.getElementById('commentsdiv').appendChild(newUl);
 	});
