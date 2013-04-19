@@ -58,21 +58,15 @@
 </head>
 
 <body>
-<div class="row">
-	<ul class="breadcrumbs" style="width:980px;">
-	  <li><a href="main">Home</a></li>
-	  <li class="current">&nbsp Search</li>
-	</ul>
 
-</div>
  <div class="container">
-<div class="row" style="margin-bottom: 40px"><h3 style="color: #33CCFF;">SocNav enables you to explore the world around you! <strong>Try It Now!</strong></h3></div>
+
   
   <div class="three columns" style="margin: 0 0 0 30px;">
   	<div class="row">
 	  <?php $this->load->view('search_criteria'); ?>
 	</div>
-        <div id="placesdiv" class="panel" style="width: 410px;">
+        <div id="placesdiv" class="panel" style="width: 410px; display:none">
 
                  
 		<h5>Place Details</h5><br />
@@ -131,7 +125,7 @@
 	          </form>
         </div>
 
- 		 <div id="peoplediv" class="panel" style="width:410px">
+ 		 <div id="peoplediv" class="panel" style="width:410px; display:none">
 			<h5>Person Details</h5><br />
 			<!--This table is for showing details (added by nick)-->
 			<table id="peopletbldetails" style="width:380px;border: none;margin-bottom:30px;">
@@ -420,7 +414,7 @@
 						}
 					}
 				}
-
+				showPeople();
 				infowindow.open(map,mark);
 			});
 			infos.push(infowindow);
@@ -509,7 +503,9 @@
 				clearInfos();
 				clickedMarkerPosition = mark.getPosition();
 				infowindow.open(map,mark);
+				showPlaces();
 			});
+			
 			infos.push(infowindow);
 		}
 
@@ -625,7 +621,7 @@
 				
 			$.get("/socnav/index.php/postcomment", {comment: document.getElementById('placecomment').value, googleid: placegoogleid}, function(data) {
 				//do nothing
-				alert(data);			
+							
 				document.getElementById('placecomment').value = "";
 			
 				document.getElementById('lblmsg').innerText = data;

@@ -17,15 +17,36 @@
   
   <!-- Included CSS Files (Compressed) -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs3/stylesheets/foundation.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.top-bar.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/zurb.mega-drop.css">
+  
   <!--link rel="stylesheet" href="stylesheets/foundation.min2.css"-->
   <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs3/stylesheets/app.css">
   <script src="<?php echo base_url(); ?>zurbs3/javascripts/modernizr.foundation.js" type="text/javascript"></script>
 	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery-1.4.4.min.js" type="text/javascript"></script>
 	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery.min.js" type="text/javascript"></script>
 	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery.orbit.min.js" type="text/javascript"></script>
-  
+  <!-- Included CSS Files -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/globals.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/typography.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/grid.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/orbit.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/ui.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/forms.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/reveal.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/mobile.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/app.css"> 
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/foundation.top-bar.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs3/stylesheets/foundation2.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>zurbs/stylesheets/zurb.mega-drop.css">
+
+	<!-- <link rel="stylesheet" href="presentation.css"> -->
+	<script type="text/javascript" src="<?php echo base_url(); ?>zurbs/javascripts/app.js"></script>
+	<link rel="stylesheet" href="http://www.zurb.com/assets/foundation.top-bar.css">
+  	<link rel="stylesheet" href="http://www.zurb.com/assets/zurb.mega-drop.css">
+	<link rel="stylesheet" href="presentation.css">
+	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url(); ?>zurbs/javascripts/jquery.orbit.min.js" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -33,35 +54,41 @@
   <div class="container top-bar home-border">
     <div class="attached">
       <div class="name" onclick="void(0);">
-        <span><a href="main">Soc Nav</a> <a href="main" class="toggle-nav"></a></span>
+        <span><a href="main">Soc Nav</a> <a href="#" class="toggle-nav"></a></span>
       </div>
 
                 <ul class="right">  
-                       <li>
-                          <a href="search">Search</a>
-                        </li>
-                        
-                        <li>
-                          <a href="profile">
+                          <?php 
+				 echo "<li>";
+				echo anchor('search', 'Search'); 
+				 echo "</li>";		
+			?>
+
+                         
                            <?php 
                        		 $is_logged_in = $this->session->userdata('is_logged_in');
 		                        if ($is_logged_in == true) {
-		                	        	echo	"My Profile</a></li>";
-		                   			
+		                	        	echo "<li>";
+							echo anchor('/profile', 'My Profile');
+		                   			echo "</li>";
 		       					} else {
-		       					    	echo "Sign Up</a></li>";
+								echo "<li>";
+		       					    	echo anchor('/login', 'Sign Up');
+								echo "</li>";
 		       					}
        					?>
-       				
-                        <li><a class="nice blue button" href="logout">
-                        
-                        <?php 
+       			
+			   <?php 
                         $is_logged_in = $this->session->userdata('is_logged_in');
                         if ($is_logged_in == true) {
-                	        	echo	"Logout</a></li>";
+						echo "<li>";                	        		
+						echo anchor('/logout', 'Logout', array('class' => 'nice blue button'));
+						echo "</li>";
                    					
        					} else {
-       					    	echo "Member Login</a></li>";
+						echo "<li>";       					    	
+						echo anchor('/login', 'Member Login', array('class' => 'nice blue button'));
+						echo "</li>";
        					}
        					?>
                 </ul>

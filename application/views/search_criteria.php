@@ -22,7 +22,7 @@
 								    <option value="5000">5000</option>
 								 </select>
 							 <!--a class="radius button" onclick="findPlaces(); return false;" href="#">Search</a>-->
-							 <input type="submit" class="radius button" onclick="findPeople(); return false;" value="Search">
+							 <input type="submit" class="radius button" onclick="findPeople();placesClicked(); return false;" value="Search">
 					</fieldset>
 				</form>
 			</li>
@@ -70,7 +70,7 @@
 				  	</div>
 				  	
 				  	<div class="row">
-				  		<input type="submit" class="radius button" onclick="findPlaces(); return false;" value="Search">
+				  		<input type="submit" class="radius button" onclick="findPlaces(); peopleClicked(); return false;" value="Search">
 				  	</div>
 				  	
 				</fieldset>
@@ -83,12 +83,20 @@
 
 function peopleClicked() {
 	document.getElementById('placesdiv').style.display = 'none';
-	document.getElementById('peoplediv').style.display = 'block';
+	document.getElementById('peoplediv').style.display = 'none';
 }
 
 function placesClicked() {
-	document.getElementById('placesdiv').style.display = 'block';
+	document.getElementById('placesdiv').style.display = 'none';
 	document.getElementById('peoplediv').style.display = 'none';
+}
+
+function showPeople() {
+	document.getElementById('peoplediv').style.display = 'block';
+}
+
+function showPlaces() {
+	document.getElementById('placesdiv').style.display = 'block';
 }
 
 </script>

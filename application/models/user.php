@@ -56,7 +56,6 @@ class User extends CI_Model {
         $data = array(
             'firstname' => $edit_data['firstname'],
             'lastname' => $edit_data['lastname'],
-            'username' => $edit_data['username'],
             'gender' => $edit_data['gender'],
             'phonenumber' => $edit_data['phonenumber'],
             'email' => $edit_data['email']

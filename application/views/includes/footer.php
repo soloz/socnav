@@ -19,7 +19,7 @@
 		
 		</div>
 		<div class="eight columns">
-             <p><a href="#">Contact Us</a> | <a href="#">About Us</a> | <a href="#">Help</a> | <a href="#">Locations</a> | <a href="#">Featured List</a></p>
+             <p><a href="main">Home</a> | <a href="https://www.facebook.com/pages/Socnav/373971352720684">Facebook</a> | <a href="https://twitter.com/SocNav">Twitter</a> | <a href="admin">Admin</a> </p>
         </div>
         </div>
 </div>

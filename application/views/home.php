@@ -63,28 +63,10 @@
 </div>
 
 <p></p>
-<h4> Your Location</h4>
-
-<h6 class="subheader">Your Location relative to People Around you.</h6> 
-<hr />
 
 <div class="row">
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLVh2FHZtdIw6NTqYJIndO3xiqwH67eJ0&sensor=false">
 </script>
-
-</div>
-
-
-<div class="row">
-
-<?php echo "Location 2";?>
-
-</div>
-
-
-<div class="row">
-
-<?php echo "Location 3";?>
 
 </div>
 

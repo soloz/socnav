@@ -57,27 +57,33 @@
 
                 <ul class="right">  
                         <li class="show-for-small">
-                          <a href="search">Search</a>
+                          <?php echo anchor('/search', 'Search'); ?>
                         </li>
-                        <li>
-                           <a href="profile">
+                       
                            <?php 
                        		 $is_logged_in = $this->session->userdata('is_logged_in');
 		                        if ($is_logged_in == true) {
-		                	        	echo	"My Profile</a></li>";
-		                   		} else {
-		       					    	echo "Sign Up</a></li>";
+							echo "<li>";
+		                	        	echo anchor('/profile', 'My Profile');
+							echo "</li>";
+		                   			
+		       					} else {
+								echo "<li>";
+		       					    		echo anchor('/login', 'Sign Up');
+								echo "</li>";	
 		       					}
        					?>
-                        <li ><a class="nice blue button" href="logout"> 
-                        
                         <?php 
                         	$is_logged_in = $this->session->userdata('is_logged_in');
 	                        if ($is_logged_in == true) {
-	                	        	echo	"Logout</a></li>";
+							echo "<li>";				                	       		
+							echo anchor('/logout', 'Logout', array('class' => 'nice blue button'));
+							echo "</li>";
 	                   					
 	       					} else {
-	       					    	echo "Member Login</a></li>";
+							echo "<li>";
+	       					    	echo anchor('/login', 'Member Login', array('class' => 'nice blue button')); 
+							echo "</li>";
 	       					}
        					?>
                 </ul>

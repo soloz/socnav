@@ -37,14 +37,6 @@
 
 <body>
 
-<div class="row">
-	<ul class="breadcrumbs" style="width:980px;">
-	  <li><a href="main">Home</a></li>
-	  <li class="current">&nbsp My Profile (<?php echo $this->session->userdata('username')?>)</li>
-	</ul>
-
-</div>
-
 <div class="row">	
 
    <div class="three columns">
@@ -90,20 +82,6 @@
 			<tr>
 		</table>
    </div>
- 
-   <div class="two columns">
-    <div class="row">
-	<h4>Privacy</h4>
-	<div class="switch tiny round">
-	<input id="z" name="switch-z" type="radio" checked>
-	<label for="z" onclick="">Disable</label>
-	<input id="z1" name="switch-z" type="radio">
-	<label for="z1" onclick="">Enable Navigation</label>
-	 <span></span>
-
-	</div>
-    </div>
-  </div>
 
 <div id="profileedit" class="reveal-modal" >
 
@@ -126,7 +104,7 @@
 		<?php $phone_input_attr = array('name'=>'phonenumber', 'value' => ''.$phone, 'class' => 'input-text', 'placeholder'=>'Phone', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $gender_attr = array('m'=>'Male', 'f' => 'Female'); ?>
 		<?php $passwd_input_attr = array('name'=>'passwd', 'value' => ''.$passwd, 'class' => 'input-text', 'placeholder'=>'Password', 'style'=>'width: 386px; height: 40px;'); ?>
-		<?php $passwd2_input_attr = array('name'=>'passwd2', 'value' => ''.$passwd, 'class' => 'input-text', 'placeholder'=>'Confirm Password', 'style'=>'width: 386px; height: 40px;'); ?>
+		<?php $passwd2_input_attr = array('name'=>'passwd2', 'value' => ''.$passwd2, 'class' => 'input-text', 'placeholder'=>'Confirm Password', 'style'=>'width: 386px; height: 40px;'); ?>
 		<?php $create_button_attr = array('name'=>'create', 'type'=>'submit', 'value' => 'Update Account', 'class'=>'nice small radius blue button', 'style'=>'width: 386px; height: 40px;'); ?>
 
 	        <?php echo form_input($firstname_input_attr); ?>
@@ -134,7 +112,6 @@
 
 	        <?php echo form_input($email_input_attr);?> 
 
-	        <?php echo form_input($username_input_attr);?>
 	        <?php echo form_input($phone_input_attr);?>
 	        <?php echo form_password($passwd_input_attr); ?>
 	        <?php echo form_password($passwd2_input_attr); ?>
