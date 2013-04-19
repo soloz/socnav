@@ -9,7 +9,7 @@ class Users extends CI_Controller {
     public function validateLogin() {
         if (isset($_POST)) {
 
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('passwd', 'Password', 'required');
 
             if ($this->form_validation->run() == FALSE) {
@@ -18,7 +18,7 @@ class Users extends CI_Controller {
                  $user = $this->user->validateUser();
                  $photo = $this->user->getPhotoUrl($user['userid']);
 
-	        if (isset($user)  && isset($photo)  ) { // Todo: Check for user activation by adding && $user['STATUS'] == "ACTIVE") {
+	        if (isset($user)  && isset($photo)  ) { // Todo: Check for user activation by adding && $user['STATUS'] == "ACTIVE")
                     //if user exists, lets put his detail in the sesssion
                   
                     $extraSessionData = array(
@@ -37,10 +37,10 @@ class Users extends CI_Controller {
 
                     $this->session->set_userdata($extraSessionData);
 
-		// Update the user's state to online in the db.
-		$userID = $this->session->userdata('userid');
-		$this->user->setUserOnline($userID);
-
+					// Update the user's state to online in the db.
+					$userID = $this->session->userdata('userid');
+					$this->user->setUserOnline($userID);
+					
                     redirect('main/');
                 } else {
                     $this->session->set_flashdata('loginError', 'Username or Password 
@@ -84,7 +84,6 @@ class Users extends CI_Controller {
 
             if ($this->form_validation->run() == FALSE) {
                 $this->signup();
-                
             } else {
                 /*
                  * TODO: Check if email exists before we post.
@@ -97,13 +96,34 @@ class Users extends CI_Controller {
                      
                      if(!is_dir($path)) //create the folder if it's not already exists
 					   {
-				      		mkdir($path,0755,TRUE);
+				      		mkdir($path,0777,TRUE);
 				       } 
 	
                     
                     //load success view page
                     //tell them to follow the link or check their email to activate their account
-                    $this->validateLogin();
+                 //   $this->validateLogin();
+                  $user = $this->user->validateUser();
+                  $extraSessionData = array(
+                        'email' => $user['email'],
+                        'username' => $user['username'],
+                        'userid' => $user['userid'],
+                        'lastname' => $user['lastname'],
+                        'firstname' => $user['firstname'],
+                        'phonenumber' => $user['phonenumber'],
+                        'gender' => $user['gender'],
+                        'password' => $user['password'],
+                        'explorationrange' => $user['setrangeofexploration'],
+                        'photourl'=> $photo['photourl'],
+                        'is_logged_in' => TRUE
+                    );
+
+                    $this->session->set_userdata($extraSessionData);
+
+					// Update the user's state to online in the db.
+					$userID = $this->session->userdata('userid');
+					$this->user->setUserOnline($userID);
+					
                     redirect('main/');
                     
                 } else {
