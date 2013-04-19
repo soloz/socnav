@@ -69,7 +69,7 @@
 		       					    	echo "Sign Up</a></li>";
 		       					}
        					?>
-                        <li ><a style="color: #00CCFF;" href="logout"> 
+                        <li ><a class="nice blue button" href="logout"> 
                         
                         <?php 
                         	$is_logged_in = $this->session->userdata('is_logged_in');

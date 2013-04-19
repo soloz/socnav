@@ -65,33 +65,33 @@
      
   </div>
   
-  <div class="six columns">
+  <div class="seven columns">
       <h3 style="margin-bottom: 35px;"><?php echo $this->session->userdata('firstname')?></h3>
 		<table id="profile" style="border: none; width: 400px;" >
 			<tr>
 			<td><label for="username"><strong>Username:</strong></label></td>
-			<td><input id="username" type="text" name="username" readonly /></td>
+			<td><input id="username" type="text" name="username" readonly style="border: none;"/></td>
 			<tr>
 			<tr>
 			<td><label for="firstname"><strong>First Name:<strong></label></td>
-			<td><input id="firstname" type="text" name="firstname" readonly /></td>
+			<td><input id="firstname" type="text" name="firstname" readonly style="border: none;"/></td>
 			<tr>
 			<tr>
 			<td><label for="lastname"><strong>Last Name:<strong></label></td>
-			<td><input id="lastname" type="text" name="lastname" readonly /></td>
+			<td><input id="lastname" type="text" name="lastname" readonly style="border: none;"/></td>
 			<tr>
 			<tr>
 			<td><label for="email"><strong>Email:<strong></label></td>
-			<td><input id="email" type="text" name="email" readonly /></td>
+			<td><input id="email" type="text" name="email" readonly style="border: none;"/></td>
 			<tr>
 			<tr>
 			<td><label for="gender"><strong>Gender:<strong></label></td>
-			<td><input id="gender" type="text" name="gender" readonly /></td>
+			<td><input id="gender" type="text" name="gender" readonly style="border: none;"/></td>
 			<tr>
 		</table>
    </div>
  
-   <div class="three columns">
+   <div class="two columns">
     <div class="row">
 	<h4>Privacy</h4>
 	<div class="switch tiny round">
@@ -102,10 +102,6 @@
 	 <span></span>
 
 	</div>
-	<br/>
-        <h4>Location History</h4>
-        <br/>
-        <h4>Popular Locations</h4>
     </div>
   </div>
 
